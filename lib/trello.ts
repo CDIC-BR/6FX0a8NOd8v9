@@ -6,16 +6,19 @@ import {
   STAGE_ORDER,
   matchesAlias,
 } from "@/lib/config";
+import { findManualDiocese, getManualEvolution, hasManualData } from "@/lib/manual";
 import type {
   DashboardData,
   Diocese,
   DialogueProgress,
   DimensionKey,
+  EvolutionPoint,
   StageKey,
 } from "@/types/dashboard";
 
 type TrelloList = { id: string; name: string; closed?: boolean };
-type TrelloCustomField = { id: string; name: string; type: string };
+type TrelloCustomFieldOption = { id: string; value?: { text?: string } };
+type TrelloCustomField = { id: string; name: string; type: string; options?: TrelloCustomFieldOption[] };
 type TrelloCustomFieldItem = {
   idCustomField: string;
   value?: { number?: string; text?: string; checked?: string; date?: string };
@@ -32,6 +35,8 @@ type TrelloCard = {
 };
 
 const BASE = "https://api.trello.com/1";
+const REGIONAL_ALIASES = ["Regional", "Regional CNBB", "Regional episcopal"];
+const PROVINCIA_ALIASES = ["Província", "Provincia", "Província eclesiástica", "Provincia eclesiastica"];
 
 function credentials() {
   const key = process.env.TRELLO_API_KEY;
@@ -65,11 +70,21 @@ function clampPercent(value: number) {
   return Math.max(0, Math.min(100, Math.round(value)));
 }
 
-function parseFieldValue(item: TrelloCustomFieldItem | undefined) {
+function parseNumericFieldValue(item: TrelloCustomFieldItem | undefined): number | null {
   const raw = item?.value?.number ?? item?.value?.text;
-  if (!raw) return 0;
+  if (raw === undefined || raw === null || raw === "") return null;
   const parsed = Number(String(raw).replace(",", "."));
-  return Number.isFinite(parsed) ? clampPercent(parsed) : 0;
+  return Number.isFinite(parsed) ? clampPercent(parsed) : null;
+}
+
+function parseTextFieldValue(field: TrelloCustomField | undefined, item: TrelloCustomFieldItem | undefined): string | null {
+  if (!field || !item) return null;
+  if (item.value?.text?.trim()) return item.value.text.trim();
+  if (item.idValue && field.options) {
+    const option = field.options.find((candidate) => candidate.id === item.idValue);
+    return option?.value?.text?.trim() || null;
+  }
+  return null;
 }
 
 function averageOverall(progress: Record<DimensionKey, number>) {
@@ -77,16 +92,38 @@ function averageOverall(progress: Record<DimensionKey, number>) {
   return Math.round(values.reduce((sum, value) => sum + value, 0) / values.length);
 }
 
-function checklistProgress(checklists: TrelloChecklist[]): DialogueProgress {
+function readChecklistProgress(checklists: TrelloChecklist[]): Partial<DialogueProgress> {
   const checklist = checklists.find((c) => matchesAlias(c.name, DIALOGUE_CHECKLIST_ALIASES));
   const items = checklist?.checkItems ?? [];
-  const completed = (aliases: readonly string[]) =>
-    items.some((item) => matchesAlias(item.name, aliases) && item.state === "complete");
+  const state = (aliases: readonly string[]): boolean | undefined => {
+    const item = items.find((candidate) => matchesAlias(candidate.name, aliases));
+    return item ? item.state === "complete" : undefined;
+  };
   return {
-    termoEnviado: completed(DIALOGUE_ITEMS.termoEnviado),
-    termoAssinado: completed(DIALOGUE_ITEMS.termoAssinado),
-    chanceler: completed(DIALOGUE_ITEMS.chanceler),
-    equipe: completed(DIALOGUE_ITEMS.equipe),
+    termoEnviado: state(DIALOGUE_ITEMS.termoEnviado),
+    termoAssinado: state(DIALOGUE_ITEMS.termoAssinado),
+    chanceler: state(DIALOGUE_ITEMS.chanceler),
+    equipe: state(DIALOGUE_ITEMS.equipe),
+  };
+}
+
+function mergeDialogue(trello: Partial<DialogueProgress>, manual: Partial<DialogueProgress> | undefined): DialogueProgress {
+  return {
+    termoEnviado: trello.termoEnviado ?? manual?.termoEnviado ?? false,
+    termoAssinado: trello.termoAssinado ?? manual?.termoAssinado ?? false,
+    chanceler: trello.chanceler ?? manual?.chanceler ?? false,
+    equipe: trello.equipe ?? manual?.equipe ?? false,
+  };
+}
+
+function currentEvolutionPoint(metrics: DashboardData["metrics"]): EvolutionPoint {
+  const metricValue = (key: StageKey) => metrics.find((m) => m.key === key)?.value ?? 0;
+  return {
+    label: new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "2-digit" }).format(new Date()),
+    recebidos: metricValue("recebidos"),
+    carregados: metricValue("carregados"),
+    homologacaoEstrutural: metricValue("homologacaoEstrutural"),
+    homologacaoCompleta: metricValue("homologacaoCompleta"),
   };
 }
 
@@ -104,6 +141,8 @@ export async function getTrelloDashboard(): Promise<DashboardData> {
     const match = fields.find((field) => matchesAlias(field.name, CUSTOM_FIELDS[key]));
     if (match) fieldByDimension.set(key, match);
   });
+  const regionalField = fields.find((field) => matchesAlias(field.name, REGIONAL_ALIASES));
+  const provinciaField = fields.find((field) => matchesAlias(field.name, PROVINCIA_ALIASES));
 
   const dioceses: Diocese[] = await Promise.all(
     cards.map(async (card) => {
@@ -111,23 +150,35 @@ export async function getTrelloDashboard(): Promise<DashboardData> {
         trelloFetch<TrelloCustomFieldItem[]>(`/cards/${card.id}/customFieldItems`),
         trelloFetch<TrelloChecklist[]>(`/cards/${card.id}/checklists?checkItems=all&checkItem_fields=name,state&fields=name`),
       ]);
+      const manual = findManualDiocese(card.id, card.name);
       const stage = stageFromList(listById.get(card.idList)?.name ?? "");
       const progress = {} as Record<DimensionKey, number>;
       (Object.keys(CUSTOM_FIELDS) as DimensionKey[]).forEach((key) => {
         const field = fieldByDimension.get(key);
-        progress[key] = field
-          ? parseFieldValue(customItems.find((item) => item.idCustomField === field.id))
-          : 0;
+        const trelloValue = field
+          ? parseNumericFieldValue(customItems.find((item) => item.idCustomField === field.id))
+          : null;
+        progress[key] = trelloValue ?? manual?.dados?.[key] ?? 0;
       });
+
+      const regionalTrello = parseTextFieldValue(
+        regionalField,
+        regionalField ? customItems.find((item) => item.idCustomField === regionalField.id) : undefined,
+      );
+      const provinciaTrello = parseTextFieldValue(
+        provinciaField,
+        provinciaField ? customItems.find((item) => item.idCustomField === provinciaField.id) : undefined,
+      );
+
       return {
         id: card.id,
         name: card.name,
-        regional: "—",
-        provincia: "—",
+        regional: regionalTrello ?? manual?.regional ?? "—",
+        provincia: provinciaTrello ?? manual?.provincia ?? "—",
         stage,
         stageLabel: STAGES[stage].label,
         progress,
-        dialogue: checklistProgress(checklists),
+        dialogue: mergeDialogue(readChecklistProgress(checklists), manual?.dialogo),
         overall: averageOverall(progress),
         updatedAt: card.dateLastActivity,
         trelloUrl: card.url,
@@ -181,21 +232,21 @@ export async function getTrelloDashboard(): Promise<DashboardData> {
     equipe: dioceses.filter((d) => d.dialogue.equipe).length,
   };
 
-  const metricValue = (key: StageKey) => metrics.find((m) => m.key === key)?.value ?? 0;
+  const current = currentEvolutionPoint(metrics);
+  const manualEvolution = getManualEvolution();
+  const evolution = manualEvolution.length ? [...manualEvolution] : [];
+  const last = evolution[evolution.length - 1];
+  if (!last || last.label !== current.label) evolution.push(current);
+  else evolution[evolution.length - 1] = current;
+
   return {
-    source: "trello",
+    source: hasManualData() ? "hybrid" : "trello",
     updatedAt: new Date().toISOString(),
     total: dioceses.length,
     metrics,
     dimensions,
     dialogue,
-    evolution: [{
-      label: new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "2-digit" }).format(new Date()),
-      recebidos: metricValue("recebidos"),
-      carregados: metricValue("carregados"),
-      homologacaoEstrutural: metricValue("homologacaoEstrutural"),
-      homologacaoCompleta: metricValue("homologacaoCompleta"),
-    }],
+    evolution,
     dioceses,
   };
 }

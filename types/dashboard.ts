@@ -58,7 +58,7 @@ export interface EvolutionPoint {
 }
 
 export interface DashboardData {
-  source: "mock" | "trello";
+  source: "mock" | "trello" | "hybrid";
   updatedAt: string;
   total: number;
   metrics: SummaryMetric[];

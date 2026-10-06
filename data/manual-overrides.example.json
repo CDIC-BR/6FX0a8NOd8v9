@@ -1,0 +1,33 @@
+{
+  "dioceses": [
+    {
+      "trelloCardId": "opcional-id-do-card",
+      "nome": "Diocese de Exemplo",
+      "regional": "Sul 2",
+      "provincia": "Paraná",
+      "dados": {
+        "estrutura": 100,
+        "curia": 100,
+        "igrejas": 80,
+        "tribunais": 40,
+        "outras": 60,
+        "fieis": 0
+      },
+      "dialogo": {
+        "termoEnviado": true,
+        "termoAssinado": true,
+        "chanceler": true,
+        "equipe": false
+      }
+    }
+  ],
+  "evolution": [
+    {
+      "label": "Set/2026",
+      "recebidos": 23,
+      "carregados": 16,
+      "homologacaoEstrutural": 9,
+      "homologacaoCompleta": 5
+    }
+  ]
+}

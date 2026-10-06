@@ -1,4 +1,5 @@
 import type { DimensionKey, StageKey } from "@/types/dashboard";
+import listMap from "@/data/trello-list-map.json";
 
 export const STAGE_ORDER: StageKey[] = [
   "selecionadas",
@@ -12,32 +13,32 @@ export const STAGE_ORDER: StageKey[] = [
 export const STAGES: Record<StageKey, { label: string; aliases: string[]; description: string }> = {
   selecionadas: {
     label: "Dioceses selecionadas",
-    aliases: ["Dioceses selecionadas", "Selecionadas"],
+    aliases: ["Dioceses selecionadas", "Selecionadas", ...listMap.selecionadas],
     description: "Dioceses definidas para participação no processo.",
   },
   dialogo: {
     label: "Em diálogo",
-    aliases: ["Em diálogo", "Em dialogo", "Adesão e articulação", "Adesao e articulacao", "Contato inicial", "Contato ativo"],
+    aliases: ["Em diálogo", "Em dialogo", "Adesão e articulação", "Adesao e articulacao", "Contato inicial", "Contato ativo", ...listMap.dialogo],
     description: "Dioceses com contato e articulação em andamento.",
   },
   recebidos: {
     label: "Dados recebidos",
-    aliases: ["Dados recebidos", "Recebidos"],
+    aliases: ["Dados recebidos", "Recebidos", ...listMap.recebidos],
     description: "Dioceses que já enviaram os dados solicitados, ainda que o envio possa ocorrer de forma parcial até a conclusão.",
   },
   carregados: {
     label: "Dados carregados",
-    aliases: ["Dados carregados", "Dados importados", "Carregados"],
+    aliases: ["Dados carregados", "Dados importados", "Carregados", ...listMap.carregados],
     description: "Dados recebidos e carregados/importados no sistema.",
   },
   homologacaoEstrutural: {
     label: "Homologação estrutural",
-    aliases: ["Homologação estrutural", "Homologacao estrutural", "Estrutura homologada"],
+    aliases: ["Homologação estrutural", "Homologacao estrutural", "Estrutura homologada", ...listMap.homologacaoEstrutural],
     description: "Usuários ativos, uso contínuo, estrutura validada e instituições cadastradas/confirmadas.",
   },
   homologacaoCompleta: {
     label: "Homologação completa",
-    aliases: ["Homologação completa", "Homologacao completa", "Homologação final", "Homologacao final"],
+    aliases: ["Homologação completa", "Homologacao completa", "Homologação final", "Homologacao final", ...listMap.homologacaoCompleta],
     description: "Homologação estrutural concluída, com cadastro e validação dos dados de pessoas.",
   },
 };

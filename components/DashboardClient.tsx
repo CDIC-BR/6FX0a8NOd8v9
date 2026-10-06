@@ -308,9 +308,7 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
   }
 
   async function saveDiocese(next: Diocese) {
-    setData((prev) => ({ ...prev, dioceses: prev.dioceses.map((d) => d.id === next.id ? next : d) }));
-    setSelectedDiocese(null);
-    if (data.source === "trello") {
+    if (data.source !== "mock") {
       try {
         const secret = window.prompt("Informe o segredo de escrita configurado no ambiente da Vercel:");
         if (!secret) return;
@@ -321,12 +319,19 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
         });
         const body = await response.json();
         if (!response.ok) throw new Error(body.error ?? "Falha ao salvar");
-        setNotice("Dados intermediários atualizados no Trello.");
+        setSelectedDiocese(null);
+        if ((body.updated ?? 0) > 0) {
+          setNotice(`${body.updated} item(ns) atualizado(s) no Trello. Informações que não existem no board continuam vindo do complemento manual.`);
+        } else {
+          setNotice("Nenhum campo correspondente foi encontrado no Trello. Para esses dados, edite data/manual-overrides.json ou crie os campos/checklists no board.");
+        }
         await refresh();
       } catch (e) {
         setNotice(e instanceof Error ? e.message : "Falha ao salvar");
       }
     } else {
+      setData((prev) => ({ ...prev, dioceses: prev.dioceses.map((d) => d.id === next.id ? next : d) }));
+      setSelectedDiocese(null);
       setNotice("Alteração aplicada no modo demonstração. Ao recarregar, os dados simulados originais retornam.");
     }
   }
@@ -351,7 +356,7 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
 
       <main id="top">
         <header className="topbar">
-          <div><h1>Painel de Acompanhamento</h1><p>Dados de {formatDate(data.updatedAt, true)} · Fonte: {data.source === "trello" ? "Trello" : "demonstração"}</p></div>
+          <div><h1>Painel de Acompanhamento</h1><p>Dados de {formatDate(data.updatedAt, true)} · Fonte: {data.source === "hybrid" ? "Trello + complemento manual" : data.source === "trello" ? "Trello" : "demonstração"}</p></div>
           <button className="primaryButton" onClick={refresh} disabled={loading} type="button">↻ {loading ? "Atualizando…" : "Atualizar agora"}</button>
         </header>
 
@@ -364,8 +369,18 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
           <label className="searchLabel">Buscar diocese<input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Digite o nome…" /></label>
         </section>
 
-        <section className="metricsGrid" id="etapas">
-          {data.metrics.map((metric) => <MetricCard key={metric.key} metric={metric} active={selectedMetric === metric.key} onOpen={() => setSelectedMetric(metric.key)} />)}
+        <section className="processFlow" id="etapas" aria-label="Etapas de evolução da implantação">
+          {data.metrics.map((metric, index) => (
+            <div className="processStep" key={metric.key}>
+              <MetricCard metric={metric} active={selectedMetric === metric.key} onOpen={() => setSelectedMetric(metric.key)} />
+              {index < data.metrics.length - 1 && (
+                <div className="stageConnector" aria-hidden="true">
+                  <span className="connectorHorizontal">→</span>
+                  <span className="connectorVertical">↓</span>
+                </div>
+              )}
+            </div>
+          ))}
         </section>
 
         <section className="dashboardGrid">
@@ -412,7 +427,7 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
           <StagePanel stage={selectedMetric} data={data} />
         </section>
 
-        <footer className="pageFooter">Atualização automática a cada 1 hora enquanto o painel estiver aberto. <b>{data.source === "mock" ? "Modo demonstração ativo." : "Conectado ao Trello."}</b></footer>
+        <footer className="pageFooter">Atualização automática a cada 1 hora enquanto o painel estiver aberto. <b>{data.source === "mock" ? "Modo demonstração ativo." : data.source === "hybrid" ? "Trello conectado com complemento manual." : "Conectado ao Trello."}</b></footer>
       </main>
 
       {selectedDiocese && <DioceseDrawer diocese={selectedDiocese} onClose={() => setSelectedDiocese(null)} onSave={saveDiocese} />}
