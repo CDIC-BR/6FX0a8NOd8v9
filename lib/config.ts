@@ -1,29 +1,44 @@
 import type { DimensionKey, StageKey } from "@/types/dashboard";
 
-export const STAGES: Record<StageKey, { label: string; aliases: string[] }> = {
+export const STAGE_ORDER: StageKey[] = [
+  "selecionadas",
+  "dialogo",
+  "recebidos",
+  "carregados",
+  "homologacaoEstrutural",
+  "homologacaoCompleta",
+];
+
+export const STAGES: Record<StageKey, { label: string; aliases: string[]; description: string }> = {
   selecionadas: {
     label: "Dioceses selecionadas",
     aliases: ["Dioceses selecionadas", "Selecionadas"],
+    description: "Dioceses definidas para participação no processo.",
   },
-  adesao: {
-    label: "Adesão e articulação",
-    aliases: ["Adesão e articulação", "Contato inicial", "Contato ativo"],
+  dialogo: {
+    label: "Em diálogo",
+    aliases: ["Em diálogo", "Em dialogo", "Adesão e articulação", "Adesao e articulacao", "Contato inicial", "Contato ativo"],
+    description: "Dioceses com contato e articulação em andamento.",
   },
-  estruturacao: {
-    label: "Estruturação inicial",
-    aliases: ["Estruturação inicial", "Estrutura inicial"],
+  recebidos: {
+    label: "Dados recebidos",
+    aliases: ["Dados recebidos", "Recebidos"],
+    description: "Dioceses que já enviaram os dados solicitados, ainda que o envio possa ocorrer de forma parcial até a conclusão.",
   },
-  complementacao: {
-    label: "Complementação institucional",
-    aliases: ["Complementação institucional", "Complementação dos dados"],
+  carregados: {
+    label: "Dados carregados",
+    aliases: ["Dados carregados", "Dados importados", "Carregados"],
+    description: "Dados recebidos e carregados/importados no sistema.",
   },
-  fieis: {
-    label: "Dados de Fiéis",
-    aliases: ["Dados de Fiéis", "Fiéis"],
+  homologacaoEstrutural: {
+    label: "Homologação estrutural",
+    aliases: ["Homologação estrutural", "Homologacao estrutural", "Estrutura homologada"],
+    description: "Usuários ativos, uso contínuo, estrutura validada e instituições cadastradas/confirmadas.",
   },
-  homologacao: {
-    label: "Homologação final",
-    aliases: ["Homologação final", "Homologação completa"],
+  homologacaoCompleta: {
+    label: "Homologação completa",
+    aliases: ["Homologação completa", "Homologacao completa", "Homologação final", "Homologacao final"],
+    description: "Homologação estrutural concluída, com cadastro e validação dos dados de pessoas.",
   },
 };
 
@@ -36,22 +51,15 @@ export const CUSTOM_FIELDS: Record<DimensionKey, string[]> = {
   fieis: ["Fiéis", "Fieis", "Dados de Fiéis", "Dados de Fieis"],
 };
 
-export const DIMENSION_WEIGHTS: Record<DimensionKey, number> = {
-  fieis: 50,
-  estrutura: 15,
-  curia: 10,
-  igrejas: 10,
-  tribunais: 7.5,
-  outras: 7.5,
-};
-
-export const ADOPTION_CHECKLIST_ALIASES = [
+export const DIALOGUE_CHECKLIST_ALIASES = [
+  "Em diálogo",
+  "Em dialogo",
   "Adesão e articulação",
   "Adesao e articulacao",
   "Contato inicial",
 ];
 
-export const ADOPTION_ITEMS = {
+export const DIALOGUE_ITEMS = {
   termoEnviado: ["Termo enviado"],
   termoAssinado: ["Termo assinado"],
   chanceler: ["Contato com o chanceler", "Chanceler contatado"],

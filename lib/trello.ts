@@ -1,15 +1,15 @@
 import {
-  ADOPTION_CHECKLIST_ALIASES,
-  ADOPTION_ITEMS,
   CUSTOM_FIELDS,
-  DIMENSION_WEIGHTS,
+  DIALOGUE_CHECKLIST_ALIASES,
+  DIALOGUE_ITEMS,
   STAGES,
+  STAGE_ORDER,
   matchesAlias,
 } from "@/lib/config";
 import type {
-  AdoptionProgress,
   DashboardData,
   Diocese,
+  DialogueProgress,
   DimensionKey,
   StageKey,
 } from "@/types/dashboard";
@@ -72,25 +72,21 @@ function parseFieldValue(item: TrelloCustomFieldItem | undefined) {
   return Number.isFinite(parsed) ? clampPercent(parsed) : 0;
 }
 
-function weightedOverall(progress: Record<DimensionKey, number>) {
-  return Math.round(
-    (Object.keys(progress) as DimensionKey[]).reduce(
-      (sum, key) => sum + (progress[key] * DIMENSION_WEIGHTS[key]) / 100,
-      0,
-    ),
-  );
+function averageOverall(progress: Record<DimensionKey, number>) {
+  const values = Object.values(progress);
+  return Math.round(values.reduce((sum, value) => sum + value, 0) / values.length);
 }
 
-function checklistProgress(checklists: TrelloChecklist[]): AdoptionProgress {
-  const checklist = checklists.find((c) => matchesAlias(c.name, ADOPTION_CHECKLIST_ALIASES));
+function checklistProgress(checklists: TrelloChecklist[]): DialogueProgress {
+  const checklist = checklists.find((c) => matchesAlias(c.name, DIALOGUE_CHECKLIST_ALIASES));
   const items = checklist?.checkItems ?? [];
   const completed = (aliases: readonly string[]) =>
     items.some((item) => matchesAlias(item.name, aliases) && item.state === "complete");
   return {
-    termoEnviado: completed(ADOPTION_ITEMS.termoEnviado),
-    termoAssinado: completed(ADOPTION_ITEMS.termoAssinado),
-    chanceler: completed(ADOPTION_ITEMS.chanceler),
-    equipe: completed(ADOPTION_ITEMS.equipe),
+    termoEnviado: completed(DIALOGUE_ITEMS.termoEnviado),
+    termoAssinado: completed(DIALOGUE_ITEMS.termoAssinado),
+    chanceler: completed(DIALOGUE_ITEMS.chanceler),
+    equipe: completed(DIALOGUE_ITEMS.equipe),
   };
 }
 
@@ -115,8 +111,7 @@ export async function getTrelloDashboard(): Promise<DashboardData> {
         trelloFetch<TrelloCustomFieldItem[]>(`/cards/${card.id}/customFieldItems`),
         trelloFetch<TrelloChecklist[]>(`/cards/${card.id}/checklists?checkItems=all&checkItem_fields=name,state&fields=name`),
       ]);
-      const list = listById.get(card.idList);
-      const stage = stageFromList(list?.name ?? "");
+      const stage = stageFromList(listById.get(card.idList)?.name ?? "");
       const progress = {} as Record<DimensionKey, number>;
       (Object.keys(CUSTOM_FIELDS) as DimensionKey[]).forEach((key) => {
         const field = fieldByDimension.get(key);
@@ -132,8 +127,8 @@ export async function getTrelloDashboard(): Promise<DashboardData> {
         stage,
         stageLabel: STAGES[stage].label,
         progress,
-        adoption: checklistProgress(checklists),
-        overall: weightedOverall(progress),
+        dialogue: checklistProgress(checklists),
+        overall: averageOverall(progress),
         updatedAt: card.dateLastActivity,
         trelloUrl: card.url,
       };
@@ -141,20 +136,20 @@ export async function getTrelloDashboard(): Promise<DashboardData> {
   );
 
   const total = dioceses.length || 1;
-  const stageOrder: StageKey[] = ["selecionadas", "adesao", "estruturacao", "complementacao", "fieis", "homologacao"];
   const tooltips: Record<StageKey, string> = {
-    selecionadas: "Total de dioceses incluídas no board.",
-    adesao: "Cards que alcançaram a etapa de Adesão e articulação ou uma etapa posterior.",
-    estruturacao: "Cards em Estruturação inicial ou etapa posterior.",
-    complementacao: "Cards em Complementação institucional ou etapa posterior.",
-    fieis: "Cards em Dados de Fiéis ou Homologação final.",
-    homologacao: "Cards atualmente em Homologação final.",
+    selecionadas: "Total de dioceses definidas para participação no processo.",
+    dialogo: "Dioceses que chegaram à fase de contato e articulação. O detalhamento considera os marcos do diálogo inicial.",
+    recebidos: "Dioceses que já enviaram dados solicitados, ainda que o envio possa ser parcial.",
+    carregados: "Dioceses cujos dados recebidos já foram carregados ou importados no sistema.",
+    homologacaoEstrutural: "Usuários ativos, uso contínuo, estrutura validada e instituições cadastradas ou confirmadas.",
+    homologacaoCompleta: "Homologação estrutural concluída, incluindo cadastro e validação dos dados de pessoas.",
   };
-  const metrics = stageOrder.map((key) => {
-    const idx = stageOrder.indexOf(key);
+
+  const metrics = STAGE_ORDER.map((key) => {
+    const idx = STAGE_ORDER.indexOf(key);
     const value = key === "selecionadas"
       ? dioceses.length
-      : dioceses.filter((d) => stageOrder.indexOf(d.stage) >= idx).length;
+      : dioceses.filter((d) => STAGE_ORDER.indexOf(d.stage) >= idx).length;
     return {
       key,
       label: STAGES[key].label,
@@ -165,49 +160,41 @@ export async function getTrelloDashboard(): Promise<DashboardData> {
   });
 
   const dimensionLabels: Record<DimensionKey, string> = {
-    fieis: "Fiéis",
     estrutura: "Estrutura organizacional",
     curia: "Cúria",
     igrejas: "Igrejas",
     tribunais: "Tribunais e câmaras",
     outras: "Outras instituições",
+    fieis: "Fiéis",
   };
   const dimensions = (Object.keys(dimensionLabels) as DimensionKey[]).map((key) => ({
     key,
     label: dimensionLabels[key],
     value: Math.round(dioceses.reduce((sum, d) => sum + d.progress[key], 0) / total),
-    weight: DIMENSION_WEIGHTS[key],
   }));
-  const adoption = {
+
+  const dialogue = {
     total: dioceses.length,
-    termoEnviado: dioceses.filter((d) => d.adoption.termoEnviado).length,
-    termoAssinado: dioceses.filter((d) => d.adoption.termoAssinado).length,
-    chanceler: dioceses.filter((d) => d.adoption.chanceler).length,
-    equipe: dioceses.filter((d) => d.adoption.equipe).length,
-  };
-  const faithfulValues = dioceses.map((d) => d.progress.fieis);
-  const faithful = {
-    average: Math.round(faithfulValues.reduce((a, b) => a + b, 0) / total),
-    complete: faithfulValues.filter((v) => v === 100).length,
-    inProgress: faithfulValues.filter((v) => v > 0 && v < 100).length,
-    notStarted: faithfulValues.filter((v) => v === 0).length,
+    termoEnviado: dioceses.filter((d) => d.dialogue.termoEnviado).length,
+    termoAssinado: dioceses.filter((d) => d.dialogue.termoAssinado).length,
+    chanceler: dioceses.filter((d) => d.dialogue.chanceler).length,
+    equipe: dioceses.filter((d) => d.dialogue.equipe).length,
   };
 
+  const metricValue = (key: StageKey) => metrics.find((m) => m.key === key)?.value ?? 0;
   return {
     source: "trello",
     updatedAt: new Date().toISOString(),
     total: dioceses.length,
     metrics,
     dimensions,
-    adoption,
-    faithful,
-    // Sem armazenamento histórico, a API entrega somente a fotografia atual.
-    // O gráfico usa este ponto; snapshots persistentes podem ser adicionados depois.
+    dialogue,
     evolution: [{
       label: new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "2-digit" }).format(new Date()),
-      estruturacao: metrics.find((m) => m.key === "estruturacao")?.value ?? 0,
-      fieis: metrics.find((m) => m.key === "fieis")?.value ?? 0,
-      homologacao: metrics.find((m) => m.key === "homologacao")?.value ?? 0,
+      recebidos: metricValue("recebidos"),
+      carregados: metricValue("carregados"),
+      homologacaoEstrutural: metricValue("homologacaoEstrutural"),
+      homologacaoCompleta: metricValue("homologacaoCompleta"),
     }],
     dioceses,
   };
@@ -215,29 +202,68 @@ export async function getTrelloDashboard(): Promise<DashboardData> {
 
 export async function updateTrelloProgress(
   cardId: string,
-  payload: { progress?: Partial<Record<DimensionKey, number>> },
+  payload: {
+    progress?: Partial<Record<DimensionKey, number>>;
+    dialogue?: Partial<DialogueProgress>;
+  },
 ) {
   const writeSecret = process.env.DASHBOARD_WRITE_SECRET;
   if (!writeSecret) {
-    throw new Error("Escrita desabilitada. Configure DASHBOARD_WRITE_SECRET e implemente a autenticação desejada antes de habilitar edição em produção.");
+    throw new Error("Escrita desabilitada. Configure DASHBOARD_WRITE_SECRET e autenticação antes de habilitar edição em produção.");
   }
-  const { boardId } = credentials();
+
+  const { boardId, key, token } = credentials();
   const fields = await trelloFetch<TrelloCustomField[]>(`/boards/${boardId}/customFields`);
-  const updates = (Object.entries(payload.progress ?? {}) as [DimensionKey, number][])
-    .map(([key, value]) => {
-      const field = fields.find((candidate) => matchesAlias(candidate.name, CUSTOM_FIELDS[key]));
+  const fieldUpdates = (Object.entries(payload.progress ?? {}) as [DimensionKey, number][])
+    .map(([dimension, value]) => {
+      const field = fields.find((candidate) => matchesAlias(candidate.name, CUSTOM_FIELDS[dimension]));
       if (!field) return null;
       return { idCustomField: field.id, value: { number: String(clampPercent(value)) } };
     })
     .filter(Boolean);
-  if (!updates.length) return { updated: 0 };
 
-  const { key, token } = credentials();
-  const response = await fetch(`${BASE}/cards/${cardId}/customFields?key=${encodeURIComponent(key)}&token=${encodeURIComponent(token)}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json", Accept: "application/json" },
-    body: JSON.stringify({ customFieldItems: updates }),
-  });
-  if (!response.ok) throw new Error(`Falha ao atualizar Trello: ${response.status} ${await response.text()}`);
-  return { updated: updates.length };
+  let updated = 0;
+  if (fieldUpdates.length) {
+    const response = await fetch(`${BASE}/cards/${cardId}/customFields?key=${encodeURIComponent(key)}&token=${encodeURIComponent(token)}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({ customFieldItems: fieldUpdates }),
+    });
+    if (!response.ok) throw new Error(`Falha ao atualizar campos do Trello: ${response.status} ${await response.text()}`);
+    updated += fieldUpdates.length;
+  }
+
+  if (payload.dialogue) {
+    const checklists = await trelloFetch<TrelloChecklist[]>(`/cards/${cardId}/checklists?checkItems=all&checkItem_fields=name,state&fields=name`);
+    const checklist = checklists.find((candidate) => matchesAlias(candidate.name, DIALOGUE_CHECKLIST_ALIASES));
+    if (checklist) {
+      const mappings: Array<[keyof DialogueProgress, readonly string[]]> = [
+        ["termoEnviado", DIALOGUE_ITEMS.termoEnviado],
+        ["termoAssinado", DIALOGUE_ITEMS.termoAssinado],
+        ["chanceler", DIALOGUE_ITEMS.chanceler],
+        ["equipe", DIALOGUE_ITEMS.equipe],
+      ];
+      for (const [dialogueKey, aliases] of mappings) {
+        const requested = payload.dialogue[dialogueKey];
+        if (requested === undefined) continue;
+        const item = checklist.checkItems.find((candidate) => matchesAlias(candidate.name, aliases));
+        if (!item) continue;
+        const desiredState = requested ? "complete" : "incomplete";
+        if (item.state === desiredState) continue;
+        const params = new URLSearchParams({
+          state: desiredState,
+          key,
+          token,
+        });
+        const response = await fetch(`${BASE}/cards/${cardId}/checkItem/${item.id}?${params.toString()}`, {
+          method: "PUT",
+          headers: { Accept: "application/json" },
+        });
+        if (!response.ok) throw new Error(`Falha ao atualizar checklist do Trello: ${response.status} ${await response.text()}`);
+        updated += 1;
+      }
+    }
+  }
+
+  return { updated };
 }

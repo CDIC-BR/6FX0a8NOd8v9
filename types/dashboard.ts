@@ -1,27 +1,26 @@
 export type StageKey =
   | "selecionadas"
-  | "adesao"
-  | "estruturacao"
-  | "complementacao"
-  | "fieis"
-  | "homologacao";
+  | "dialogo"
+  | "recebidos"
+  | "carregados"
+  | "homologacaoEstrutural"
+  | "homologacaoCompleta";
 
 export type DimensionKey =
-  | "fieis"
   | "estrutura"
   | "curia"
   | "igrejas"
   | "tribunais"
-  | "outras";
+  | "outras"
+  | "fieis";
 
 export interface DimensionProgress {
   key: DimensionKey;
   label: string;
   value: number;
-  weight: number;
 }
 
-export interface AdoptionProgress {
+export interface DialogueProgress {
   termoEnviado: boolean;
   termoAssinado: boolean;
   chanceler: boolean;
@@ -36,7 +35,7 @@ export interface Diocese {
   stage: StageKey;
   stageLabel: string;
   progress: Record<DimensionKey, number>;
-  adoption: AdoptionProgress;
+  dialogue: DialogueProgress;
   overall: number;
   updatedAt: string;
   trelloUrl?: string;
@@ -52,9 +51,10 @@ export interface SummaryMetric {
 
 export interface EvolutionPoint {
   label: string;
-  estruturacao: number;
-  fieis: number;
-  homologacao: number;
+  recebidos: number;
+  carregados: number;
+  homologacaoEstrutural: number;
+  homologacaoCompleta: number;
 }
 
 export interface DashboardData {
@@ -63,18 +63,12 @@ export interface DashboardData {
   total: number;
   metrics: SummaryMetric[];
   dimensions: DimensionProgress[];
-  adoption: {
+  dialogue: {
     total: number;
     termoEnviado: number;
     termoAssinado: number;
     chanceler: number;
     equipe: number;
-  };
-  faithful: {
-    average: number;
-    complete: number;
-    inProgress: number;
-    notStarted: number;
   };
   evolution: EvolutionPoint[];
   dioceses: Diocese[];

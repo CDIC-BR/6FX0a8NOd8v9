@@ -1,66 +1,23 @@
-# CDIC-BR — Painel de Acompanhamento + Trello
+# CDIC-BR · Painel de Acompanhamento
 
-Dashboard em **Next.js 16 + TypeScript + Apache ECharts 6**, preparado para:
+Dashboard em **Next.js + TypeScript + Apache ECharts**, preparado para funcionar primeiro com dados simulados e depois com um board do Trello como fonte principal.
 
-- rodar localmente;
-- publicar na Vercel;
-- funcionar imediatamente com dados simulados;
-- ler listas do Trello como **macroetapas**;
-- ler Custom Fields numéricos como percentuais intermediários;
-- ler checklist de **Adesão e articulação**;
-- atualizar automaticamente a tela a cada 1 hora;
-- mostrar donut, evolução, tooltips, drill-down e detalhe por diocese;
-- permitir edição de percentuais no drawer (mock local) e possuir rota preparada para escrita no Trello.
+## Hierarquia do processo
 
-## 1. Rodar localmente
+O projeto considera exatamente estas macroetapas, nesta ordem:
 
-Requer Node.js 20+ (recomendado Node.js 22).
+1. **Dioceses selecionadas** — dioceses definidas para participação no processo.
+2. **Em diálogo** — contato e articulação em andamento.
+3. **Dados recebidos** — dioceses que já enviaram os dados solicitados; o envio pode ser parcial.
+4. **Dados carregados** — dados recebidos e carregados/importados no sistema.
+5. **Homologação estrutural** — usuários ativos, uso contínuo, estrutura validada e instituições cadastradas/confirmadas.
+6. **Homologação completa** — homologação estrutural concluída + cadastro e validação dos dados de pessoas.
 
-```bash
-npm install
-cp .env.example .env.local
-npm run dev
-```
+No Trello, a **lista onde o card está** representa a macroetapa atual da diocese.
 
-Acesse `http://localhost:3000`.
+## Dados intermediários
 
-Por padrão:
-
-```env
-TRELLO_MODE=mock
-```
-
-Nenhuma credencial é necessária.
-
-## 2. Conectar ao Trello
-
-Edite `.env.local`:
-
-```env
-TRELLO_MODE=trello
-TRELLO_API_KEY=sua_chave
-TRELLO_TOKEN=seu_token
-TRELLO_BOARD_ID=id_do_board
-```
-
-As credenciais são usadas **somente no servidor**. Não crie variáveis `NEXT_PUBLIC_` para chave/token.
-
-### Listas esperadas
-
-O arquivo `lib/config.ts` contém aliases. Os nomes principais são:
-
-1. Dioceses selecionadas
-2. Adesão e articulação
-3. Estruturação inicial
-4. Complementação institucional
-5. Dados de Fiéis
-6. Homologação final
-
-Cada card deve representar uma diocese.
-
-### Custom Fields esperados
-
-Crie Custom Fields numéricos (0 a 100):
+O painel também lê percentuais de completude para todos os tipos de dado:
 
 - Estrutura organizacional
 - Cúria
@@ -69,106 +26,131 @@ Crie Custom Fields numéricos (0 a 100):
 - Outras instituições
 - Fiéis
 
-O painel localiza os campos pelo **nome**, por isso os IDs não precisam ficar hardcoded.
+Fiéis não possui um gráfico isolado na visão principal. Ele aparece como uma dimensão do conjunto de dados e passa a ser especialmente relevante para atingir a **Homologação completa**.
 
-### Checklist esperado
+### Checklist de “Em diálogo”
 
-Nome recomendado: `Adesão e articulação`
-
-Itens:
+Use no card da diocese um checklist com um dos nomes reconhecidos pelo projeto (`Em diálogo`, `Adesão e articulação` ou `Contato inicial`) e os itens:
 
 - Termo enviado
 - Termo assinado
 - Contato com o chanceler
 - Contato com a equipe
 
-## 3. Como os indicadores funcionam
+O painel consolida esses marcos no drill-down da etapa **Em diálogo**.
 
-### Macroetapa
+## O que existe no protótipo
 
-É derivada da lista atual do card no Trello.
+- seis cards de macroetapas, em ordem de processo;
+- donut **Dioceses por etapa**, sem dupla contagem entre fatias;
+- gráfico de evolução de Dados recebidos, Dados carregados, Homologação estrutural e Homologação completa;
+- gráfico de completude média considerando **todos os tipos de dado**;
+- tooltips explicativos;
+- drill-down de cada etapa;
+- detalhe individual da diocese em drawer;
+- edição dos percentuais intermediários e dos marcos de diálogo;
+- filtros por regional e etapa atual;
+- busca de diocese;
+- menu lateral recolhível;
+- navegação real para Painel, Dioceses e Etapas;
+- Sincronização e Configurações exibem toast informando que estão em construção e sugerindo o escopo futuro;
+- atualização manual e automática a cada 1 hora enquanto o painel estiver aberto;
+- modo mock para teste sem Trello;
+- preparação para deploy na Vercel.
 
-### Progresso intermediário
-
-É derivado dos Custom Fields numéricos. Uma diocese pode, por exemplo, estar em `Dados de Fiéis` com:
-
-- Estrutura: 100%
-- Cúria: 100%
-- Igrejas: 90%
-- Tribunais e câmaras: 70%
-- Outras instituições: 60%
-- Fiéis: 55%
-
-### Índice geral
-
-O código usa pesos configuráveis:
-
-- Fiéis: 50%
-- Estrutura organizacional: 15%
-- Cúria: 10%
-- Igrejas: 10%
-- Tribunais e câmaras: 7,5%
-- Outras instituições: 7,5%
-
-Os pesos medem avanço, mas **não substituem a regra de homologação final**.
-
-## 4. Atualização automática
-
-O navegador chama `/api/dashboard` novamente a cada **1 hora enquanto a página estiver aberta**.
-
-Também há o botão `Atualizar agora`.
-
-Isso permite uso no plano gratuito da Vercel sem depender de Cron horário.
-
-## 5. Histórico / gráfico de crescimento
-
-No modo mock há uma série temporal demonstrativa.
-
-No modo Trello, sem armazenamento adicional, a API consegue entregar a fotografia atual. Para manter pontos diários de crescimento na Vercel, conecte futuramente um armazenamento pequeno (por exemplo, Postgres/Redis via Marketplace) ou reconstrua uma parte da linha do tempo pelas Actions do Trello.
-
-O painel foi estruturado para receber `evolution[]` sem mudar os componentes visuais.
-
-## 6. Edição pelo dashboard
-
-No **modo mock**, o drawer permite alterar os percentuais durante a sessão.
-
-Para escrever no Trello:
-
-```env
-DASHBOARD_WRITE_SECRET=um-segredo-forte
-```
-
-A rota `PUT /api/dioceses/:id` está preparada para atualizar Custom Fields numéricos. O front pede esse segredo antes de enviar uma alteração.
-
-> Para produção, substitua esse mecanismo simples por autenticação real (SSO/login) antes de liberar edição para usuários.
-
-Os checklists de Adesão estão sendo lidos, mas a tela de demonstração não grava os checkitems no Trello; isso foi deixado separado para evitar alterações acidentais no board real.
-
-## 7. Deploy na Vercel
-
-### Via GitHub
-
-1. Crie um repositório e envie esta pasta.
-2. Importe o projeto na Vercel.
-3. Cadastre as mesmas variáveis de ambiente em Project Settings → Environment Variables.
-4. Faça o deploy.
-
-Não é necessário `vercel.json` para este projeto.
-
-### Via CLI
+## Executar localmente
 
 ```bash
-npm i -g vercel
-vercel
+npm install
 ```
 
-## 8. Onde personalizar
+Crie o `.env.local` a partir do exemplo:
 
-- Mapeamento Trello e pesos: `lib/config.ts`
-- Mock: `lib/mock.ts`
-- Consulta e transformação Trello: `lib/trello.ts`
-- Dashboard / drill-down: `components/DashboardClient.tsx`
-- Gráficos: `components/DashboardClient.tsx` e `components/EChart.tsx`
-- Cores / layout: `app/globals.css`
+### Windows
 
-A cor base usada é `#077dcc` com tons claros derivados.
+```bash
+copy .env.example .env.local
+```
+
+### macOS/Linux
+
+```bash
+cp .env.example .env.local
+```
+
+Depois:
+
+```bash
+npm run dev
+```
+
+Abra `http://localhost:3000`.
+
+## Testar sem Trello
+
+Mantenha:
+
+```env
+TRELLO_MODE=mock
+```
+
+O dashboard será preenchido com dioceses e percentuais simulados.
+
+## Conectar ao Trello
+
+No `.env.local`:
+
+```env
+TRELLO_MODE=trello
+TRELLO_API_KEY=
+TRELLO_TOKEN=
+TRELLO_BOARD_ID=
+DASHBOARD_WRITE_SECRET=
+```
+
+As listas do board devem usar os nomes das etapas acima. O código também aceita algumas variações/aliases definidos em `lib/config.ts`.
+
+Os Custom Fields numéricos esperados são:
+
+```text
+Estrutura organizacional
+Cúria
+Igrejas
+Tribunais e câmaras
+Outras instituições
+Fiéis
+```
+
+Preencha os valores de 0 a 100.
+
+## Menu lateral
+
+- **Painel**: volta ao topo.
+- **Dioceses**: navega para a tabela e drill-down individual.
+- **Etapas**: navega para os indicadores de processo.
+- **Sincronização**: placeholder em construção; proposta de conteúdo: conexão com Trello, última sincronização, listas mapeadas e erros.
+- **Configurações**: placeholder em construção; proposta: parametrização das listas, campos, checklist e frequência de atualização.
+
+A área **Relatórios** foi removida do protótipo.
+
+## Vercel
+
+O projeto pode ser publicado diretamente na Vercel. Cadastre as mesmas variáveis do `.env.local` em **Project Settings → Environment Variables**.
+
+Para apenas consultar o Trello, `DASHBOARD_WRITE_SECRET` pode ficar vazio. Para habilitar edição pelo dashboard, configure-o e adicione autenticação adequada antes do uso em produção.
+
+## Logo e ícone da aba
+
+O projeto usa o mesmo arquivo para a identidade visual no menu lateral e no ícone da aba do navegador:
+
+```text
+public/logo.svg
+```
+
+Substitua esse arquivo pela logo oficial mantendo o mesmo nome (`logo.svg`). Não é necessário alterar o código.
+
+- **Menu lateral:** a imagem é carregada em `components/DashboardClient.tsx`.
+- **Aba do navegador (favicon):** o Next.js usa `public/logo.svg` por meio da configuração `metadata.icons` em `app/layout.tsx`.
+- Recomenda-se uma versão quadrada da logo, com boa leitura em tamanhos pequenos (idealmente 64×64 ou 128×128).
+
+Se a logo oficial for muito horizontal, mantenha `logo.svg` como uma versão reduzida/símbolo para o favicon e ajuste o menu para usar um arquivo separado, por exemplo `logo-horizontal.svg`.
