@@ -1,5 +1,6 @@
 import type { DimensionKey, StageKey } from "@/types/dashboard";
 import listMap from "@/data/trello-list-map.json";
+import labelMap from "@/data/trello-label-map.json";
 
 export const STAGE_ORDER: StageKey[] = [
   "selecionadas",
@@ -43,6 +44,14 @@ export const STAGES: Record<StageKey, { label: string; aliases: string[]; descri
   },
 };
 
+export const STAGE_LABEL_ALIASES: Partial<Record<StageKey, string[]>> = {
+  dialogo: labelMap.dialogo,
+  recebidos: labelMap.recebidos,
+  carregados: labelMap.carregados,
+  homologacaoEstrutural: labelMap.homologacaoEstrutural,
+  homologacaoCompleta: labelMap.homologacaoCompleta,
+};
+
 export const CUSTOM_FIELDS: Record<DimensionKey, string[]> = {
   estrutura: ["Estrutura organizacional", "Estrutura"],
   curia: ["Cúria", "Curia"],
@@ -62,6 +71,13 @@ export const DIALOGUE_CHECKLIST_ALIASES = [
 
 export const DIALOGUE_ITEMS = {
   termoEnviado: ["Termo enviado"],
+  termoAssinado: ["Termo assinado"],
+  chanceler: ["Contato com o chanceler", "Chanceler contatado"],
+  equipe: ["Contato com a equipe", "Equipe contatada"],
+} as const;
+
+export const DIALOGUE_LABEL_ALIASES = {
+  termoEnviado: ["Termo enviado", "Termo assinado"],
   termoAssinado: ["Termo assinado"],
   chanceler: ["Contato com o chanceler", "Chanceler contatado"],
   equipe: ["Contato com a equipe", "Equipe contatada"],

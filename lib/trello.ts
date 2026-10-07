@@ -2,9 +2,12 @@ import {
   CUSTOM_FIELDS,
   DIALOGUE_CHECKLIST_ALIASES,
   DIALOGUE_ITEMS,
+  DIALOGUE_LABEL_ALIASES,
   STAGES,
+  STAGE_LABEL_ALIASES,
   STAGE_ORDER,
   matchesAlias,
+  normalize,
 } from "@/lib/config";
 import { findManualDiocese, getManualEvolution, hasManualData } from "@/lib/manual";
 import type {
@@ -17,6 +20,7 @@ import type {
 } from "@/types/dashboard";
 
 type TrelloList = { id: string; name: string; closed?: boolean };
+type TrelloLabel = { id?: string; name: string; color?: string | null };
 type TrelloCustomFieldOption = { id: string; value?: { text?: string } };
 type TrelloCustomField = { id: string; name: string; type: string; options?: TrelloCustomFieldOption[] };
 type TrelloCustomFieldItem = {
@@ -32,6 +36,10 @@ type TrelloCard = {
   idList: string;
   dateLastActivity: string;
   url?: string;
+  desc?: string;
+  labels?: TrelloLabel[];
+  idChecklists?: string[];
+  customFieldItems?: TrelloCustomFieldItem[];
 };
 
 const BASE = "https://api.trello.com/1";
@@ -43,7 +51,7 @@ function credentials() {
   const token = process.env.TRELLO_TOKEN;
   const boardId = process.env.TRELLO_BOARD_ID;
   if (!key || !token || !boardId) {
-    throw new Error("Credenciais do Trello incompletas. Preencha TRELLO_API_KEY, TRELLO_TOKEN e TRELLO_BOARD_ID.");
+    throw new Error("Credenciais do Trello incompletas. Preencha TRELLO_API_KEY, TRELLO_TOKEN e TRELLO_BOARD_ID no .env.local.");
   }
   return { key, token, boardId };
 }
@@ -56,14 +64,46 @@ async function trelloFetch<T>(path: string): Promise<T> {
     headers: { Accept: "application/json" },
   });
   if (!response.ok) {
-    throw new Error(`Trello respondeu ${response.status}: ${await response.text()}`);
+    const body = await response.text();
+    throw new Error(`Trello respondeu ${response.status}: ${body || response.statusText}`);
   }
   return response.json() as Promise<T>;
+}
+
+async function trelloFetchOptional<T>(path: string, fallback: T): Promise<T> {
+  try {
+    return await trelloFetch<T>(path);
+  } catch {
+    return fallback;
+  }
+}
+
+function stageIndex(stage: StageKey) {
+  return STAGE_ORDER.indexOf(stage);
 }
 
 function stageFromList(name: string): StageKey {
   const entries = Object.entries(STAGES) as [StageKey, (typeof STAGES)[StageKey]][];
   return entries.find(([, value]) => matchesAlias(name, value.aliases))?.[0] ?? "selecionadas";
+}
+
+function stageFromLabels(labels: TrelloLabel[]): StageKey {
+  let result: StageKey = "selecionadas";
+  for (const stage of STAGE_ORDER) {
+    if (stage === "selecionadas") continue;
+    const aliases = STAGE_LABEL_ALIASES[stage] ?? [];
+    if (aliases.length && labels.some((label) => matchesAlias(label.name, aliases))) {
+      if (stageIndex(stage) > stageIndex(result)) result = stage;
+    }
+  }
+  return result;
+}
+
+function stageFromSignals(listName: string, labels: TrelloLabel[], manualStage?: StageKey): StageKey {
+  if (manualStage) return manualStage;
+  const fromList = stageFromList(listName);
+  const fromLabels = stageFromLabels(labels);
+  return stageIndex(fromLabels) > stageIndex(fromList) ? fromLabels : fromList;
 }
 
 function clampPercent(value: number) {
@@ -107,7 +147,33 @@ function readChecklistProgress(checklists: TrelloChecklist[]): Partial<DialogueP
   };
 }
 
-function mergeDialogue(trello: Partial<DialogueProgress>, manual: Partial<DialogueProgress> | undefined): DialogueProgress {
+function readLabelProgress(labels: TrelloLabel[], description = ""): Partial<DialogueProgress> {
+  const hasLabel = (aliases: readonly string[]) => labels.some((label) => matchesAlias(label.name, aliases));
+  const normalizedDescription = normalize(description);
+
+  const termoAssinado = hasLabel(DIALOGUE_LABEL_ALIASES.termoAssinado) ? true : undefined;
+  const termoEnviado = hasLabel(DIALOGUE_LABEL_ALIASES.termoEnviado) || termoAssinado ? true : undefined;
+  const chanceler = hasLabel(DIALOGUE_LABEL_ALIASES.chanceler) || normalizedDescription.includes("chanceler") ? true : undefined;
+  const equipe = hasLabel(DIALOGUE_LABEL_ALIASES.equipe) || normalizedDescription.includes("contato com a equipe") ? true : undefined;
+
+  return { termoEnviado, termoAssinado, chanceler, equipe };
+}
+
+function mergePartialDialogue(...sources: Array<Partial<DialogueProgress> | undefined>): Partial<DialogueProgress> {
+  const result: Partial<DialogueProgress> = {};
+  const keys: Array<keyof DialogueProgress> = ["termoEnviado", "termoAssinado", "chanceler", "equipe"];
+  for (const key of keys) {
+    for (const source of sources) {
+      if (source?.[key] !== undefined) {
+        result[key] = source[key];
+        break;
+      }
+    }
+  }
+  return result;
+}
+
+function finalizeDialogue(trello: Partial<DialogueProgress>, manual: Partial<DialogueProgress> | undefined): DialogueProgress {
   return {
     termoEnviado: trello.termoEnviado ?? manual?.termoEnviado ?? false,
     termoAssinado: trello.termoAssinado ?? manual?.termoAssinado ?? false,
@@ -130,9 +196,11 @@ function currentEvolutionPoint(metrics: DashboardData["metrics"]): EvolutionPoin
 export async function getTrelloDashboard(): Promise<DashboardData> {
   const { boardId } = credentials();
   const [lists, fields, cards] = await Promise.all([
-    trelloFetch<TrelloList[]>(`/boards/${boardId}/lists?fields=id,name,closed&filter=open`),
-    trelloFetch<TrelloCustomField[]>(`/boards/${boardId}/customFields`),
-    trelloFetch<TrelloCard[]>(`/boards/${boardId}/cards/open?fields=id,name,idList,dateLastActivity,url`),
+    trelloFetchOptional<TrelloList[]>(`/boards/${boardId}/lists?fields=id,name,closed&filter=open`, []),
+    trelloFetchOptional<TrelloCustomField[]>(`/boards/${boardId}/customFields`, []),
+    trelloFetch<TrelloCard[]>(
+      `/boards/${boardId}/cards/open?fields=id,name,idList,dateLastActivity,url,desc,labels,idChecklists&customFieldItems=true`,
+    ),
   ]);
 
   const listById = new Map(lists.map((list) => [list.id, list]));
@@ -146,12 +214,18 @@ export async function getTrelloDashboard(): Promise<DashboardData> {
 
   const dioceses: Diocese[] = await Promise.all(
     cards.map(async (card) => {
-      const [customItems, checklists] = await Promise.all([
-        trelloFetch<TrelloCustomFieldItem[]>(`/cards/${card.id}/customFieldItems`),
-        trelloFetch<TrelloChecklist[]>(`/cards/${card.id}/checklists?checkItems=all&checkItem_fields=name,state&fields=name`),
-      ]);
+      const labels = card.labels ?? [];
       const manual = findManualDiocese(card.id, card.name);
-      const stage = stageFromList(listById.get(card.idList)?.name ?? "");
+      const listName = listById.get(card.idList)?.name ?? "";
+      const stage = stageFromSignals(listName, labels, manual?.etapa);
+      const customItems = card.customFieldItems ?? [];
+      const checklists = (card.idChecklists?.length ?? 0) > 0
+        ? await trelloFetchOptional<TrelloChecklist[]>(
+            `/cards/${card.id}/checklists?checkItems=all&checkItem_fields=name,state&fields=name`,
+            [],
+          )
+        : [];
+
       const progress = {} as Record<DimensionKey, number>;
       (Object.keys(CUSTOM_FIELDS) as DimensionKey[]).forEach((key) => {
         const field = fieldByDimension.get(key);
@@ -170,6 +244,11 @@ export async function getTrelloDashboard(): Promise<DashboardData> {
         provinciaField ? customItems.find((item) => item.idCustomField === provinciaField.id) : undefined,
       );
 
+      const dialogueFromTrello = mergePartialDialogue(
+        readChecklistProgress(checklists),
+        readLabelProgress(labels, card.desc),
+      );
+
       return {
         id: card.id,
         name: card.name,
@@ -178,7 +257,7 @@ export async function getTrelloDashboard(): Promise<DashboardData> {
         stage,
         stageLabel: STAGES[stage].label,
         progress,
-        dialogue: mergeDialogue(readChecklistProgress(checklists), manual?.dialogo),
+        dialogue: finalizeDialogue(dialogueFromTrello, manual?.dialogo),
         overall: averageOverall(progress),
         updatedAt: card.dateLastActivity,
         trelloUrl: card.url,
@@ -189,9 +268,9 @@ export async function getTrelloDashboard(): Promise<DashboardData> {
   const total = dioceses.length || 1;
   const tooltips: Record<StageKey, string> = {
     selecionadas: "Total de dioceses definidas para participação no processo.",
-    dialogo: "Dioceses que chegaram à fase de contato e articulação. O detalhamento considera os marcos do diálogo inicial.",
-    recebidos: "Dioceses que já enviaram dados solicitados, ainda que o envio possa ser parcial.",
-    carregados: "Dioceses cujos dados recebidos já foram carregados ou importados no sistema.",
+    dialogo: "Dioceses que chegaram à fase de contato e articulação. No seu Trello, etiquetas como Termo enviado/assinado e Aguardando envio da divisão territorial também alimentam esta etapa.",
+    recebidos: "Dioceses que já enviaram dados solicitados. A etiqueta Divisão recebida é reconhecida automaticamente como este marco.",
+    carregados: "Dioceses cujos dados recebidos já foram carregados ou importados. A etiqueta Divisão cadastrada é reconhecida automaticamente como este marco.",
     homologacaoEstrutural: "Usuários ativos, uso contínuo, estrutura validada e instituições cadastradas ou confirmadas.",
     homologacaoCompleta: "Homologação estrutural concluída, incluindo cadastro e validação dos dados de pessoas.",
   };
@@ -264,7 +343,7 @@ export async function updateTrelloProgress(
   }
 
   const { boardId, key, token } = credentials();
-  const fields = await trelloFetch<TrelloCustomField[]>(`/boards/${boardId}/customFields`);
+  const fields = await trelloFetchOptional<TrelloCustomField[]>(`/boards/${boardId}/customFields`, []);
   const fieldUpdates = (Object.entries(payload.progress ?? {}) as [DimensionKey, number][])
     .map(([dimension, value]) => {
       const field = fields.find((candidate) => matchesAlias(candidate.name, CUSTOM_FIELDS[dimension]));
@@ -285,7 +364,10 @@ export async function updateTrelloProgress(
   }
 
   if (payload.dialogue) {
-    const checklists = await trelloFetch<TrelloChecklist[]>(`/cards/${cardId}/checklists?checkItems=all&checkItem_fields=name,state&fields=name`);
+    const checklists = await trelloFetchOptional<TrelloChecklist[]>(
+      `/cards/${cardId}/checklists?checkItems=all&checkItem_fields=name,state&fields=name`,
+      [],
+    );
     const checklist = checklists.find((candidate) => matchesAlias(candidate.name, DIALOGUE_CHECKLIST_ALIASES));
     if (checklist) {
       const mappings: Array<[keyof DialogueProgress, readonly string[]]> = [
@@ -301,11 +383,7 @@ export async function updateTrelloProgress(
         if (!item) continue;
         const desiredState = requested ? "complete" : "incomplete";
         if (item.state === desiredState) continue;
-        const params = new URLSearchParams({
-          state: desiredState,
-          key,
-          token,
-        });
+        const params = new URLSearchParams({ state: desiredState, key, token });
         const response = await fetch(`${BASE}/cards/${cardId}/checkItem/${item.id}?${params.toString()}`, {
           method: "PUT",
           headers: { Accept: "application/json" },

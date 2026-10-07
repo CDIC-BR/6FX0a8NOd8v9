@@ -1,10 +1,11 @@
 import manualJson from "@/data/manual-overrides.json";
 import { normalize } from "@/lib/config";
-import type { DialogueProgress, DimensionKey, EvolutionPoint } from "@/types/dashboard";
+import type { DialogueProgress, DimensionKey, EvolutionPoint, StageKey } from "@/types/dashboard";
 
 export interface ManualDioceseOverride {
   trelloCardId?: string;
   nome: string;
+  etapa?: StageKey;
   regional?: string;
   provincia?: string;
   dados?: Partial<Record<DimensionKey, number>>;

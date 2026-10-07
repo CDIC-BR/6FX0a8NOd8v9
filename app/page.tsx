@@ -6,11 +6,15 @@ export const dynamic = "force-dynamic";
 
 export default async function Page() {
   const mode = (process.env.TRELLO_MODE ?? "mock").toLowerCase();
-  let data;
-  try {
-    data = mode === "trello" ? await getTrelloDashboard() : getMockDashboard();
-  } catch {
-    data = getMockDashboard();
+  if (mode !== "trello") {
+    return <DashboardClient initialData={getMockDashboard()} />;
   }
-  return <DashboardClient initialData={data} />;
+
+  try {
+    return <DashboardClient initialData={await getTrelloDashboard()} />;
+  } catch (error) {
+    const fallback = getMockDashboard();
+    fallback.connectionError = error instanceof Error ? error.message : "Falha ao conectar ao Trello.";
+    return <DashboardClient initialData={fallback} />;
+  }
 }

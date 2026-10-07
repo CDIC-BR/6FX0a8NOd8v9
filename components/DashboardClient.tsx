@@ -360,6 +360,12 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
           <button className="primaryButton" onClick={refresh} disabled={loading} type="button">↻ {loading ? "Atualizando…" : "Atualizar agora"}</button>
         </header>
 
+        {data.connectionError && (
+          <div className="connectionWarning" role="alert">
+            <b>O Trello não pôde ser carregado.</b> O painel abaixo está em modo demonstração. <span>{data.connectionError}</span>
+          </div>
+        )}
+
         {notice && <button type="button" className="notice" onClick={() => setNotice(null)}>{notice}<span>×</span></button>}
 
         <section className="filters">

@@ -2,9 +2,10 @@
   "dioceses": [
     {
       "trelloCardId": "opcional-id-do-card",
-      "nome": "Diocese de Exemplo",
-      "regional": "Sul 2",
-      "provincia": "Paraná",
+      "nome": "Diocese de Exemplo - UF",
+      "etapa": "recebidos",
+      "regional": "Regional de exemplo",
+      "provincia": "Província de exemplo",
       "dados": {
         "estrutura": 100,
         "curia": 100,
