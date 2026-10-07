@@ -1,8 +1,8 @@
 {
-  "selecionadas": [],
-  "dialogo": [],
-  "recebidos": [],
-  "carregados": [],
-  "homologacaoEstrutural": [],
-  "homologacaoCompleta": []
+  "selecionadas": ["Dioceses selecionadas"],
+  "dialogo": ["Em diálogo"],
+  "recebidos": ["Dados recebidos"],
+  "carregados": ["Dados carregados"],
+  "homologacaoEstrutural": ["Homologação estrutural"],
+  "homologacaoCompleta": ["Homologação completa"]
 }
