@@ -53,6 +53,17 @@ function alphaSort<T extends { nome: string }>(items: T[]) {
   return [...items].sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"));
 }
 
+const NO_PROVINCE = "__SEM_PROVINCIA__";
+
+function provinceKey(value?: string | null) {
+  const normalized = (value || "").trim();
+  return !normalized || normalized === "Não informado" ? NO_PROVINCE : normalized;
+}
+
+function provinceLabel(value?: string | null) {
+  return provinceKey(value) === NO_PROVINCE ? "Sem província" : (value || "").trim();
+}
+
 function asDrawerItem(item: DioceseDashboard): DrawerItem {
   return {
     id: item.id,
@@ -181,11 +192,11 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
     () => [
       ...(data.naoParticipantesLista || []).map((item) => ({
         regional: item.regional,
-        provincia: item.provincia,
+        provincia: provinceKey(item.provincia),
       })),
       ...data.dioceses.map((item) => ({
         regional: item.regional,
-        provincia: item.provincia,
+        provincia: provinceKey(item.provincia),
       })),
     ],
     [data.naoParticipantesLista, data.dioceses]
@@ -203,8 +214,12 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
       ? geographyBase
       : geographyBase.filter((item) => item.regional === regional);
 
-    return [...new Set(base.map((item) => item.provincia).filter((item) => item && item !== "Não informado"))]
-      .sort((a, b) => a.localeCompare(b, "pt-BR"));
+    return [...new Set(base.map((item) => item.provincia))]
+      .sort((a, b) => {
+        if (a === NO_PROVINCE) return 1;
+        if (b === NO_PROVINCE) return -1;
+        return a.localeCompare(b, "pt-BR");
+      });
   }, [geographyBase, regional]);
 
   useEffect(() => {
@@ -214,7 +229,7 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
   const filtered = useMemo(
     () =>
       data.dioceses.filter(
-        (d) => (regional === "Todos" || d.regional === regional) && (provincia === "Todas" || d.provincia === provincia)
+        (d) => (regional === "Todos" || d.regional === regional) && (provincia === "Todas" || provinceKey(d.provincia) === provincia)
       ),
     [data.dioceses, regional, provincia]
   );
@@ -233,7 +248,7 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
       (data.naoParticipantesLista || []).filter(
         (item) =>
           (regional === "Todos" || item.regional === regional) &&
-          (provincia === "Todas" || item.provincia === provincia)
+          (provincia === "Todas" || provinceKey(item.provincia) === provincia)
       ),
     [data.naoParticipantesLista, regional, provincia]
   );
@@ -400,7 +415,7 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
             <label htmlFor="provincia">Província</label>
             <select id="provincia" value={provincia} onChange={(e) => setProvincia(e.target.value)}>
               <option value="Todas">Todas as províncias</option>
-              {provincias.map((item) => <option key={item} value={item}>{item}</option>)}
+              {provincias.map((item) => <option key={item} value={item}>{provinceLabel(item)}</option>)}
             </select>
           </div>
           <div className="updated-box">
@@ -586,7 +601,7 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
                   </div>
                   <div className="drawer-meta">
                     <span><b>Regional:</b> {item.regional}</span>
-                    <span><b>Província:</b> {item.provincia}</span>
+                    <span><b>Província:</b> {provinceLabel(item.provincia)}</span>
                     {item.grupo && <span><b>Grupo:</b> {item.grupo}</span>}
                     {item.ultimaAtividade && <span><b>Última atividade:</b> {formatDate(item.ultimaAtividade)}</span>}
                   </div>

@@ -3,6 +3,7 @@ import baseCircunscricoes from "@/data/circunscricoes-base.json";
 import rules from "@/data/stage-rules.json";
 import { normalizeDioceseName } from "@/lib/normalize";
 import { getTrelloSnapshot } from "@/lib/trello";
+import { getRuntimeConfig } from "@/lib/env";
 import type {
   CircunscricaoBase,
   DashboardPayload,
@@ -76,8 +77,7 @@ export async function buildDashboard(): Promise<DashboardPayload> {
     .filter((item) => !participantKeys.has(normalizeDioceseName(item.nome)))
     .sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"));
 
-  const homologacaoCompletaDisponivel =
-    process.env.HOMOLOGACAO_COMPLETA_ENABLED?.toLowerCase() === "true";
+  const homologacaoCompletaDisponivel = getRuntimeConfig().homologacaoCompletaEnabled;
 
   const stages = STAGES.map((etapa, index) => {
     if (etapa === "Homologação completa" && !homologacaoCompletaDisponivel) {

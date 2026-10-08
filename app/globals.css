@@ -53,7 +53,7 @@ html[data-theme="dark"] {
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; background: var(--bg); color: var(--ink); transition: background-color .2s ease, color .2s ease; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Poppins", Arial, sans-serif; transition: background-color .2s ease, color .2s ease; }
 button, select { font: inherit; }
 button { color: inherit; }
 
@@ -101,7 +101,23 @@ h1 { font-size: 29px; line-height: 1.2; letter-spacing: -.55px; margin: 0; }
 .filter-box, .updated-box { background: var(--surface); border: 1px solid var(--line); border-radius: 11px; min-height: 57px; }
 .filter-box { padding: 7px 11px 6px; min-width: 210px; }
 .filter-box label, .updated-box span { display: block; font-size: 9px; text-transform: uppercase; letter-spacing: .06em; font-weight: 700; color: #8294a5; }
-.filter-box select { width: 100%; border: 0; outline: 0; background: transparent; color: var(--ink); padding: 3px 20px 0 0; font-size: 12px; }
+.filter-box select {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  padding: 3px 20px 0 0;
+  font-size: 12px;
+  color-scheme: light;
+}
+
+/* Native select menus need explicit option colors, especially on Windows/Chrome. */
+.filter-box select option,
+.filter-box select optgroup {
+  background: #ffffff;
+  color: #102f50;
+}
 .updated-box { margin-left: auto; padding: 8px 12px; min-width: 182px; }
 .updated-box strong { display: block; font-size: 11px; margin-top: 5px; }
 .logic-note { padding: 11px 13px; background: #eef8ff; border: 1px solid #cce9fb; color: #315d7c; border-radius: 11px; font-size: 11px; line-height: 1.55; margin-bottom: 14px; }
@@ -251,6 +267,23 @@ html[data-theme="dark"] .logic-note { background: #112b3d; border-color: #244e69
 html[data-theme="dark"] .progress-track > div, html[data-theme="dark"] .regional-track > div { background: linear-gradient(90deg, #168ed6, #65c4f7); }
 html[data-theme="dark"] .info-button { background: var(--surface); border-color: #356985; }
 html[data-theme="dark"] .source-pill, html[data-theme="dark"] .filter-box, html[data-theme="dark"] .updated-box { background: var(--surface); }
+html[data-theme="dark"] .filter-box select {
+  color: var(--ink);
+  background-color: var(--surface);
+  color-scheme: dark;
+}
+html[data-theme="dark"] .filter-box select option,
+html[data-theme="dark"] .filter-box select optgroup {
+  background-color: #14212c;
+  color: #edf5fa;
+}
+html[data-theme="dark"] .filter-box select:focus {
+  outline: none;
+}
+html[data-theme="dark"] .filter-box:focus-within {
+  border-color: #4d92ba;
+  box-shadow: 0 0 0 2px rgba(88, 185, 242, .14);
+}
 html[data-theme="dark"] .drawer-overlay { background: rgba(0,0,0,.5); }
 html[data-theme="dark"] .toast { background: #e8f4fb; color: #0d2639; }
 

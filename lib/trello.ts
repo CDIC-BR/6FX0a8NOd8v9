@@ -1,22 +1,20 @@
 import snapshot from "@/data/trello-snapshot.json";
+import { getRuntimeConfig } from "@/lib/env";
 import type { TrelloCard, TrelloList, TrelloSnapshot } from "@/lib/types";
 
 const API = "https://api.trello.com/1";
 
-function credentials() {
-  const key = process.env.TRELLO_API_KEY?.trim();
-  const token = process.env.TRELLO_TOKEN?.trim();
-  const boardId = process.env.TRELLO_BOARD_ID?.trim() || "KaACdOVE";
-  return { key, token, boardId };
-}
-
 async function trelloFetch<T>(path: string): Promise<T> {
-  const { key, token } = credentials();
-  if (!key || !token) throw new Error("Credenciais do Trello não configuradas.");
+  const config = getRuntimeConfig();
+  if (!config.credentialsConfigured || !config.key || !config.token) {
+    throw new Error(
+      "Credenciais do Trello não configuradas. Defina TRELLO_API_KEY e TRELLO_TOKEN."
+    );
+  }
 
   const url = new URL(`${API}${path}`);
-  url.searchParams.set("key", key);
-  url.searchParams.set("token", token);
+  url.searchParams.set("key", config.key);
+  url.searchParams.set("token", config.token);
 
   const response = await fetch(url, {
     method: "GET",
@@ -28,11 +26,13 @@ async function trelloFetch<T>(path: string): Promise<T> {
     const body = await response.text().catch(() => "");
     throw new Error(`Trello respondeu ${response.status}: ${body.slice(0, 180)}`);
   }
+
   return response.json() as Promise<T>;
 }
 
 export async function fetchLiveSnapshot(): Promise<TrelloSnapshot> {
-  const { boardId } = credentials();
+  const { boardId } = getRuntimeConfig();
+
   const [board, lists, cards] = await Promise.all([
     trelloFetch<{ id: string; name: string; shortLink: string; dateLastActivity?: string }>(
       `/boards/${encodeURIComponent(boardId)}?fields=id,name,shortLink,dateLastActivity`
@@ -60,6 +60,16 @@ export async function getTrelloSnapshot(): Promise<{
   source: "trello" | "snapshot";
   warning?: string;
 }> {
+  const config = getRuntimeConfig();
+
+  if (config.mode === "snapshot") {
+    return {
+      snapshot: snapshot as TrelloSnapshot,
+      source: "snapshot",
+      warning: "Modo snapshot foi solicitado por TRELLO_MODE.",
+    };
+  }
+
   try {
     const live = await fetchLiveSnapshot();
     return { snapshot: live, source: "trello" };

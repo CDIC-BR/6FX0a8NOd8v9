@@ -8,3 +8,7 @@ O snapshot não substitui a API em produção; serve para desenvolvimento e cont
 
 ### circunscricoes-base.json
 Base estática das 281 circunscrições (nome, Regional e Província) utilizada apenas para calcular e detalhar as circunscrições que ainda não participam do projeto. A participação continua sendo determinada pelos cartões das listas válidas do Trello.
+
+## Províncias e circunscrições sem província
+
+O filtro de Província é derivado da base completa `circunscricoes-base.json` (281 registros). A base contém 48 províncias e 6 circunscrições sem província eclesiástica; esses casos são exibidos no filtro como **Sem província**. Valores vazios não devem ser substituídos por códigos ou números.

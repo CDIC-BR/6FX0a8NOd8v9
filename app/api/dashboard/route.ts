@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { buildDashboard } from "@/lib/dashboard";
 
 export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 export async function GET() {
   const data = await buildDashboard();
