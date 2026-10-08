@@ -1,19 +1,31 @@
 {
-  "stageLists": {
+  "stageListIds": {
+    "6ab18c93e08ee185590b87d8": "Dioceses selecionadas",
+    "6ab18c93e08ee185590b87db": "Em diálogo",
+    "6ac3f3e220bb435f5f5987bf": "Dados recebidos",
+    "6ac3ff5bda22a8c77a754e09": "Dados parciais carregados",
+    "6ac3edf332b244d17e1a6344": "Homologação estrutural",
+    "6ab18c93e08ee185590b87dc": "Homologação completa"
+  },
+  "stageListNameAliases": {
     "Dioceses selecionadas": "Dioceses selecionadas",
     "Em diálogo": "Em diálogo",
     "Dados recebidos": "Dados recebidos",
-    "Dados carregados": "Dados carregados",
+    "Dados carregados": "Dados parciais carregados",
+    "Dados parciais carregados": "Dados parciais carregados",
     "Homologação estrutural": "Homologação estrutural",
     "Homologação completa": "Homologação completa"
   },
   "pilotLabel": "Piloto",
   "signedLabel": "Termo assinado",
+  "ignoredListIds": [
+    "6abbf0e0e560a05bfb43f828"
+  ],
   "ignoredLists": [
     "Acompanhamento",
     "Teste",
     "teste"
   ],
-  "classification": "list-only",
-  "notes": "A etapa é definida exclusivamente pela lista atual do cartão. Etiquetas não promovem etapa."
+  "classification": "list-id-first",
+  "notes": "A etapa é definida exclusivamente pela lista atual do cartão. O ID da lista é a referência principal; renomear a lista no Trello não quebra o dashboard. Etiquetas não promovem etapa."
 }

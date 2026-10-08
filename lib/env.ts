@@ -1,4 +1,4 @@
-export const APP_VERSION = "2026-10-08-clean-1";
+export const APP_VERSION = "2026-10-08-live-list-name-3";
 
 export type TrelloMode = "trello" | "snapshot";
 

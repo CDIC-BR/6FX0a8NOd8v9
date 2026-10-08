@@ -7,19 +7,17 @@ const STAGE_COLORS: Record<StageName, string> = {
   "Dioceses selecionadas": "#cbddea",
   "Em diálogo": "#8bc9ee",
   "Dados recebidos": "#55afe3",
-  "Dados carregados": "#278fcf",
+  "Dados parciais carregados": "#278fcf",
   "Homologação estrutural": "#077dcc",
   "Homologação completa": "#0b5f99",
 };
 
-const STAGE_COPY: Record<StageName, string> = {
-  "Dioceses selecionadas": "Dioceses cujo cartão está atualmente na lista Dioceses selecionadas do Trello.",
-  "Em diálogo": "Dioceses cujo cartão está atualmente na lista Em diálogo do Trello.",
-  "Dados recebidos": "Dioceses cujo cartão está atualmente na lista Dados recebidos do Trello.",
-  "Dados carregados": "Dioceses cujo cartão está atualmente na lista Dados carregados do Trello.",
-  "Homologação estrutural": "Dioceses cujo cartão está atualmente na lista Homologação estrutural do Trello.",
-  "Homologação completa": "Ainda não mensurável: após a homologação estrutural há envio completo + importação, e o importador ainda está em desenvolvimento.",
-};
+function stageCopy(stage: StageName, liveLabel: string) {
+  if (stage === "Homologação completa") {
+    return "Ainda não mensurável: após a homologação estrutural há envio completo + importação, e o importador ainda está em desenvolvimento.";
+  }
+  return `Dioceses cujo cartão está atualmente na lista ${liveLabel} do Trello.`;
+}
 
 type DrawerItem = {
   id: string;
@@ -28,6 +26,7 @@ type DrawerItem = {
   provincia: string;
   grupo?: string;
   etapa?: StageName;
+  etapaLabel?: string;
   termoAssinado?: boolean;
   labelDetails?: TrelloLabel[];
   trelloUrl?: string | null;
@@ -72,6 +71,7 @@ function asDrawerItem(item: DioceseDashboard): DrawerItem {
     provincia: item.provincia,
     grupo: item.grupo,
     etapa: item.etapa,
+    etapaLabel: item.etapaLabel,
     termoAssinado: item.termoAssinado,
     labelDetails: item.labelDetails,
     trelloUrl: item.trelloUrl,
@@ -146,7 +146,10 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
   async function refresh() {
     setLoading(true);
     try {
-      const response = await fetch("/api/dashboard", { cache: "no-store" });
+      const response = await fetch(`/api/dashboard?t=${Date.now()}`, {
+        cache: "no-store",
+        headers: { "Cache-Control": "no-cache" },
+      });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const fresh = (await response.json()) as DashboardPayload;
       setData(fresh);
@@ -159,8 +162,22 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
   }
 
   useEffect(() => {
-    const id = window.setInterval(refresh, 60 * 60 * 1000);
-    return () => window.clearInterval(id);
+    // Sincroniza alterações do Trello em até 60 segundos. Também atualiza
+    // quando a pessoa retorna para a aba, evitando depender de um refresh manual.
+    const id = window.setInterval(refresh, 60 * 1000);
+    const onFocus = () => refresh();
+    const onVisibility = () => {
+      if (document.visibilityState === "visible") refresh();
+    };
+
+    window.addEventListener("focus", onFocus);
+    document.addEventListener("visibilitychange", onVisibility);
+
+    return () => {
+      window.clearInterval(id);
+      window.removeEventListener("focus", onFocus);
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -262,6 +279,9 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
     return { ...stage, quantidade, percentual: pct(quantidade, total) };
   });
 
+  const stageLabel = (stage: StageName) =>
+    stageSummaries.find((item) => item.etapa === stage)?.rotulo || stage;
+
   const donutGradient = useMemo(() => {
     let cursor = 0;
     const parts: string[] = [];
@@ -295,10 +315,10 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
 
   const maxRegional = Math.max(1, ...regionalSummary.map((r) => r.total));
   const dialogueNoData = alphaSort(filtered.filter((d) => d.etapa === "Em diálogo"));
-  const pilotNoActive = alphaSort(filtered.filter((d) => d.grupo === "Piloto" && d.etapa === "Dados carregados"));
+  const pilotNoActive = alphaSort(filtered.filter((d) => d.grupo === "Piloto" && d.etapa === "Dados parciais carregados"));
   const pendingTerms = alphaSort(filtered.filter((d) => !d.termoAssinado));
   const pilotStructural = alphaSort(pilots.filter((d) => d.etapaOrdem >= 5));
-  const pilotLoaded = alphaSort(pilots.filter((d) => d.etapa === "Dados carregados"));
+  const pilotLoaded = alphaSort(pilots.filter((d) => d.etapa === "Dados parciais carregados"));
   const pilotSigned = alphaSort(pilots.filter((d) => d.termoAssinado));
 
   const drawerDetailSummary = useMemo(() => {
@@ -358,7 +378,7 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
           <img className="brand-logo" src="/logo.svg" alt="CDIC-BR" />
           <div className="brand-copy">
             <strong>CDIC-BR</strong>
-            <span>Acompanhamento</span>
+            <span>Edições CNBB</span>
           </div>
           <button className="collapse-button desktop-only" onClick={() => setSidebarCollapsed((v) => !v)} aria-label="Recolher menu">
             {sidebarCollapsed ? "›" : "‹"}
@@ -385,8 +405,8 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
       <main className="main-content">
         <section className="page-header">
           <div>
-            <div className="eyebrow">GESTÃO DE PARTICIPAÇÃO</div>
-            <h1>Acompanhamento da participação das dioceses</h1>
+            <div className="eyebrow">Acompanhamento de participação</div>
+            <h1>Dioceses e o Centro de Dados da Igreja Católica no Brasil</h1>
           </div>
           <div className="header-actions">
             <button className="theme-button" onClick={toggleTheme} aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"} title={theme === "dark" ? "Modo claro" : "Modo escuro"}>
@@ -470,8 +490,8 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
             {stageSummaries.map((stage, index) => {
               const items = filtered.filter((d) => d.etapa === stage.etapa);
               const action = () => stage.disponivel
-                ? openList(stage.etapa, items, STAGE_COPY[stage.etapa])
-                : openInfo(stage.etapa, STAGE_COPY[stage.etapa]);
+                ? openList(stage.rotulo, items, stageCopy(stage.etapa, stage.rotulo))
+                : openInfo(stage.rotulo, stageCopy(stage.etapa, stage.rotulo));
               return (
                 <article
                   className={`stage-card clickable-card ${!stage.disponivel ? "unavailable" : ""}`}
@@ -480,11 +500,11 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
                   tabIndex={0}
                   onClick={action}
                   onKeyDown={(event) => activateOnKeyboard(event, action)}
-                  aria-label={`Abrir detalhamento de ${stage.etapa}`}
+                  aria-label={`Abrir detalhamento de ${stage.rotulo}`}
                 >
                   <div className="stage-title-row">
-                    <span>{stage.etapa}</span>
-                    <span className="info-badge" title={STAGE_COPY[stage.etapa]} aria-label={STAGE_COPY[stage.etapa]}>i</span>
+                    <span>{stage.rotulo}</span>
+                    <span className="info-badge" title={stageCopy(stage.etapa, stage.rotulo)} aria-label={stageCopy(stage.etapa, stage.rotulo)}>i</span>
                   </div>
                   <strong className="stage-number">{stage.disponivel ? stage.quantidade : "N/D"}</strong>
                   <span className="stage-percent">{stage.disponivel ? `${Math.round(stage.percentual || 0)}% das participantes` : "Ainda não mensurável"}</span>
@@ -510,9 +530,9 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
                     <button
                       className={`legend-row ${!stage.disponivel ? "disabled" : ""}`}
                       key={stage.etapa}
-                      onClick={() => stage.disponivel ? openList(stage.etapa, items, STAGE_COPY[stage.etapa]) : openInfo(stage.etapa, STAGE_COPY[stage.etapa])}
+                      onClick={() => stage.disponivel ? openList(stage.rotulo, items, stageCopy(stage.etapa, stage.rotulo)) : openInfo(stage.rotulo, stageCopy(stage.etapa, stage.rotulo))}
                     >
-                      <span><i style={{ background: stage.disponivel ? STAGE_COLORS[stage.etapa] : "#eef3f7" }} />{stage.etapa}</span>
+                      <span><i style={{ background: stage.disponivel ? STAGE_COLORS[stage.etapa] : "#eef3f7" }} />{stage.rotulo}</span>
                       <strong>{stage.disponivel ? `${stage.quantidade} · ${Math.round(stage.percentual || 0)}%` : "N/D"}</strong>
                     </button>
                   );
@@ -525,8 +545,8 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
             <div className="panel-heading"><div><h2>Dioceses piloto</h2></div></div>
             <div className="pilot-grid">
               <PilotCard value={`${pilots.length}/${total}`} label="dioceses piloto dentre as participantes" onClick={() => openList("Dioceses piloto", pilots)} />
-              <PilotCard value={`${pilotStructural.length}/${pilots.length || 0}`} label={`estrutura homologada · ${pilots.length ? Math.round(pct(pilotStructural.length, pilots.length)) : 0}%`} onClick={() => openList("Piloto · estrutura homologada", pilotStructural)} />
-              <PilotCard value={`${pilotLoaded.length}/${pilots.length || 0}`} label="ainda na etapa de dados carregados · sem diálogo" onClick={() => openList("Piloto · dados carregados e sem diálogo", pilotLoaded)} />
+              <PilotCard value={`${pilotStructural.length}/${pilots.length || 0}`} label={`${stageLabel("Homologação estrutural").toLocaleLowerCase("pt-BR")} · ${pilots.length ? Math.round(pct(pilotStructural.length, pilots.length)) : 0}%`} onClick={() => openList(`Piloto · ${stageLabel("Homologação estrutural")}`, pilotStructural)} />
+              <PilotCard value={`${pilotLoaded.length}/${pilots.length || 0}`} label={`ainda na etapa de ${stageLabel("Dados parciais carregados").toLocaleLowerCase("pt-BR")} · sem diálogo`} onClick={() => openList(`Piloto · ${stageLabel("Dados parciais carregados")} e sem diálogo`, pilotLoaded)} />
               <PilotCard value={`${pilotSigned.length}/${pilots.length || 0}`} label="termos assinados" onClick={() => openList("Piloto · termos assinados", pilotSigned)} />
             </div>
             <div className="pilot-note"><strong>Observação:</strong> o grupo piloto integra o panorama geral, mas ingressou antes do fluxo atual e pode aparecer diretamente em etapas avançadas.</div>
@@ -550,10 +570,10 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
           <article className="panel attention-panel">
             <div className="panel-heading"><div><h2>Pontos de atenção para a liderança</h2></div></div>
             <div className="attention-list">
-              <AttentionItem number={dialogueNoData.length} title="Em diálogo, mas sem avanço para envio de dados" text="Dioceses em articulação que ainda não avançaram para Dados recebidos." onClick={() => openList("Em diálogo sem avanço para dados", dialogueNoData)} />
-              <AttentionItem number={pilotNoActive.length} title="Dioceses piloto sem contato ativo" text="Pilotos que permanecem na etapa de Dados carregados na fotografia atual." onClick={() => openList("Piloto sem contato ativo", pilotNoActive)} />
-              <AttentionItem number={pendingTerms.length} title="Termos ainda não assinados" text={`${signed} de ${total} participantes do processo CDIC-BR têm termo assinado.`} onClick={() => openList("Dioceses sem termo assinado", pendingTerms)} />
-              <AttentionItem number="—" title="Homologação completa ainda não é mensurável" text="Após a estrutura ser validada, ainda há envio completo + importação. O importador permanece em desenvolvimento." onClick={() => openInfo("Homologação completa", STAGE_COPY["Homologação completa"])} />
+              <AttentionItem number={dialogueNoData.length} title={`${stageLabel("Em diálogo")}, mas sem avanço para envio de dados`} text={`Dioceses em articulação que ainda não avançaram para ${stageLabel("Dados recebidos")}.`} onClick={() => openList(`${stageLabel("Em diálogo")} sem avanço para dados`, dialogueNoData)} />
+              <AttentionItem number={pilotNoActive.length} title="Dioceses piloto sem contato ativo" text={`Pilotos que permanecem na etapa de ${stageLabel("Dados parciais carregados")} e não retornaram as tentativas de contato.`} onClick={() => openList("Piloto sem contato ativo", pilotNoActive)} />
+              <AttentionItem number={pendingTerms.length} title="Termos ainda não assinados" text={`${signed} de ${total} Dioceses participantes do processo CDIC-BR têm termo assinado.`} onClick={() => openList("Dioceses sem termo assinado", pendingTerms)} />
+              <AttentionItem number="—" title={`${stageLabel("Homologação completa")} ainda não é mensurável`} text="Após a estrutura ser validada, ainda há envio completo + importação. O importador permanece em desenvolvimento." onClick={() => openInfo(stageLabel("Homologação completa"), stageCopy("Homologação completa", stageLabel("Homologação completa")))} />
             </div>
           </article>
         </section>
@@ -597,7 +617,7 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
                 <article className="drawer-item" key={item.id}>
                   <div className="drawer-item-top">
                     <strong>{item.nome}</strong>
-                    {item.etapa && <span className="stage-chip">{item.etapa}</span>}
+                    {item.etapa && <span className="stage-chip">{item.etapaLabel || item.etapa}</span>}
                   </div>
                   <div className="drawer-meta">
                     <span><b>Regional:</b> {item.regional}</span>

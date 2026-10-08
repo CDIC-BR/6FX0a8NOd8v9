@@ -283,3 +283,21 @@ A versão anexada anteriormente continha um `.env.local`. Esta entrega foi higie
 ## Correção dos filtros no modo escuro
 
 Os seletores de Regional e Província possuem agora `color-scheme` e cores explícitas para `option`/`optgroup`, evitando lista branca com texto claro em Windows/Chrome.
+
+
+## Listas do Trello: classificação por ID
+
+A etapa do dashboard agora usa o **ID da lista do Trello** como referência principal. Por isso, renomear uma lista no Trello não exige novo deploy.
+
+A lista `6ac3ff5bda22a8c77a754e09`, antes chamada **Dados carregados**, está mapeada para a etapa **Dados parciais carregados**.
+
+O nome da lista é usado apenas como fallback de compatibilidade. A lista **Acompanhamento** continua ignorada.
+
+
+## Renomear listas no Trello
+
+A partir da versão `2026-10-08-live-list-name-3`, o ID da lista é usado apenas para manter a classificação da etapa estável. O nome exibido no dashboard vem sempre do nome atual da lista retornado pela API do Trello.
+
+O dashboard atualiza automaticamente a cada 60 segundos, ao voltar para a aba e pelo botão Atualizar. Não é necessário novo deploy apenas para renomear uma lista existente.
+
+Para confirmar que a leitura é ao vivo, consulte `/api/trello/status`: `source` deve ser `trello`, e `stageMapping` mostra os nomes atuais das listas.

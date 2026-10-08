@@ -16,7 +16,7 @@ const STAGES: StageName[] = [
   "Dioceses selecionadas",
   "Em diálogo",
   "Dados recebidos",
-  "Dados carregados",
+  "Dados parciais carregados",
   "Homologação estrutural",
   "Homologação completa",
 ];
@@ -24,28 +24,40 @@ const STAGES: StageName[] = [
 const RANK = Object.fromEntries(STAGES.map((s, i) => [s, i + 1])) as Record<StageName, number>;
 const BASE_TOTAL = 281;
 
-function isStageName(value: string): value is StageName {
-  return STAGES.includes(value as StageName);
-}
+function deriveStage(listId: string, listName: string): StageName | null {
+  // A etapa atual é definida exclusivamente pela LISTA do cartão no Trello.
+  // Usamos primeiro o ID da lista, que permanece estável mesmo quando o nome é alterado.
+  // O nome é mantido apenas como fallback para snapshots antigos ou novas instalações.
+  const byId = (rules.stageListIds as Record<string, StageName | undefined>)[listId];
+  if (byId) return byId;
 
-function deriveStage(listName: string): StageName {
-  // A etapa atual é definida exclusivamente pela lista em que o cartão está no Trello.
-  // Etiquetas são informativas e não promovem o cartão para outra etapa.
-  return isStageName(listName) ? listName : "Dioceses selecionadas";
+  const byName = (rules.stageListNameAliases as Record<string, StageName | undefined>)[listName];
+  return byName || null;
 }
 
 export async function buildDashboard(): Promise<DashboardPayload> {
   const { snapshot, source, warning } = await getTrelloSnapshot();
   const listById = new Map(snapshot.lists.map((list) => [list.id, list.name]));
   const metaByKey = new Map((metadata as DioceseMeta[]).map((item) => [item.key, item]));
-  const validLists = new Set(Object.values(rules.stageLists));
   const ignoredLists = new Set(rules.ignoredLists || []);
+  const ignoredListIds = new Set(rules.ignoredListIds || []);
+
+  // O ID da lista define a etapa de negócio. O nome exibido vem SEMPRE do
+  // nome atual da lista retornado pelo Trello. Assim, renomear uma lista
+  // não quebra a classificação e também é refletido automaticamente na UI.
+  const stageDisplayNames = new Map<StageName, string>();
+  for (const [listId, semanticStage] of Object.entries(
+    rules.stageListIds as Record<string, StageName>
+  )) {
+    stageDisplayNames.set(semanticStage, listById.get(listId) || semanticStage);
+  }
 
   const dioceses: DioceseDashboard[] = snapshot.cards
     .filter((card) => !card.closed)
     .filter((card) => {
       const listName = listById.get(card.idList) || "";
-      return !ignoredLists.has(listName) && validLists.has(listName);
+      if (ignoredListIds.has(card.idList) || ignoredLists.has(listName)) return false;
+      return deriveStage(card.idList, listName) !== null;
     })
     .map((card) => {
       const listName = listById.get(card.idList) || "";
@@ -53,7 +65,7 @@ export async function buildDashboard(): Promise<DashboardPayload> {
       const meta = metaByKey.get(key);
       const labels = (card.labels || []).map((label) => label.name).filter(Boolean);
       const isPilot = labels.includes(rules.pilotLabel);
-      const stage = deriveStage(listName);
+      const stage = deriveStage(card.idList, listName)!;
 
       return {
         id: card.id,
@@ -62,6 +74,7 @@ export async function buildDashboard(): Promise<DashboardPayload> {
         provincia: meta?.provincia || "Não informado",
         grupo: isPilot ? "Piloto" : meta?.grupo || "Ciclo atual",
         etapa: stage,
+        etapaLabel: listName || stageDisplayNames.get(stage) || stage,
         etapaOrdem: RANK[stage],
         termoAssinado: labels.includes(rules.signedLabel),
         labels,
@@ -81,11 +94,19 @@ export async function buildDashboard(): Promise<DashboardPayload> {
 
   const stages = STAGES.map((etapa, index) => {
     if (etapa === "Homologação completa" && !homologacaoCompletaDisponivel) {
-      return { etapa, ordem: index + 1, quantidade: null, percentual: null, disponivel: false };
+      return {
+        etapa,
+        rotulo: stageDisplayNames.get(etapa) || etapa,
+        ordem: index + 1,
+        quantidade: null,
+        percentual: null,
+        disponivel: false,
+      };
     }
     const quantidade = dioceses.filter((d) => d.etapa === etapa).length;
     return {
       etapa,
+      rotulo: stageDisplayNames.get(etapa) || etapa,
       ordem: index + 1,
       quantidade,
       percentual: dioceses.length ? (quantidade / dioceses.length) * 100 : 0,
@@ -95,7 +116,7 @@ export async function buildDashboard(): Promise<DashboardPayload> {
 
   return {
     source,
-    sourceLabel: source === "trello" ? "Trello · tempo real" : "Snapshot do Trello",
+    sourceLabel: source === "trello" ? "informações atualizadas" : "Snapshot do Trello",
     warning,
     generatedAt: new Date().toISOString(),
     boardLastActivity: snapshot.dateLastActivity,

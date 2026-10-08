@@ -2,7 +2,7 @@ export type StageName =
   | "Dioceses selecionadas"
   | "Em diálogo"
   | "Dados recebidos"
-  | "Dados carregados"
+  | "Dados parciais carregados"
   | "Homologação estrutural"
   | "Homologação completa";
 
@@ -62,6 +62,7 @@ export interface DioceseDashboard {
   provincia: string;
   grupo: GroupName;
   etapa: StageName;
+  etapaLabel: string;
   etapaOrdem: number;
   termoAssinado: boolean;
   labels: string[];
@@ -72,6 +73,7 @@ export interface DioceseDashboard {
 
 export interface StageSummary {
   etapa: StageName;
+  rotulo: string;
   ordem: number;
   quantidade: number | null;
   percentual: number | null;
