@@ -18,9 +18,9 @@ const themeBootstrap = `
 })();`;
 
 export const metadata: Metadata = {
-  title: "CDIC-BR · Acompanhamento das dioceses",
+  title: "CDIC-BR - Evolução das Dioceses",
   description: "Painel executivo de acompanhamento da participação das dioceses no CDIC-BR.",
-  icons: { icon: "/logo.svg" },
+  icons: { icon: "/logo_normal.svg" },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
