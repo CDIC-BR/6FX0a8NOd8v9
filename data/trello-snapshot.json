@@ -1,0 +1,770 @@
+{
+  "boardId": "6ab18c93e08ee185590b87dd",
+  "boardName": "Acompanhamento de assinaturas do Termo de Adesão",
+  "shortLink": "KaACdOVE",
+  "dateLastActivity": "2026-10-07T16:08:03.218Z",
+  "lists": [
+    {
+      "id": "6abbf0e0e560a05bfb43f828",
+      "name": "Acompanhamento",
+      "closed": false
+    },
+    {
+      "id": "6ab18c93e08ee185590b87d8",
+      "name": "Dioceses selecionadas",
+      "closed": false
+    },
+    {
+      "id": "6ab18c93e08ee185590b87db",
+      "name": "Em diálogo",
+      "closed": false
+    },
+    {
+      "id": "6ac3f3e220bb435f5f5987bf",
+      "name": "Dados recebidos",
+      "closed": false
+    },
+    {
+      "id": "6ac3ff5bda22a8c77a754e09",
+      "name": "Dados carregados",
+      "closed": false
+    },
+    {
+      "id": "6ac3edf332b244d17e1a6344",
+      "name": "Homologação estrutural",
+      "closed": false
+    },
+    {
+      "id": "6ab18c93e08ee185590b87dc",
+      "name": "Homologação completa",
+      "closed": false
+    }
+  ],
+  "cards": [
+    {
+      "id": "6abc14fac99c125631622f73",
+      "name": "Diocese de Pesqueira - PE",
+      "idList": "6ab18c93e08ee185590b87d8",
+      "closed": false,
+      "labels": [],
+      "dateLastActivity": "2026-10-07T15:42:14.106Z",
+      "url": "https://trello.com/c/oWIZccrO/43-diocese-de-pesqueira-pe"
+    },
+    {
+      "id": "6abcef0df4ca8cd19d13f6d8",
+      "name": "Diocese de Cornélio Procópio - PR",
+      "idList": "6ab18c93e08ee185590b87d8",
+      "closed": false,
+      "labels": [],
+      "dateLastActivity": "2026-09-30T11:14:21.959Z",
+      "url": "https://trello.com/c/KEp2Cj1c/46-diocese-de-corn%C3%A9lio-proc%C3%B3pio-pr"
+    },
+    {
+      "id": "6abcef219bde7ced78229f82",
+      "name": "Diocese de Jacarezinho - PR",
+      "idList": "6ab18c93e08ee185590b87d8",
+      "closed": false,
+      "labels": [],
+      "dateLastActivity": "2026-09-30T11:14:41.135Z",
+      "url": "https://trello.com/c/vxqFeKyo/47-diocese-de-jacarezinho-pr"
+    },
+    {
+      "id": "6abcef3be33ff7800054e42a",
+      "name": "Diocese de Ituiutaba - MG",
+      "idList": "6ab18c93e08ee185590b87d8",
+      "closed": false,
+      "labels": [],
+      "dateLastActivity": "2026-09-30T11:15:07.506Z",
+      "url": "https://trello.com/c/4gx7uakX/48-diocese-de-ituiutaba-mg"
+    },
+    {
+      "id": "6abcef976c806e2762993dfb",
+      "name": "Diocese de Uberlândia - MG",
+      "idList": "6ab18c93e08ee185590b87d8",
+      "closed": false,
+      "labels": [],
+      "dateLastActivity": "2026-09-30T11:16:39.237Z",
+      "url": "https://trello.com/c/QtGncmD3/49-diocese-de-uberl%C3%A2ndia-mg"
+    },
+    {
+      "id": "6abcefb7bcd2b004fc2e7cba",
+      "name": "Diocese de Cachoeira do Sul - RS",
+      "idList": "6ab18c93e08ee185590b87d8",
+      "closed": false,
+      "labels": [],
+      "dateLastActivity": "2026-09-30T11:17:12.000Z",
+      "url": "https://trello.com/c/ZD8MrjD6/50-diocese-de-cachoeira-do-sul-rs"
+    },
+    {
+      "id": "6abcefc2f5c613beae49bdbc",
+      "name": "Diocese de Cruz Alta - RS",
+      "idList": "6ab18c93e08ee185590b87d8",
+      "closed": false,
+      "labels": [],
+      "dateLastActivity": "2026-09-30T11:17:22.992Z",
+      "url": "https://trello.com/c/UviBCSoW/51-diocese-de-cruz-alta-rs"
+    },
+    {
+      "id": "6abcefcbf5af35ca3d83b019",
+      "name": "Diocese de Santa Cruz do Sul - RS -",
+      "idList": "6ab18c93e08ee185590b87d8",
+      "closed": false,
+      "labels": [],
+      "dateLastActivity": "2026-09-30T11:17:31.624Z",
+      "url": "https://trello.com/c/3hLg5Ssw/52-diocese-de-santa-cruz-do-sul-rs"
+    },
+    {
+      "id": "6abcefd3e51e545f0e122eaa",
+      "name": "Diocese de Santo Ângelo - RS",
+      "idList": "6ab18c93e08ee185590b87d8",
+      "closed": false,
+      "labels": [],
+      "dateLastActivity": "2026-09-30T11:17:39.561Z",
+      "url": "https://trello.com/c/F8vQgjlO/53-diocese-de-santo-%C3%A2ngelo-rs"
+    },
+    {
+      "id": "6abcefde834cfe2454820f70",
+      "name": "Diocese de Uruguaiana - RS",
+      "idList": "6ab18c93e08ee185590b87d8",
+      "closed": false,
+      "labels": [],
+      "dateLastActivity": "2026-09-30T11:17:50.966Z",
+      "url": "https://trello.com/c/SQ5hNEBG/54-diocese-de-uruguaiana-rs"
+    },
+    {
+      "id": "6abbd7e07dc52a398ca1ca9f",
+      "name": "Diocese de Afogados da Ingazeira - PE",
+      "idList": "6ab18c93e08ee185590b87db",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a3",
+          "name": "Termo enviado",
+          "color": "red"
+        }
+      ],
+      "dateLastActivity": "2026-10-07T16:07:35.681Z",
+      "url": "https://trello.com/c/trFxpKRo/30-diocese-de-afogados-da-ingazeira-pe"
+    },
+    {
+      "id": "6abbff4fbca1a10faac1c53b",
+      "name": "Diocese de Caruaru - PE",
+      "idList": "6ab18c93e08ee185590b87db",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a3",
+          "name": "Termo enviado",
+          "color": "red"
+        }
+      ],
+      "dateLastActivity": "2026-10-07T16:07:37.150Z",
+      "url": "https://trello.com/c/Fg9c1Qpj/40-diocese-de-caruaru-pe"
+    },
+    {
+      "id": "6abbfd2cfceafdad184906a8",
+      "name": "Diocese de Floresta - PE",
+      "idList": "6ab18c93e08ee185590b87db",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a3",
+          "name": "Termo enviado",
+          "color": "red"
+        }
+      ],
+      "dateLastActivity": "2026-10-07T16:07:39.161Z",
+      "url": "https://trello.com/c/mYb8UDfP/39-diocese-de-floresta-pe"
+    },
+    {
+      "id": "6abc0f0eaba45b6d0f1d6cfb",
+      "name": "Diocese de Palmares - PE",
+      "idList": "6ab18c93e08ee185590b87db",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a3",
+          "name": "Termo enviado",
+          "color": "red"
+        }
+      ],
+      "dateLastActivity": "2026-10-07T16:07:45.429Z",
+      "url": "https://trello.com/c/FVhwXNiq/42-diocese-de-palmares-pe"
+    },
+    {
+      "id": "6abc17783899941d40fd5dc0",
+      "name": "Diocese de Petrolina - PE",
+      "idList": "6ab18c93e08ee185590b87db",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a3",
+          "name": "Termo enviado",
+          "color": "red"
+        }
+      ],
+      "dateLastActivity": "2026-10-07T16:07:48.434Z",
+      "url": "https://trello.com/c/KZTroIqe/44-diocese-de-petrolina-pe"
+    },
+    {
+      "id": "6abbd7a689eed332c59c3275",
+      "name": "Diocese de Uruaçu - GO",
+      "idList": "6ab18c93e08ee185590b87db",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a3",
+          "name": "Termo enviado",
+          "color": "red"
+        }
+      ],
+      "dateLastActivity": "2026-10-07T16:07:53.529Z",
+      "url": "https://trello.com/c/p6Dp4GQ4/29-diocese-de-urua%C3%A7u-go"
+    },
+    {
+      "id": "6ab2d874f4006c1eeec5b58c",
+      "name": "Diocese Campina Grande - PB",
+      "idList": "6ab18c93e08ee185590b87db",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a6",
+          "name": "Termo assinado",
+          "color": "blue"
+        },
+        {
+          "id": "6ab18c93e08ee185590b88a7",
+          "name": "Aguardando envio da divisão territorial",
+          "color": "green"
+        }
+      ],
+      "dateLastActivity": "2026-10-07T16:07:20.939Z",
+      "url": "https://trello.com/c/efCPLRDy/8-diocese-campina-grande-pb"
+    },
+    {
+      "id": "6ab2d882224975f1d1c97d58",
+      "name": "Diocese Ipameri - GO",
+      "idList": "6ab18c93e08ee185590b87db",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a6",
+          "name": "Termo assinado",
+          "color": "blue"
+        },
+        {
+          "id": "6ab18c93e08ee185590b88a7",
+          "name": "Aguardando envio da divisão territorial",
+          "color": "green"
+        }
+      ],
+      "dateLastActivity": "2026-10-07T16:07:59.208Z",
+      "url": "https://trello.com/c/EDGkU1af/9-diocese-ipameri-go"
+    },
+    {
+      "id": "6ab2d9b0611061ed5842d37d",
+      "name": "Diocese Sete Lagoas - MG",
+      "idList": "6ab18c93e08ee185590b87db",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a6",
+          "name": "Termo assinado",
+          "color": "blue"
+        },
+        {
+          "id": "6ab18c93e08ee185590b88a7",
+          "name": "Aguardando envio da divisão territorial",
+          "color": "green"
+        }
+      ],
+      "dateLastActivity": "2026-10-07T16:08:03.218Z",
+      "url": "https://trello.com/c/8krjDNaP/23-diocese-sete-lagoas-mg"
+    },
+    {
+      "id": "6abbb1b7c6dd8fb5186f0e57",
+      "name": "Diocese de Formosa - GO",
+      "idList": "6ab18c93e08ee185590b87db",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a6",
+          "name": "Termo assinado",
+          "color": "blue"
+        },
+        {
+          "id": "6ab18c93e08ee185590b88a4",
+          "name": "Divisão cadastrada",
+          "color": "green_dark"
+        }
+      ],
+      "dateLastActivity": "2026-10-07T15:43:03.442Z",
+      "url": "https://trello.com/c/Lc35FYb8/28-diocese-de-formosa-go"
+    },
+    {
+      "id": "6ab2d8b6b36820d9cdcca0be",
+      "name": "Diocese de Jundiaí - SP",
+      "idList": "6ab18c93e08ee185590b87db",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a6",
+          "name": "Termo assinado",
+          "color": "blue"
+        },
+        {
+          "id": "6ab18c93e08ee185590b88a4",
+          "name": "Divisão cadastrada",
+          "color": "green_dark"
+        }
+      ],
+      "dateLastActivity": "2026-10-06T19:04:05.117Z",
+      "url": "https://trello.com/c/oxKRAHWY/10-diocese-de-jundia%C3%AD-sp"
+    },
+    {
+      "id": "6abc0953f2a82143137ca9de",
+      "name": "Diocese de Nazaré -PE",
+      "idList": "6ab18c93e08ee185590b87db",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a6",
+          "name": "Termo assinado",
+          "color": "blue"
+        },
+        {
+          "id": "6ab18c93e08ee185590b88a4",
+          "name": "Divisão cadastrada",
+          "color": "green_dark"
+        }
+      ],
+      "dateLastActivity": "2026-10-05T19:06:06.629Z",
+      "url": "https://trello.com/c/b7UuMVTo/41-diocese-de-nazar%C3%A9-pe"
+    },
+    {
+      "id": "6abc19082546b0656c36ab84",
+      "name": "Diocese de Salgueiro - PE",
+      "idList": "6ab18c93e08ee185590b87db",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a6",
+          "name": "Termo assinado",
+          "color": "blue"
+        },
+        {
+          "id": "6ab18c93e08ee185590b88a4",
+          "name": "Divisão cadastrada",
+          "color": "green_dark"
+        }
+      ],
+      "dateLastActivity": "2026-10-07T16:07:20.939Z",
+      "url": "https://trello.com/c/bdKsnLOH/45-diocese-de-salgueiro-pe"
+    },
+    {
+      "id": "6ab57b15c76b797e0e6947c8",
+      "name": "Diocese de Umuarama - PR",
+      "idList": "6ab18c93e08ee185590b87db",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a6",
+          "name": "Termo assinado",
+          "color": "blue"
+        },
+        {
+          "id": "6ab18c93e08ee185590b88a4",
+          "name": "Divisão cadastrada",
+          "color": "green_dark"
+        }
+      ],
+      "dateLastActivity": "2026-10-07T16:07:20.939Z",
+      "url": "https://trello.com/c/VdDz8jw4/27-diocese-de-umuarama-pr"
+    },
+    {
+      "id": "6ab2d9b886b7013480e1ac1d",
+      "name": "Arquidiocese de São Sebastião do Rio de Janeiro - RJ",
+      "idList": "6ab18c93e08ee185590b87db",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a6",
+          "name": "Termo assinado",
+          "color": "blue"
+        }
+      ],
+      "dateLastActivity": "2026-10-07T16:07:41.526Z",
+      "url": "https://trello.com/c/I1bMSC9C/24-arquidiocese-de-s%C3%A3o-sebasti%C3%A3o-do-rio-de-janeiro-rj"
+    },
+    {
+      "id": "6ab2d8d906c7ca6a5488d473",
+      "name": "Arquidiocese de Porto Alegre - RS",
+      "idList": "6ac3ff5bda22a8c77a754e09",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a8",
+          "name": "Piloto",
+          "color": "yellow_dark"
+        }
+      ],
+      "dateLastActivity": "2026-10-06T13:06:31.189Z",
+      "url": "https://trello.com/c/uKwhcD8p/11-arquidiocese-de-porto-alegre-rs"
+    },
+    {
+      "id": "6ab1908ebfbec8c5226420f1",
+      "name": "Arquidiocese de Porto Velho - RO",
+      "idList": "6ac3ff5bda22a8c77a754e09",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a8",
+          "name": "Piloto",
+          "color": "yellow_dark"
+        }
+      ],
+      "dateLastActivity": "2026-10-06T13:06:32.359Z",
+      "url": "https://trello.com/c/yxtsSqgk/3-arquidiocese-de-porto-velho-ro"
+    },
+    {
+      "id": "6ab2d981897217d49f7864dd",
+      "name": "Diocese de Camaçari - BA",
+      "idList": "6ac3ff5bda22a8c77a754e09",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a8",
+          "name": "Piloto",
+          "color": "yellow_dark"
+        }
+      ],
+      "dateLastActivity": "2026-10-06T13:06:33.863Z",
+      "url": "https://trello.com/c/lF9jTOpF/19-diocese-de-cama%C3%A7ari-ba"
+    },
+    {
+      "id": "6ab2d8f580ba0e5ed7a3dc6e",
+      "name": "Diocese de Garanhuns - PE",
+      "idList": "6ac3ff5bda22a8c77a754e09",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a8",
+          "name": "Piloto",
+          "color": "yellow_dark"
+        }
+      ],
+      "dateLastActivity": "2026-10-06T13:06:35.278Z",
+      "url": "https://trello.com/c/BIciGwdf/12-diocese-de-garanhuns-pe"
+    },
+    {
+      "id": "6ab190850dc1d2beae310490",
+      "name": "Diocese de Miracema do Tocantins - TO",
+      "idList": "6ac3ff5bda22a8c77a754e09",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a8",
+          "name": "Piloto",
+          "color": "yellow_dark"
+        }
+      ],
+      "dateLastActivity": "2026-10-06T13:06:36.915Z",
+      "url": "https://trello.com/c/9axZ67L3/2-diocese-de-miracema-do-tocantins-to"
+    },
+    {
+      "id": "6ab1907a8b6adb743eb3c42c",
+      "name": "Diocese de Patos de Minas - MG",
+      "idList": "6ac3ff5bda22a8c77a754e09",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a8",
+          "name": "Piloto",
+          "color": "yellow_dark"
+        }
+      ],
+      "dateLastActivity": "2026-10-06T13:06:38.367Z",
+      "url": "https://trello.com/c/an4lleoe/1-diocese-de-patos-de-minas-mg"
+    },
+    {
+      "id": "6ab190a0956e169e5701b662",
+      "name": "Arquidiocese de Londrina - PR",
+      "idList": "6ac3edf332b244d17e1a6344",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a8",
+          "name": "Piloto",
+          "color": "yellow_dark"
+        },
+        {
+          "id": "6ab18c93e08ee185590b88a6",
+          "name": "Termo assinado",
+          "color": "blue"
+        }
+      ],
+      "dateLastActivity": "2026-10-05T18:53:19.255Z",
+      "url": "https://trello.com/c/auuTPYZx/5-arquidiocese-de-londrina-pr"
+    },
+    {
+      "id": "6ab2d91c61412c201265337f",
+      "name": "Arquidiocese de Santa Maria - RS",
+      "idList": "6ac3edf332b244d17e1a6344",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a8",
+          "name": "Piloto",
+          "color": "yellow_dark"
+        },
+        {
+          "id": "6ab18c93e08ee185590b88a6",
+          "name": "Termo assinado",
+          "color": "blue"
+        }
+      ],
+      "dateLastActivity": "2026-10-05T18:53:27.578Z",
+      "url": "https://trello.com/c/cMf6MTid/13-arquidiocese-de-santa-maria-rs"
+    },
+    {
+      "id": "6ab2d96b0de27e863dc9a09c",
+      "name": "Arquidiocese de Uberaba - MG",
+      "idList": "6ac3edf332b244d17e1a6344",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a8",
+          "name": "Piloto",
+          "color": "yellow_dark"
+        },
+        {
+          "id": "6ab18c93e08ee185590b88a6",
+          "name": "Termo assinado",
+          "color": "blue"
+        }
+      ],
+      "dateLastActivity": "2026-10-05T18:53:38.103Z",
+      "url": "https://trello.com/c/CDGRASYf/17-arquidiocese-de-uberaba-mg"
+    },
+    {
+      "id": "6ab2d93ab102829d57dfd1e4",
+      "name": "Diocese de Petrópolis - RJ",
+      "idList": "6ac3edf332b244d17e1a6344",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a8",
+          "name": "Piloto",
+          "color": "yellow_dark"
+        },
+        {
+          "id": "6ab18c93e08ee185590b88a6",
+          "name": "Termo assinado",
+          "color": "blue"
+        }
+      ],
+      "dateLastActivity": "2026-10-05T18:53:54.508Z",
+      "url": "https://trello.com/c/uFqkPyJ2/15-diocese-de-petr%C3%B3polis-rj"
+    },
+    {
+      "id": "6ab2d86e2383500ecf3f8c7d",
+      "name": "Diocese de Luziânia - GO",
+      "idList": "6ac3edf332b244d17e1a6344",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a8",
+          "name": "Piloto",
+          "color": "yellow_dark"
+        },
+        {
+          "id": "6ab18c93e08ee185590b88a6",
+          "name": "Termo assinado",
+          "color": "blue"
+        }
+      ],
+      "dateLastActivity": "2026-10-05T18:54:05.752Z",
+      "url": "https://trello.com/c/WmbyfIpi/7-diocese-de-luzi%C3%A2nia-go"
+    },
+    {
+      "id": "6ab190942aedf9df7338bccc",
+      "name": "Diocese de São Carlos - SP",
+      "idList": "6ac3edf332b244d17e1a6344",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a8",
+          "name": "Piloto",
+          "color": "yellow_dark"
+        },
+        {
+          "id": "6ab18c93e08ee185590b88a6",
+          "name": "Termo assinado",
+          "color": "blue"
+        }
+      ],
+      "dateLastActivity": "2026-10-05T18:54:21.389Z",
+      "url": "https://trello.com/c/m05XHfsU/4-diocese-de-s%C3%A3o-carlos-sp"
+    },
+    {
+      "id": "6ab2d990a04b9c668adbc93e",
+      "name": "Diocese de Imperatriz - MA",
+      "idList": "6ac3edf332b244d17e1a6344",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a8",
+          "name": "Piloto",
+          "color": "yellow_dark"
+        },
+        {
+          "id": "6ab18c93e08ee185590b88a6",
+          "name": "Termo assinado",
+          "color": "blue"
+        }
+      ],
+      "dateLastActivity": "2026-10-05T18:54:28.860Z",
+      "url": "https://trello.com/c/UMkhhs2a/20-diocese-de-imperatriz-ma"
+    },
+    {
+      "id": "6ab2d97932e28ce484411675",
+      "name": "Diocese de Cristalândia - TO",
+      "idList": "6ac3edf332b244d17e1a6344",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a8",
+          "name": "Piloto",
+          "color": "yellow_dark"
+        },
+        {
+          "id": "6ab18c93e08ee185590b88a6",
+          "name": "Termo assinado",
+          "color": "blue"
+        }
+      ],
+      "dateLastActivity": "2026-10-06T12:53:39.457Z",
+      "url": "https://trello.com/c/c3tfS3qO/18-diocese-de-cristal%C3%A2ndia-to"
+    },
+    {
+      "id": "6ab2d92aaee98eef457069c2",
+      "name": "Diocese de Apucarana - PR",
+      "idList": "6ac3edf332b244d17e1a6344",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a8",
+          "name": "Piloto",
+          "color": "yellow_dark"
+        },
+        {
+          "id": "6ab18c93e08ee185590b88a3",
+          "name": "Termo enviado",
+          "color": "red"
+        }
+      ],
+      "dateLastActivity": "2026-10-05T18:56:11.224Z",
+      "url": "https://trello.com/c/mUaTRzWn/14-diocese-de-apucarana-pr"
+    },
+    {
+      "id": "6ab2d959d246f05ecb48d088",
+      "name": "Arquidiocese de Goiânia - GO",
+      "idList": "6ac3edf332b244d17e1a6344",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a8",
+          "name": "Piloto",
+          "color": "yellow_dark"
+        },
+        {
+          "id": "6ab18c93e08ee185590b88a3",
+          "name": "Termo enviado",
+          "color": "red"
+        }
+      ],
+      "dateLastActivity": "2026-10-05T18:56:13.669Z",
+      "url": "https://trello.com/c/uEdeXr7p/16-arquidiocese-de-goi%C3%A2nia-go"
+    },
+    {
+      "id": "6ab2d9a47bf0eef1b2200aca",
+      "name": "Diocese de Foz do Iguaçu - PR",
+      "idList": "6ac3edf332b244d17e1a6344",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a8",
+          "name": "Piloto",
+          "color": "yellow_dark"
+        },
+        {
+          "id": "6ab18c93e08ee185590b88a3",
+          "name": "Termo enviado",
+          "color": "red"
+        }
+      ],
+      "dateLastActivity": "2026-10-05T18:56:17.490Z",
+      "url": "https://trello.com/c/2ool3eQy/22-diocese-de-foz-do-igua%C3%A7u-pr"
+    },
+    {
+      "id": "6ab2dae08b0a68b44d19beef",
+      "name": "Arquidiocese de Brasília - DF",
+      "idList": "6ac3edf332b244d17e1a6344",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a8",
+          "name": "Piloto",
+          "color": "yellow_dark"
+        },
+        {
+          "id": "6ab18c93e08ee185590b88a3",
+          "name": "Termo enviado",
+          "color": "red"
+        }
+      ],
+      "dateLastActivity": "2026-10-05T18:56:19.823Z",
+      "url": "https://trello.com/c/H7RVGpr3/25-arquidiocese-de-bras%C3%ADlia-df"
+    },
+    {
+      "id": "6ab2d99c08976a4339b8853f",
+      "name": "Arquidiocese de Olinda e Recife - PE",
+      "idList": "6ac3edf332b244d17e1a6344",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a8",
+          "name": "Piloto",
+          "color": "yellow_dark"
+        },
+        {
+          "id": "6ab18c93e08ee185590b88a3",
+          "name": "Termo enviado",
+          "color": "red"
+        }
+      ],
+      "dateLastActivity": "2026-10-06T15:36:10.494Z",
+      "url": "https://trello.com/c/Zlp5xuB1/21-arquidiocese-de-olinda-e-recife-pe"
+    },
+    {
+      "id": "6ab190a87a855a600cf6275d",
+      "name": "Diocese de Bonfim - BA",
+      "idList": "6ac3edf332b244d17e1a6344",
+      "closed": false,
+      "labels": [
+        {
+          "id": "6ab18c93e08ee185590b88a8",
+          "name": "Piloto",
+          "color": "yellow_dark"
+        },
+        {
+          "id": "6ab18c93e08ee185590b88a3",
+          "name": "Termo enviado",
+          "color": "red"
+        }
+      ],
+      "dateLastActivity": "2026-10-07T15:45:05.949Z",
+      "url": "https://trello.com/c/CGKt9ZdF/6-diocese-de-bonfim-ba"
+    }
+  ]
+}

@@ -1,0 +1,1688 @@
+[
+  {
+    "numero": "3",
+    "nome": "Arquidiocese de Londrina",
+    "regional": "Sul 2",
+    "provincia": "Londrina"
+  },
+  {
+    "numero": "7",
+    "nome": "Arquidiocese de Santa Maria",
+    "regional": "Sul 3",
+    "provincia": "Santa Maria"
+  },
+  {
+    "numero": "8",
+    "nome": "Arquidiocese de Uberaba",
+    "regional": "Leste 2",
+    "provincia": "Uberaba"
+  },
+  {
+    "numero": "12",
+    "nome": "Diocese de Cristalândia",
+    "regional": "Norte 3",
+    "provincia": "Palmas"
+  },
+  {
+    "numero": "15",
+    "nome": "Diocese de Imperatriz",
+    "regional": "Nordeste 5",
+    "provincia": "São Luís do Maranhão"
+  },
+  {
+    "numero": "16",
+    "nome": "Diocese de Luziânia",
+    "regional": "Centro Oeste",
+    "provincia": "Brasília"
+  },
+  {
+    "numero": "19",
+    "nome": "Diocese de Petrópolis",
+    "regional": "Leste 1",
+    "provincia": "Niterói"
+  },
+  {
+    "numero": "20",
+    "nome": "Diocese de São Carlos",
+    "regional": "Sul 1",
+    "provincia": "Campinas"
+  },
+  {
+    "numero": "100",
+    "nome": "Diocese de Campina Grande",
+    "regional": "Nordeste 2",
+    "provincia": "Paraíba"
+  },
+  {
+    "numero": "134",
+    "nome": "Diocese de Formosa",
+    "regional": "Centro Oeste",
+    "provincia": "Brasília"
+  },
+  {
+    "numero": "149",
+    "nome": "Diocese de Ipameri",
+    "regional": "Centro Oeste",
+    "provincia": "Goiânia"
+  },
+  {
+    "numero": "172",
+    "nome": "Diocese de Jundiaí",
+    "regional": "Sul 1",
+    "provincia": "Sorocaba"
+  },
+  {
+    "numero": "188",
+    "nome": "Diocese de Nazaré",
+    "regional": "Nordeste 2",
+    "provincia": "Olinda e Recife"
+  },
+  {
+    "numero": "229",
+    "nome": "Diocese de Salgueiro",
+    "regional": "Nordeste 2",
+    "provincia": "Olinda e Recife"
+  },
+  {
+    "numero": "247",
+    "nome": "Diocese de Sete Lagoas",
+    "regional": "Leste 2",
+    "provincia": "Belo Horizonte"
+  },
+  {
+    "numero": "259",
+    "nome": "Diocese de Umuarama",
+    "regional": "Sul 2",
+    "provincia": "Maringá"
+  },
+  {
+    "numero": "57",
+    "nome": "Arquidiocese de São Sebastião do Rio de Janeiro",
+    "regional": "Leste 1",
+    "provincia": "São Sebastião do Rio de Janeiro"
+  },
+  {
+    "numero": "64",
+    "nome": "Diocese de Afogados da Ingazeira",
+    "regional": "Nordeste 2",
+    "provincia": "Olinda e Recife"
+  },
+  {
+    "numero": "108",
+    "nome": "Diocese de Caruaru",
+    "regional": "Nordeste 2",
+    "provincia": "Olinda e Recife"
+  },
+  {
+    "numero": "132",
+    "nome": "Diocese de Floresta",
+    "regional": "Nordeste 2",
+    "provincia": "Olinda e Recife"
+  },
+  {
+    "numero": "198",
+    "nome": "Diocese de Palmares",
+    "regional": "Nordeste 2",
+    "provincia": "Olinda e Recife"
+  },
+  {
+    "numero": "210",
+    "nome": "Diocese de Petrolina",
+    "regional": "Nordeste 2",
+    "provincia": "Olinda e Recife"
+  },
+  {
+    "numero": "261",
+    "nome": "Diocese de Uruaçu",
+    "regional": "Centro Oeste",
+    "provincia": "Brasília"
+  },
+  {
+    "numero": "1",
+    "nome": "Arquidiocese de Brasília",
+    "regional": "Centro Oeste",
+    "provincia": "Brasília"
+  },
+  {
+    "numero": "2",
+    "nome": "Arquidiocese de Goiânia",
+    "regional": "Centro Oeste",
+    "provincia": "Goiânia"
+  },
+  {
+    "numero": "4",
+    "nome": "Arquidiocese de Olinda e Recife",
+    "regional": "Nordeste 2",
+    "provincia": "Olinda e Recife"
+  },
+  {
+    "numero": "9",
+    "nome": "Diocese de Apucarana",
+    "regional": "Sul 2",
+    "provincia": "Londrina"
+  },
+  {
+    "numero": "10",
+    "nome": "Diocese de Bonfim",
+    "regional": "Nordeste 3",
+    "provincia": "Feira de Santana"
+  },
+  {
+    "numero": "13",
+    "nome": "Diocese de Foz do Iguaçu",
+    "regional": "Sul 2",
+    "provincia": "Cascavel"
+  },
+  {
+    "numero": "5",
+    "nome": "Arquidiocese de Porto Alegre",
+    "regional": "Sul 3",
+    "provincia": "Porto Alegre"
+  },
+  {
+    "numero": "6",
+    "nome": "Arquidiocese de Porto Velho",
+    "regional": "Noroeste",
+    "provincia": "Porto Velho"
+  },
+  {
+    "numero": "11",
+    "nome": "Diocese de Camaçari",
+    "regional": "Nordeste 3",
+    "provincia": "São Salvador da Bahia"
+  },
+  {
+    "numero": "14",
+    "nome": "Diocese de Garanhuns",
+    "regional": "Nordeste 2",
+    "provincia": "Olinda e Recife"
+  },
+  {
+    "numero": "17",
+    "nome": "Diocese de Miracema do Tocantins",
+    "regional": "Norte 3",
+    "provincia": "Palmas"
+  },
+  {
+    "numero": "18",
+    "nome": "Diocese de Patos de Minas",
+    "regional": "Leste 2",
+    "provincia": "Uberaba"
+  },
+  {
+    "numero": "93",
+    "nome": "Diocese de Cachoeira do Sul",
+    "regional": "Sul 3",
+    "provincia": "Santa Maria"
+  },
+  {
+    "numero": "115",
+    "nome": "Diocese de Cornélio Procópio",
+    "regional": "Sul 2",
+    "provincia": "Londrina"
+  },
+  {
+    "numero": "122",
+    "nome": "Diocese de Cruz Alta",
+    "regional": "Sul 3",
+    "provincia": "Santa Maria"
+  },
+  {
+    "numero": "157",
+    "nome": "Diocese de Ituiutaba",
+    "regional": "Leste 2",
+    "provincia": "Uberaba"
+  },
+  {
+    "numero": "160",
+    "nome": "Diocese de Jacarezinho",
+    "regional": "Sul 2",
+    "provincia": "Londrina"
+  },
+  {
+    "numero": "209",
+    "nome": "Diocese de Pesqueira",
+    "regional": "Nordeste 2",
+    "provincia": "Olinda e Recife"
+  },
+  {
+    "numero": "230",
+    "nome": "Diocese de Santa Cruz do Sul",
+    "regional": "Sul 3",
+    "provincia": "Santa Maria"
+  },
+  {
+    "numero": "234",
+    "nome": "Diocese de Santo Ângelo",
+    "regional": "Sul 3",
+    "provincia": "Santa Maria"
+  },
+  {
+    "numero": "258",
+    "nome": "Diocese de Uberlândia",
+    "regional": "Leste 2",
+    "provincia": "Uberaba"
+  },
+  {
+    "numero": "262",
+    "nome": "Diocese de Uruguaiana",
+    "regional": "Sul 3",
+    "provincia": "Santa Maria"
+  },
+  {
+    "numero": "21",
+    "nome": "Administração Apostólica Pessoal São João Maria Vianney",
+    "regional": "Leste 1",
+    "provincia": "124"
+  },
+  {
+    "numero": "22",
+    "nome": "Arquidiocese da Paraíba",
+    "regional": "Nordeste 2",
+    "provincia": "Paraíba"
+  },
+  {
+    "numero": "23",
+    "nome": "Arquidiocese de Aparecida",
+    "regional": "Sul 1",
+    "provincia": "Aparecida"
+  },
+  {
+    "numero": "24",
+    "nome": "Arquidiocese de Aracaju",
+    "regional": "Nordeste 3",
+    "provincia": "Aracaju"
+  },
+  {
+    "numero": "25",
+    "nome": "Arquidiocese de Belém do Pará",
+    "regional": "Norte 2",
+    "provincia": "Belém do Pará"
+  },
+  {
+    "numero": "26",
+    "nome": "Arquidiocese de Belo Horizonte",
+    "regional": "Leste 2",
+    "provincia": "Belo Horizonte"
+  },
+  {
+    "numero": "27",
+    "nome": "Arquidiocese de Botucatu",
+    "regional": "Sul 1",
+    "provincia": "Botucatu"
+  },
+  {
+    "numero": "28",
+    "nome": "Arquidiocese de Campinas",
+    "regional": "Sul 1",
+    "provincia": "Campinas"
+  },
+  {
+    "numero": "29",
+    "nome": "Arquidiocese de Campo Grande",
+    "regional": "Oeste 1",
+    "provincia": "Campo Grande"
+  },
+  {
+    "numero": "30",
+    "nome": "Arquidiocese de Cascavel",
+    "regional": "Sul 2",
+    "provincia": "Cascavel"
+  },
+  {
+    "numero": "31",
+    "nome": "Arquidiocese de Chapecó",
+    "regional": "Sul 4",
+    "provincia": "Chapecó"
+  },
+  {
+    "numero": "32",
+    "nome": "Arquidiocese de Cuiabá",
+    "regional": "Oeste 2",
+    "provincia": "Cuiabá"
+  },
+  {
+    "numero": "33",
+    "nome": "Arquidiocese de Curitiba",
+    "regional": "Sul 2",
+    "provincia": "Curitiba"
+  },
+  {
+    "numero": "34",
+    "nome": "Arquidiocese de Diamantina",
+    "regional": "Leste 2",
+    "provincia": "Diamantina"
+  },
+  {
+    "numero": "35",
+    "nome": "Arquidiocese de Feira de Santana",
+    "regional": "Nordeste 3",
+    "provincia": "Feira de Santana"
+  },
+  {
+    "numero": "36",
+    "nome": "Arquidiocese de Florianópolis",
+    "regional": "Sul 4",
+    "provincia": "Florianópolis"
+  },
+  {
+    "numero": "37",
+    "nome": "Arquidiocese de Fortaleza",
+    "regional": "Nordeste 1",
+    "provincia": "Fortaleza"
+  },
+  {
+    "numero": "38",
+    "nome": "Arquidiocese de Joinville",
+    "regional": "Sul 4",
+    "provincia": "Joinville"
+  },
+  {
+    "numero": "39",
+    "nome": "Arquidiocese de Juiz de Fora",
+    "regional": "Leste 2",
+    "provincia": "Juiz de Fora"
+  },
+  {
+    "numero": "40",
+    "nome": "Arquidiocese de Maceió",
+    "regional": "Nordeste 2",
+    "provincia": "Maceió"
+  },
+  {
+    "numero": "41",
+    "nome": "Arquidiocese de Manaus",
+    "regional": "Norte 1",
+    "provincia": "Manaus"
+  },
+  {
+    "numero": "42",
+    "nome": "Arquidiocese de Mariana",
+    "regional": "Leste 2",
+    "provincia": "Mariana"
+  },
+  {
+    "numero": "43",
+    "nome": "Arquidiocese de Maringá",
+    "regional": "Sul 2",
+    "provincia": "Maringá"
+  },
+  {
+    "numero": "44",
+    "nome": "Arquidiocese de Montes Claros",
+    "regional": "Leste 2",
+    "provincia": "Montes Claros"
+  },
+  {
+    "numero": "45",
+    "nome": "Arquidiocese de Natal",
+    "regional": "Nordeste 2",
+    "provincia": "Natal"
+  },
+  {
+    "numero": "46",
+    "nome": "Arquidiocese de Niterói",
+    "regional": "Leste 1",
+    "provincia": "Niterói"
+  },
+  {
+    "numero": "47",
+    "nome": "Arquidiocese de Palmas",
+    "regional": "Norte 3",
+    "provincia": "Palmas"
+  },
+  {
+    "numero": "48",
+    "nome": "Arquidiocese de Passo Fundo",
+    "regional": "Sul 3",
+    "provincia": "Passo Fundo"
+  },
+  {
+    "numero": "49",
+    "nome": "Arquidiocese de Pelotas",
+    "regional": "Sul 3",
+    "provincia": "Pelotas"
+  },
+  {
+    "numero": "50",
+    "nome": "Arquidiocese de Pouso Alegre",
+    "regional": "Leste 2",
+    "provincia": "Pouso Alegre"
+  },
+  {
+    "numero": "51",
+    "nome": "Arquidiocese de Ribeirão Preto",
+    "regional": "Sul 1",
+    "provincia": "Ribeirão Preto"
+  },
+  {
+    "numero": "52",
+    "nome": "Arquidiocese de Santarém",
+    "regional": "Norte 2",
+    "provincia": "Santarém"
+  },
+  {
+    "numero": "53",
+    "nome": "Arquidiocese de São José do Rio Preto",
+    "regional": "Sul 1",
+    "provincia": "São José do Rio Preto"
+  },
+  {
+    "numero": "54",
+    "nome": "Arquidiocese de São Luís do Maranhão",
+    "regional": "Nordeste 5",
+    "provincia": "São Luís do Maranhão"
+  },
+  {
+    "numero": "55",
+    "nome": "Arquidiocese de São Paulo",
+    "regional": "Sul 1",
+    "provincia": "São Paulo"
+  },
+  {
+    "numero": "56",
+    "nome": "Arquidiocese de São Salvador da Bahia",
+    "regional": "Nordeste 3",
+    "provincia": "São Salvador da Bahia"
+  },
+  {
+    "numero": "58",
+    "nome": "Arquidiocese de Sorocaba",
+    "regional": "Sul 1",
+    "provincia": "Sorocaba"
+  },
+  {
+    "numero": "59",
+    "nome": "Arquidiocese de Teresina",
+    "regional": "Nordeste 4",
+    "provincia": "Teresina"
+  },
+  {
+    "numero": "60",
+    "nome": "Arquidiocese de Vitória da Conquista",
+    "regional": "Nordeste 3",
+    "provincia": "Vitória da Conquista"
+  },
+  {
+    "numero": "61",
+    "nome": "Arquidiocese de Vitória do Espírito Santo",
+    "regional": "Leste 3",
+    "provincia": "Vitória do Espírito Santo"
+  },
+  {
+    "numero": "62",
+    "nome": "Arquieparquia de São João Batista em Curitiba dos Ucranianos",
+    "regional": "Sul 2",
+    "provincia": "124"
+  },
+  {
+    "numero": "63",
+    "nome": "Diocese de Abaetetuba",
+    "regional": "Norte 2",
+    "provincia": "Belém do Pará"
+  },
+  {
+    "numero": "65",
+    "nome": "Diocese de Alagoinhas",
+    "regional": "Nordeste 3",
+    "provincia": "São Salvador da Bahia"
+  },
+  {
+    "numero": "66",
+    "nome": "Diocese de Almenara",
+    "regional": "Leste 2",
+    "provincia": "Diamantina"
+  },
+  {
+    "numero": "67",
+    "nome": "Diocese de Alto Solimões",
+    "regional": "Norte 1",
+    "provincia": "Manaus"
+  },
+  {
+    "numero": "68",
+    "nome": "Diocese de Amargosa",
+    "regional": "Nordeste 3",
+    "provincia": "São Salvador da Bahia"
+  },
+  {
+    "numero": "69",
+    "nome": "Diocese de Amparo",
+    "regional": "Sul 1",
+    "provincia": "Campinas"
+  },
+  {
+    "numero": "70",
+    "nome": "Diocese de Anápolis",
+    "regional": "Centro Oeste",
+    "provincia": "Goiânia"
+  },
+  {
+    "numero": "71",
+    "nome": "Diocese de Araçatuba",
+    "regional": "Sul 1",
+    "provincia": "Botucatu"
+  },
+  {
+    "numero": "72",
+    "nome": "Diocese de Araçuaí",
+    "regional": "Leste 2",
+    "provincia": "Diamantina"
+  },
+  {
+    "numero": "73",
+    "nome": "Diocese de Araguaína",
+    "regional": "Norte 3",
+    "provincia": "Palmas"
+  },
+  {
+    "numero": "74",
+    "nome": "Diocese de Assis",
+    "regional": "Sul 1",
+    "provincia": "Botucatu"
+  },
+  {
+    "numero": "75",
+    "nome": "Diocese de Bacabal",
+    "regional": "Nordeste 5",
+    "provincia": "São Luís do Maranhão"
+  },
+  {
+    "numero": "76",
+    "nome": "Diocese de Bagé",
+    "regional": "Sul 3",
+    "provincia": "Pelotas"
+  },
+  {
+    "numero": "77",
+    "nome": "Diocese de Balsas",
+    "regional": "Nordeste 5",
+    "provincia": "São Luís do Maranhão"
+  },
+  {
+    "numero": "78",
+    "nome": "Diocese de Barra",
+    "regional": "Nordeste 3",
+    "provincia": "Feira de Santana"
+  },
+  {
+    "numero": "79",
+    "nome": "Diocese de Barra do Garças",
+    "regional": "Oeste 2",
+    "provincia": "Cuiabá"
+  },
+  {
+    "numero": "80",
+    "nome": "Diocese de Barra do Piraí-Volta Redonda",
+    "regional": "Leste 1",
+    "provincia": "São Sebastião do Rio de Janeiro"
+  },
+  {
+    "numero": "81",
+    "nome": "Diocese de Barreiras",
+    "regional": "Nordeste 3",
+    "provincia": "Feira de Santana"
+  },
+  {
+    "numero": "82",
+    "nome": "Diocese de Barretos",
+    "regional": "Sul 1",
+    "provincia": "São José do Rio Preto"
+  },
+  {
+    "numero": "83",
+    "nome": "Diocese de Baturité",
+    "regional": "Nordeste 1",
+    "provincia": "Fortaleza"
+  },
+  {
+    "numero": "84",
+    "nome": "Diocese de Bauru",
+    "regional": "Sul 1",
+    "provincia": "Botucatu"
+  },
+  {
+    "numero": "85",
+    "nome": "Diocese de Blumenau",
+    "regional": "Sul 4",
+    "provincia": "Joinville"
+  },
+  {
+    "numero": "86",
+    "nome": "Diocese de Bom Jesus da Lapa",
+    "regional": "Nordeste 3",
+    "provincia": "Vitória da Conquista"
+  },
+  {
+    "numero": "87",
+    "nome": "Diocese de Bom Jesus do Gurguéia",
+    "regional": "Nordeste 4",
+    "provincia": "Teresina"
+  },
+  {
+    "numero": "88",
+    "nome": "Diocese de Borba",
+    "regional": "Norte 1",
+    "provincia": "Manaus"
+  },
+  {
+    "numero": "89",
+    "nome": "Diocese de Bragança do Pará",
+    "regional": "Norte 2",
+    "provincia": "Belém do Pará"
+  },
+  {
+    "numero": "90",
+    "nome": "Diocese de Bragança Paulista",
+    "regional": "Sul 1",
+    "provincia": "Campinas"
+  },
+  {
+    "numero": "91",
+    "nome": "Diocese de Brejo",
+    "regional": "Nordeste 5",
+    "provincia": "São Luís do Maranhão"
+  },
+  {
+    "numero": "92",
+    "nome": "Diocese de Caçador",
+    "regional": "Sul 4",
+    "provincia": "Chapecó"
+  },
+  {
+    "numero": "94",
+    "nome": "Diocese de Cachoeiro de Itapemirim",
+    "regional": "Leste 3",
+    "provincia": "Vitória do Espírito Santo"
+  },
+  {
+    "numero": "95",
+    "nome": "Diocese de Caetité",
+    "regional": "Nordeste 3",
+    "provincia": "Vitória da Conquista"
+  },
+  {
+    "numero": "96",
+    "nome": "Diocese de Caicó",
+    "regional": "Nordeste 2",
+    "provincia": "Natal"
+  },
+  {
+    "numero": "97",
+    "nome": "Diocese de Cajazeiras",
+    "regional": "Nordeste 2",
+    "provincia": "Paraíba"
+  },
+  {
+    "numero": "98",
+    "nome": "Diocese de Cametá",
+    "regional": "Norte 2",
+    "provincia": "Belém do Pará"
+  },
+  {
+    "numero": "99",
+    "nome": "Diocese de Campanha",
+    "regional": "Leste 2",
+    "provincia": "Pouso Alegre"
+  },
+  {
+    "numero": "101",
+    "nome": "Diocese de Campo Limpo",
+    "regional": "Sul 1",
+    "provincia": "São Paulo"
+  },
+  {
+    "numero": "102",
+    "nome": "Diocese de Campo Maior",
+    "regional": "Nordeste 4",
+    "provincia": "Teresina"
+  },
+  {
+    "numero": "103",
+    "nome": "Diocese de Campo Mourão",
+    "regional": "Sul 2",
+    "provincia": "Maringá"
+  },
+  {
+    "numero": "104",
+    "nome": "Diocese de Campos",
+    "regional": "Leste 1",
+    "provincia": "Niterói"
+  },
+  {
+    "numero": "105",
+    "nome": "Diocese de Caraguatatuba",
+    "regional": "Sul 1",
+    "provincia": "Aparecida"
+  },
+  {
+    "numero": "106",
+    "nome": "Diocese de Caratinga",
+    "regional": "Leste 2",
+    "provincia": "Mariana"
+  },
+  {
+    "numero": "107",
+    "nome": "Diocese de Carolina",
+    "regional": "Nordeste 5",
+    "provincia": "São Luís do Maranhão"
+  },
+  {
+    "numero": "109",
+    "nome": "Diocese de Castanhal",
+    "regional": "Norte 2",
+    "provincia": "Belém do Pará"
+  },
+  {
+    "numero": "110",
+    "nome": "Diocese de Catanduva",
+    "regional": "Sul 1",
+    "provincia": "São José do Rio Preto"
+  },
+  {
+    "numero": "111",
+    "nome": "Diocese de Caxias do Maranhão",
+    "regional": "Nordeste 5",
+    "provincia": "São Luís do Maranhão"
+  },
+  {
+    "numero": "112",
+    "nome": "Diocese de Caxias do Sul",
+    "regional": "Sul 3",
+    "provincia": "Porto Alegre"
+  },
+  {
+    "numero": "113",
+    "nome": "Diocese de Coari",
+    "regional": "Norte 1",
+    "provincia": "Manaus"
+  },
+  {
+    "numero": "114",
+    "nome": "Diocese de Colatina",
+    "regional": "Leste 3",
+    "provincia": "Vitória do Espírito Santo"
+  },
+  {
+    "numero": "116",
+    "nome": "Diocese de Coroatá",
+    "regional": "Nordeste 5",
+    "provincia": "São Luís do Maranhão"
+  },
+  {
+    "numero": "117",
+    "nome": "Diocese de Corumbá",
+    "regional": "Oeste 1",
+    "provincia": "Campo Grande"
+  },
+  {
+    "numero": "118",
+    "nome": "Diocese de Coxim",
+    "regional": "Oeste 1",
+    "provincia": "Campo Grande"
+  },
+  {
+    "numero": "119",
+    "nome": "Diocese de Crateús",
+    "regional": "Nordeste 1",
+    "provincia": "Fortaleza"
+  },
+  {
+    "numero": "120",
+    "nome": "Diocese de Crato",
+    "regional": "Nordeste 1",
+    "provincia": "Fortaleza"
+  },
+  {
+    "numero": "121",
+    "nome": "Diocese de Criciúma",
+    "regional": "Sul 4",
+    "provincia": "Florianópolis"
+  },
+  {
+    "numero": "123",
+    "nome": "Diocese de Cruz das Almas",
+    "regional": "Nordeste 3",
+    "provincia": "São Salvador da Bahia"
+  },
+  {
+    "numero": "124",
+    "nome": "Diocese de Cruzeiro do Sul",
+    "regional": "Noroeste",
+    "provincia": "Porto Velho"
+  },
+  {
+    "numero": "125",
+    "nome": "Diocese de Diamantino",
+    "regional": "Oeste 2",
+    "provincia": "Cuiabá"
+  },
+  {
+    "numero": "126",
+    "nome": "Diocese de Divinópolis",
+    "regional": "Leste 2",
+    "provincia": "Belo Horizonte"
+  },
+  {
+    "numero": "127",
+    "nome": "Diocese de Dourados",
+    "regional": "Oeste 1",
+    "provincia": "Campo Grande"
+  },
+  {
+    "numero": "128",
+    "nome": "Diocese de Duque de Caxias",
+    "regional": "Leste 1",
+    "provincia": "São Sebastião do Rio de Janeiro"
+  },
+  {
+    "numero": "129",
+    "nome": "Diocese de Erexim",
+    "regional": "Sul 3",
+    "provincia": "Passo Fundo"
+  },
+  {
+    "numero": "130",
+    "nome": "Diocese de Estância",
+    "regional": "Nordeste 3",
+    "provincia": "Aracaju"
+  },
+  {
+    "numero": "131",
+    "nome": "Diocese de Eunápolis",
+    "regional": "Nordeste 3",
+    "provincia": "São Salvador da Bahia"
+  },
+  {
+    "numero": "133",
+    "nome": "Diocese de Floriano",
+    "regional": "Nordeste 4",
+    "provincia": "Teresina"
+  },
+  {
+    "numero": "135",
+    "nome": "Diocese de Franca",
+    "regional": "Sul 1",
+    "provincia": "Ribeirão Preto"
+  },
+  {
+    "numero": "136",
+    "nome": "Diocese de Frederico Westphalen",
+    "regional": "Sul 3",
+    "provincia": "Passo Fundo"
+  },
+  {
+    "numero": "137",
+    "nome": "Diocese de Goiás",
+    "regional": "Centro Oeste",
+    "provincia": "Goiânia"
+  },
+  {
+    "numero": "138",
+    "nome": "Diocese de Governador Valadares",
+    "regional": "Leste 2",
+    "provincia": "Mariana"
+  },
+  {
+    "numero": "139",
+    "nome": "Diocese de Grajaú",
+    "regional": "Nordeste 5",
+    "provincia": "São Luís do Maranhão"
+  },
+  {
+    "numero": "140",
+    "nome": "Diocese de Guajará-Mirim",
+    "regional": "Noroeste",
+    "provincia": "Porto Velho"
+  },
+  {
+    "numero": "141",
+    "nome": "Diocese de Guanhães",
+    "regional": "Leste 2",
+    "provincia": "Diamantina"
+  },
+  {
+    "numero": "142",
+    "nome": "Diocese de Guarabira",
+    "regional": "Nordeste 2",
+    "provincia": "Paraíba"
+  },
+  {
+    "numero": "143",
+    "nome": "Diocese de Guarapuava",
+    "regional": "Sul 2",
+    "provincia": "Curitiba"
+  },
+  {
+    "numero": "144",
+    "nome": "Diocese de Guarulhos",
+    "regional": "Sul 1",
+    "provincia": "São Paulo"
+  },
+  {
+    "numero": "145",
+    "nome": "Diocese de Guaxupé",
+    "regional": "Leste 2",
+    "provincia": "Pouso Alegre"
+  },
+  {
+    "numero": "146",
+    "nome": "Diocese de Humaitá",
+    "regional": "Noroeste",
+    "provincia": "Porto Velho"
+  },
+  {
+    "numero": "147",
+    "nome": "Diocese de Iguatu",
+    "regional": "Nordeste 1",
+    "provincia": "Fortaleza"
+  },
+  {
+    "numero": "148",
+    "nome": "Diocese de Ilhéus",
+    "regional": "Nordeste 3",
+    "provincia": "São Salvador da Bahia"
+  },
+  {
+    "numero": "150",
+    "nome": "Diocese de Irecê",
+    "regional": "Nordeste 3",
+    "provincia": "Feira de Santana"
+  },
+  {
+    "numero": "151",
+    "nome": "Diocese de Itabira-Coronel Fabriciano",
+    "regional": "Leste 2",
+    "provincia": "Mariana"
+  },
+  {
+    "numero": "152",
+    "nome": "Diocese de Itabuna",
+    "regional": "Nordeste 3",
+    "provincia": "São Salvador da Bahia"
+  },
+  {
+    "numero": "153",
+    "nome": "Diocese de Itaguaí",
+    "regional": "Leste 1",
+    "provincia": "São Sebastião do Rio de Janeiro"
+  },
+  {
+    "numero": "154",
+    "nome": "Diocese de Itapetininga",
+    "regional": "Sul 1",
+    "provincia": "Sorocaba"
+  },
+  {
+    "numero": "155",
+    "nome": "Diocese de Itapeva",
+    "regional": "Sul 1",
+    "provincia": "Sorocaba"
+  },
+  {
+    "numero": "156",
+    "nome": "Diocese de Itapipoca",
+    "regional": "Nordeste 1",
+    "provincia": "Fortaleza"
+  },
+  {
+    "numero": "158",
+    "nome": "Diocese de Itumbiara",
+    "regional": "Centro Oeste",
+    "provincia": "Goiânia"
+  },
+  {
+    "numero": "159",
+    "nome": "Diocese de Jaboticabal",
+    "regional": "Sul 1",
+    "provincia": "Ribeirão Preto"
+  },
+  {
+    "numero": "161",
+    "nome": "Diocese de Jales",
+    "regional": "Sul 1",
+    "provincia": "São José do Rio Preto"
+  },
+  {
+    "numero": "162",
+    "nome": "Diocese de Janaúba",
+    "regional": "Leste 2",
+    "provincia": "Montes Claros"
+  },
+  {
+    "numero": "163",
+    "nome": "Diocese de Januária",
+    "regional": "Leste 2",
+    "provincia": "Montes Claros"
+  },
+  {
+    "numero": "164",
+    "nome": "Diocese de Jardim",
+    "regional": "Oeste 1",
+    "provincia": "Campo Grande"
+  },
+  {
+    "numero": "165",
+    "nome": "Diocese de Jataí",
+    "regional": "Centro Oeste",
+    "provincia": "Goiânia"
+  },
+  {
+    "numero": "166",
+    "nome": "Diocese de Jaú",
+    "regional": "Sul 1",
+    "provincia": "Campinas"
+  },
+  {
+    "numero": "167",
+    "nome": "Diocese de Jequié",
+    "regional": "Nordeste 3",
+    "provincia": "Vitória da Conquista"
+  },
+  {
+    "numero": "168",
+    "nome": "Diocese de Ji-Paraná",
+    "regional": "Noroeste",
+    "provincia": "Porto Velho"
+  },
+  {
+    "numero": "169",
+    "nome": "Diocese de Joaçaba",
+    "regional": "Sul 4",
+    "provincia": "Chapecó"
+  },
+  {
+    "numero": "170",
+    "nome": "Diocese de Juazeiro",
+    "regional": "Nordeste 3",
+    "provincia": "Feira de Santana"
+  },
+  {
+    "numero": "171",
+    "nome": "Diocese de Juína",
+    "regional": "Oeste 2",
+    "provincia": "Cuiabá"
+  },
+  {
+    "numero": "173",
+    "nome": "Diocese de Lages",
+    "regional": "Sul 4",
+    "provincia": "Chapecó"
+  },
+  {
+    "numero": "174",
+    "nome": "Diocese de Leopoldina",
+    "regional": "Leste 2",
+    "provincia": "Juiz de Fora"
+  },
+  {
+    "numero": "175",
+    "nome": "Diocese de Limeira",
+    "regional": "Sul 1",
+    "provincia": "Campinas"
+  },
+  {
+    "numero": "176",
+    "nome": "Diocese de Limoeiro do Norte",
+    "regional": "Nordeste 1",
+    "provincia": "Fortaleza"
+  },
+  {
+    "numero": "177",
+    "nome": "Diocese de Lins",
+    "regional": "Sul 1",
+    "provincia": "Botucatu"
+  },
+  {
+    "numero": "178",
+    "nome": "Diocese de Livramento de Nossa Senhora",
+    "regional": "Nordeste 3",
+    "provincia": "Vitória da Conquista"
+  },
+  {
+    "numero": "179",
+    "nome": "Diocese de Lorena",
+    "regional": "Sul 1",
+    "provincia": "Aparecida"
+  },
+  {
+    "numero": "180",
+    "nome": "Diocese de Luz",
+    "regional": "Leste 2",
+    "provincia": "Belo Horizonte"
+  },
+  {
+    "numero": "181",
+    "nome": "Diocese de Macapá",
+    "regional": "Norte 2",
+    "provincia": "Belém do Pará"
+  },
+  {
+    "numero": "182",
+    "nome": "Diocese de Marabá",
+    "regional": "Norte 2",
+    "provincia": "Belém do Pará"
+  },
+  {
+    "numero": "183",
+    "nome": "Diocese de Marília",
+    "regional": "Sul 1",
+    "provincia": "Botucatu"
+  },
+  {
+    "numero": "184",
+    "nome": "Diocese de Mogi das Cruzes",
+    "regional": "Sul 1",
+    "provincia": "São Paulo"
+  },
+  {
+    "numero": "185",
+    "nome": "Diocese de Montenegro",
+    "regional": "Sul 3",
+    "provincia": "Porto Alegre"
+  },
+  {
+    "numero": "186",
+    "nome": "Diocese de Mossoró",
+    "regional": "Nordeste 2",
+    "provincia": "Natal"
+  },
+  {
+    "numero": "187",
+    "nome": "Diocese de Naviraí",
+    "regional": "Oeste 1",
+    "provincia": "Campo Grande"
+  },
+  {
+    "numero": "189",
+    "nome": "Diocese de Nova Friburgo",
+    "regional": "Leste 1",
+    "provincia": "Niterói"
+  },
+  {
+    "numero": "190",
+    "nome": "Diocese de Nova Iguaçu",
+    "regional": "Leste 1",
+    "provincia": "São Sebastião do Rio de Janeiro"
+  },
+  {
+    "numero": "191",
+    "nome": "Diocese de Novo Hamburgo",
+    "regional": "Sul 3",
+    "provincia": "Porto Alegre"
+  },
+  {
+    "numero": "192",
+    "nome": "Diocese de Óbidos",
+    "regional": "Norte 2",
+    "provincia": "Santarém"
+  },
+  {
+    "numero": "193",
+    "nome": "Diocese de Oeiras",
+    "regional": "Nordeste 4",
+    "provincia": "Teresina"
+  },
+  {
+    "numero": "194",
+    "nome": "Diocese de Oliveira",
+    "regional": "Leste 2",
+    "provincia": "Belo Horizonte"
+  },
+  {
+    "numero": "195",
+    "nome": "Diocese de Osasco",
+    "regional": "Sul 1",
+    "provincia": "São Paulo"
+  },
+  {
+    "numero": "196",
+    "nome": "Diocese de Osório",
+    "regional": "Sul 3",
+    "provincia": "Porto Alegre"
+  },
+  {
+    "numero": "197",
+    "nome": "Diocese de Ourinhos",
+    "regional": "Sul 1",
+    "provincia": "Botucatu"
+  },
+  {
+    "numero": "199",
+    "nome": "Diocese de Palmas-Francisco Beltrão",
+    "regional": "Sul 2",
+    "provincia": "Cascavel"
+  },
+  {
+    "numero": "200",
+    "nome": "Diocese de Palmeira dos Índios",
+    "regional": "Nordeste 2",
+    "provincia": "Maceió"
+  },
+  {
+    "numero": "201",
+    "nome": "Diocese de Paracatu",
+    "regional": "Leste 2",
+    "provincia": "Montes Claros"
+  },
+  {
+    "numero": "202",
+    "nome": "Diocese de Paranaguá",
+    "regional": "Sul 2",
+    "provincia": "Curitiba"
+  },
+  {
+    "numero": "203",
+    "nome": "Diocese de Paranavaí",
+    "regional": "Sul 2",
+    "provincia": "Maringá"
+  },
+  {
+    "numero": "204",
+    "nome": "Diocese de Parintins",
+    "regional": "Norte 1",
+    "provincia": "Manaus"
+  },
+  {
+    "numero": "205",
+    "nome": "Diocese de Parnaíba",
+    "regional": "Nordeste 4",
+    "provincia": "Teresina"
+  },
+  {
+    "numero": "206",
+    "nome": "Diocese de Patos",
+    "regional": "Nordeste 2",
+    "provincia": "Paraíba"
+  },
+  {
+    "numero": "207",
+    "nome": "Diocese de Paulo Afonso",
+    "regional": "Nordeste 3",
+    "provincia": "Feira de Santana"
+  },
+  {
+    "numero": "208",
+    "nome": "Diocese de Penedo",
+    "regional": "Nordeste 2",
+    "provincia": "Maceió"
+  },
+  {
+    "numero": "211",
+    "nome": "Diocese de Picos",
+    "regional": "Nordeste 4",
+    "provincia": "Teresina"
+  },
+  {
+    "numero": "212",
+    "nome": "Diocese de Pinheiro",
+    "regional": "Nordeste 5",
+    "provincia": "São Luís do Maranhão"
+  },
+  {
+    "numero": "213",
+    "nome": "Diocese de Piracicaba",
+    "regional": "Sul 1",
+    "provincia": "Campinas"
+  },
+  {
+    "numero": "214",
+    "nome": "Diocese de Ponta de Pedras",
+    "regional": "Norte 2",
+    "provincia": "Belém do Pará"
+  },
+  {
+    "numero": "215",
+    "nome": "Diocese de Ponta Grossa",
+    "regional": "Sul 2",
+    "provincia": "Curitiba"
+  },
+  {
+    "numero": "216",
+    "nome": "Diocese de Porto Nacional",
+    "regional": "Norte 3",
+    "provincia": "Palmas"
+  },
+  {
+    "numero": "217",
+    "nome": "Diocese de Presidente Prudente",
+    "regional": "Sul 1",
+    "provincia": "Botucatu"
+  },
+  {
+    "numero": "218",
+    "nome": "Diocese de Primavera do Leste-Paranatinga",
+    "regional": "Oeste 2",
+    "provincia": "Cuiabá"
+  },
+  {
+    "numero": "219",
+    "nome": "Diocese de Propriá",
+    "regional": "Nordeste 3",
+    "provincia": "Aracaju"
+  },
+  {
+    "numero": "220",
+    "nome": "Diocese de Quixadá",
+    "regional": "Nordeste 1",
+    "provincia": "Fortaleza"
+  },
+  {
+    "numero": "221",
+    "nome": "Diocese de Registro",
+    "regional": "Sul 1",
+    "provincia": "Sorocaba"
+  },
+  {
+    "numero": "222",
+    "nome": "Diocese de Rio Branco",
+    "regional": "Noroeste",
+    "provincia": "Porto Velho"
+  },
+  {
+    "numero": "223",
+    "nome": "Diocese de Rio do Sul",
+    "regional": "Sul 4",
+    "provincia": "Joinville"
+  },
+  {
+    "numero": "224",
+    "nome": "Diocese de Rio Grande",
+    "regional": "Sul 3",
+    "provincia": "Pelotas"
+  },
+  {
+    "numero": "225",
+    "nome": "Diocese de Rondonópolis-Guiratinga",
+    "regional": "Oeste 2",
+    "provincia": "Cuiabá"
+  },
+  {
+    "numero": "226",
+    "nome": "Diocese de Roraima",
+    "regional": "Norte 1",
+    "provincia": "Manaus"
+  },
+  {
+    "numero": "227",
+    "nome": "Diocese de Rubiataba-Mozarlândia",
+    "regional": "Centro Oeste",
+    "provincia": "Goiânia"
+  },
+  {
+    "numero": "228",
+    "nome": "Diocese de Ruy Barbosa",
+    "regional": "Nordeste 3",
+    "provincia": "Feira de Santana"
+  },
+  {
+    "numero": "231",
+    "nome": "Diocese de Santíssima Conceição do Araguaia",
+    "regional": "Norte 3",
+    "provincia": "Belém do Pará"
+  },
+  {
+    "numero": "232",
+    "nome": "Diocese de Santo Amaro",
+    "regional": "Sul 1",
+    "provincia": "São Paulo"
+  },
+  {
+    "numero": "233",
+    "nome": "Diocese de Santo André",
+    "regional": "Sul 1",
+    "provincia": "São Paulo"
+  },
+  {
+    "numero": "235",
+    "nome": "Diocese de Santos",
+    "regional": "Sul 1",
+    "provincia": "São Paulo"
+  },
+  {
+    "numero": "236",
+    "nome": "Diocese de São Gabriel da Cachoeira",
+    "regional": "Norte 1",
+    "provincia": "Manaus"
+  },
+  {
+    "numero": "237",
+    "nome": "Diocese de São João da Boa Vista",
+    "regional": "Sul 1",
+    "provincia": "Ribeirão Preto"
+  },
+  {
+    "numero": "238",
+    "nome": "Diocese de São João del Rei",
+    "regional": "Leste 2",
+    "provincia": "Juiz de Fora"
+  },
+  {
+    "numero": "239",
+    "nome": "Diocese de São José dos Campos",
+    "regional": "Sul 1",
+    "provincia": "Aparecida"
+  },
+  {
+    "numero": "240",
+    "nome": "Diocese de São José dos Pinhais",
+    "regional": "Sul 2",
+    "provincia": "Curitiba"
+  },
+  {
+    "numero": "241",
+    "nome": "Diocese de São Luís de Montes Belos",
+    "regional": "Centro Oeste",
+    "provincia": "Goiânia"
+  },
+  {
+    "numero": "242",
+    "nome": "Diocese de São Luiz de Cáceres",
+    "regional": "Oeste 2",
+    "provincia": "Cuiabá"
+  },
+  {
+    "numero": "243",
+    "nome": "Diocese de São Mateus",
+    "regional": "Leste 3",
+    "provincia": "Vitória do Espírito Santo"
+  },
+  {
+    "numero": "244",
+    "nome": "Diocese de São Miguel Paulista",
+    "regional": "Sul 1",
+    "provincia": "São Paulo"
+  },
+  {
+    "numero": "245",
+    "nome": "Diocese de São Raimundo Nonato",
+    "regional": "Nordeste 4",
+    "provincia": "Teresina"
+  },
+  {
+    "numero": "246",
+    "nome": "Diocese de Serrinha",
+    "regional": "Nordeste 3",
+    "provincia": "Feira de Santana"
+  },
+  {
+    "numero": "248",
+    "nome": "Diocese de Sinop",
+    "regional": "Oeste 2",
+    "provincia": "Cuiabá"
+  },
+  {
+    "numero": "249",
+    "nome": "Diocese de Sobral",
+    "regional": "Nordeste 1",
+    "provincia": "Fortaleza"
+  },
+  {
+    "numero": "250",
+    "nome": "Diocese de Taubaté",
+    "regional": "Sul 1",
+    "provincia": "Aparecida"
+  },
+  {
+    "numero": "251",
+    "nome": "Diocese de Teixeira de Freitas-Caravelas",
+    "regional": "Nordeste 3",
+    "provincia": "São Salvador da Bahia"
+  },
+  {
+    "numero": "252",
+    "nome": "Diocese de Teófilo Otoni",
+    "regional": "Leste 2",
+    "provincia": "Diamantina"
+  },
+  {
+    "numero": "253",
+    "nome": "Diocese de Tianguá",
+    "regional": "Nordeste 1",
+    "provincia": "Fortaleza"
+  },
+  {
+    "numero": "254",
+    "nome": "Diocese de Tocantinópolis",
+    "regional": "Norte 3",
+    "provincia": "Palmas"
+  },
+  {
+    "numero": "255",
+    "nome": "Diocese de Toledo",
+    "regional": "Sul 2",
+    "provincia": "Cascavel"
+  },
+  {
+    "numero": "256",
+    "nome": "Diocese de Três Lagoas",
+    "regional": "Oeste 1",
+    "provincia": "Campo Grande"
+  },
+  {
+    "numero": "257",
+    "nome": "Diocese de Tubarão",
+    "regional": "Sul 4",
+    "provincia": "Florianópolis"
+  },
+  {
+    "numero": "260",
+    "nome": "Diocese de União da Vitória",
+    "regional": "Sul 2",
+    "provincia": "Curitiba"
+  },
+  {
+    "numero": "263",
+    "nome": "Diocese de Vacaria",
+    "regional": "Sul 3",
+    "provincia": "Passo Fundo"
+  },
+  {
+    "numero": "264",
+    "nome": "Diocese de Valença",
+    "regional": "Leste 1",
+    "provincia": "São Sebastião do Rio de Janeiro"
+  },
+  {
+    "numero": "265",
+    "nome": "Diocese de Viana",
+    "regional": "Nordeste 5",
+    "provincia": "São Luís do Maranhão"
+  },
+  {
+    "numero": "266",
+    "nome": "Diocese de Votuporanga",
+    "regional": "Sul 1",
+    "provincia": "São José do Rio Preto"
+  },
+  {
+    "numero": "267",
+    "nome": "Diocese de Xingu-Altamira",
+    "regional": "Norte 2",
+    "provincia": "Santarém"
+  },
+  {
+    "numero": "268",
+    "nome": "Diocese de Zé Doca",
+    "regional": "Nordeste 5",
+    "provincia": "São Luís do Maranhão"
+  },
+  {
+    "numero": "269",
+    "nome": "Eparquia Nossa Senhora do Líbano em São Paulo dos Maronitas",
+    "regional": "Sul 1",
+    "provincia": "São Paulo"
+  },
+  {
+    "numero": "270",
+    "nome": "Eparquia Nossa Senhora do Paraíso Greco-Melquita Católica do Brasil",
+    "regional": "Leste 1",
+    "provincia": "São Sebastião do Rio de Janeiro"
+  },
+  {
+    "numero": "271",
+    "nome": "Eparquia Nossa Senhora Imaculada Conceição em Prudentópolis",
+    "regional": "Sul 2",
+    "provincia": "124"
+  },
+  {
+    "numero": "272",
+    "nome": "Exarcado Apostólico para os fiéis de Rito Armênio residentes na América Latina e México",
+    "regional": "Sul 1",
+    "provincia": "124"
+  },
+  {
+    "numero": "273",
+    "nome": "Ordinariado Militar do Brasil",
+    "regional": "Centro Oeste",
+    "provincia": "124"
+  },
+  {
+    "numero": "274",
+    "nome": "Ordinariado para os fiéis de Rito Oriental sem Ordinário próprio",
+    "regional": "Leste 2",
+    "provincia": "124"
+  },
+  {
+    "numero": "275",
+    "nome": "Prelazia de Itacoatiara",
+    "regional": "Norte 1",
+    "provincia": "Manaus"
+  },
+  {
+    "numero": "276",
+    "nome": "Prelazia de Itaituba",
+    "regional": "Norte 2",
+    "provincia": "Santarém"
+  },
+  {
+    "numero": "277",
+    "nome": "Prelazia de Lábrea",
+    "regional": "Noroeste",
+    "provincia": "Porto Velho"
+  },
+  {
+    "numero": "278",
+    "nome": "Prelazia de Marajó",
+    "regional": "Norte 2",
+    "provincia": "Belém do Pará"
+  },
+  {
+    "numero": "279",
+    "nome": "Prelazia de São Félix",
+    "regional": "Oeste 2",
+    "provincia": "Cuiabá"
+  },
+  {
+    "numero": "280",
+    "nome": "Prelazia de Tefé",
+    "regional": "Norte 1",
+    "provincia": "Manaus"
+  },
+  {
+    "numero": "281",
+    "nome": "Prelazia do Alto Xingu-Tucumã",
+    "regional": "Norte 2",
+    "provincia": "Santarém"
+  }
+]

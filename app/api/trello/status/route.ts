@@ -1,26 +1,18 @@
 import { NextResponse } from "next/server";
-import { getTrelloDashboard } from "@/lib/trello";
+import { buildDashboard } from "@/lib/dashboard";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const mode = (process.env.TRELLO_MODE ?? "mock").toLowerCase();
-  if (mode !== "trello") {
-    return NextResponse.json({ ok: false, mode, message: "TRELLO_MODE não está definido como trello." }, { status: 400 });
-  }
-
-  try {
-    const data = await getTrelloDashboard();
-    return NextResponse.json({
-      ok: true,
-      boardId: process.env.TRELLO_BOARD_ID ?? null,
-      totalCards: data.total,
-      source: data.source,
-      updatedAt: data.updatedAt,
-      stages: Object.fromEntries(data.metrics.map((metric) => [metric.key, metric.value])),
-    }, { headers: { "Cache-Control": "no-store, max-age=0" } });
-  } catch (error) {
-    const message = error instanceof Error ? error.message : "Erro desconhecido";
-    return NextResponse.json({ ok: false, message }, { status: 500 });
-  }
+  const data = await buildDashboard();
+  return NextResponse.json({
+    ok: data.source === "trello",
+    source: data.source,
+    participantes: data.participantes,
+    naoParticipantes: data.naoParticipantes,
+    generatedAt: data.generatedAt,
+    boardLastActivity: data.boardLastActivity,
+    warning: data.warning,
+    stages: Object.fromEntries(data.stages.map((s) => [s.etapa, s.quantidade])),
+  });
 }

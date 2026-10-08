@@ -1,0 +1,19 @@
+{
+  "stageLists": {
+    "Dioceses selecionadas": "Dioceses selecionadas",
+    "Em diálogo": "Em diálogo",
+    "Dados recebidos": "Dados recebidos",
+    "Dados carregados": "Dados carregados",
+    "Homologação estrutural": "Homologação estrutural",
+    "Homologação completa": "Homologação completa"
+  },
+  "pilotLabel": "Piloto",
+  "signedLabel": "Termo assinado",
+  "ignoredLists": [
+    "Acompanhamento",
+    "Teste",
+    "teste"
+  ],
+  "classification": "list-only",
+  "notes": "A etapa é definida exclusivamente pela lista atual do cartão. Etiquetas não promovem etapa."
+}

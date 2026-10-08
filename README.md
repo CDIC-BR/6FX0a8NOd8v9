@@ -1,88 +1,23 @@
-# CDIC-BR · Painel de Acompanhamento
+# CDIC-BR — Dashboard de acompanhamento das dioceses
 
-Dashboard Next.js + TypeScript + Apache ECharts preparado para consumir o board Trello informado e complementar apenas as informações ausentes com `data/manual-overrides.json`.
+Projeto **Next.js + TypeScript**, pronto para execução local e publicação na **Vercel**.
 
-## O que foi adaptado ao Trello atual
+O painel preserva o protótipo validado: Poppins, paleta baseada em `#077dcc`, fluxo de etapas com setas, gráfico de rosca, bloco das dioceses piloto, visão por Regional, pontos de atenção e drill-down com Diocese + Regional + Província.
 
-O board já existente usa etiquetas para parte do acompanhamento. O código reconhece automaticamente, entre outras:
+## Como os dados funcionam
 
-- `Termo enviado` → **Em diálogo** + marco Termo enviado
-- `Termo assinado` → **Em diálogo** + marcos Termo enviado e Termo assinado
-- `Aguardando envio da divisão territorial` → **Em diálogo**
-- `Divisão recebida` → **Dados recebidos**
-- `Divisão cadastrada` → **Dados carregados**
+A aplicação usa duas fontes complementares:
 
-Também continuam funcionando listas do Trello, Custom Fields e checklists, quando existirem. A etapa de maior avanço reconhecida prevalece. Para Homologação estrutural e Homologação completa, os aliases podem ser ajustados em `data/trello-label-map.json` e `data/trello-list-map.json`.
+1. **Trello (dinâmico)** — a lista atual define a etapa; etiquetas são usadas apenas como informações complementares, como termo assinado e identificação de piloto.
+2. **`data/dioceses-meta.json` (estático)** — Regional e Província Eclesiástica, porque o board atual não possui Custom Fields para essas informações.
 
-## Segurança: não grave token no código
+Quando as variáveis do Trello estão configuradas, o backend consulta a API em tempo real. Se a API estiver indisponível, o dashboard usa `data/trello-snapshot.json`, um snapshot sanitizado do JSON exportado usado na construção deste projeto.
 
-O projeto **não contém API Key nem Token**. O arquivo `.env.local` é ignorado pelo Git.
+### Regra de etapas
 
-Como um token foi compartilhado durante a configuração, gere um novo token antes de publicar no GitHub ou Vercel e use somente o novo valor localmente.
+A **etapa atual é definida exclusivamente pela lista do cartão no Trello**. Não há promoção de etapa por etiqueta.
 
-## 1. Instalar
-
-Preferencialmente use uma pasta fora do OneDrive, por exemplo `C:\dev\cdic-dashboard`.
-
-```powershell
-npm ci
-```
-
-Se quiser usar a rotina de instalação limpa:
-
-```powershell
-Set-ExecutionPolicy -Scope Process Bypass
-.\SETUP_WINDOWS.ps1
-```
-
-## 2. Configurar a conexão Trello
-
-O Board ID já está preconfigurado como `KaACdOVE`.
-
-A forma mais simples no Windows é:
-
-```powershell
-Set-ExecutionPolicy -Scope Process Bypass
-.\CONFIGURAR_TRELLO.ps1
-```
-
-O script solicitará API Key e Token e criará `.env.local` sem adicionar as credenciais ao código.
-
-Ou crie manualmente `.env.local`:
-
-```env
-TRELLO_MODE=trello
-TRELLO_BOARD_ID=KaACdOVE
-TRELLO_API_KEY=SUA_NOVA_API_KEY
-TRELLO_TOKEN=SEU_NOVO_TOKEN
-DASHBOARD_WRITE_SECRET=
-```
-
-## 3. Rodar
-
-```powershell
-npm run dev
-```
-
-Abra:
-
-- Painel: `http://localhost:3000`
-- Diagnóstico seguro da conexão: `http://localhost:3000/api/trello/status`
-
-O endpoint de diagnóstico nunca devolve a API Key ou o Token. Ele mostra apenas se a conexão funcionou, total de cards e contagens por etapa.
-
-## 4. Como a etapa é identificada
-
-O painel combina sinais do Trello nesta ordem:
-
-1. `etapa` definida manualmente em `manual-overrides.json`, quando houver;
-2. etiquetas reconhecidas no card;
-3. lista do Trello reconhecida no mapeamento;
-4. caso nenhum sinal exista, o card fica em **Dioceses selecionadas**.
-
-Entre lista e etiqueta, o painel utiliza o estágio mais avançado reconhecido.
-
-### Hierarquia
+As listas consideradas são:
 
 1. Dioceses selecionadas
 2. Em diálogo
@@ -91,59 +26,165 @@ Entre lista e etiqueta, o painel utiliza o estágio mais avançado reconhecido.
 5. Homologação estrutural
 6. Homologação completa
 
-## 5. Informações intermediárias ausentes do Trello
+A lista **Acompanhamento** é ignorada, assim como qualquer outra lista que não esteja no conjunto acima.
 
-Não é necessário alterar o board para tudo. Use `data/manual-overrides.json` somente para complementar o que não existe no Trello, por exemplo Regional, Província, percentuais de tipos de dados ou marcos de diálogo.
+As etiquetas continuam podendo ser utilizadas como informação complementar:
 
-Copie a estrutura de `data/manual-overrides.example.json`.
+- `Termo assinado` → contabiliza termo assinado, mas não altera a etapa
+- `Piloto` → identifica o grupo piloto
+- demais etiquetas → podem ser exibidas/consumidas como metadados, mas não mudam a etapa
 
-Exemplo:
+Com o snapshot atual, a leitura exclusivamente pelas listas resulta em **10 Dioceses selecionadas, 15 Em diálogo, 0 Dados recebidos, 6 Dados carregados e 14 em Homologação estrutural**, totalizando 45 participantes.
 
-```json
-{
-  "dioceses": [
-    {
-      "nome": "Diocese de Exemplo - UF",
-      "regional": "Regional de exemplo",
-      "provincia": "Província de exemplo",
-      "dados": {
-        "estrutura": 100,
-        "curia": 80,
-        "igrejas": 70,
-        "tribunais": 20,
-        "outras": 30,
-        "fieis": 0
-      },
-      "dialogo": {
-        "chanceler": true,
-        "equipe": true
-      }
-    }
-  ],
-  "evolution": []
-}
+A configuração está em `data/stage-rules.json`.
+
+## Segurança
+
+**Nenhuma credencial do Trello foi gravada no projeto.**
+
+A chave e o token são utilizados apenas no servidor (`lib/trello.ts`) e nunca são enviados ao navegador.
+
+O fluxo de leitura usa:
+
+- `GET /1/boards/{boardId}`
+- `GET /1/boards/{boardId}/lists`
+- `GET /1/boards/{boardId}/cards`
+
+## Rodar localmente
+
+Recomendado: **Node.js 20 LTS ou 22 LTS**.
+
+```powershell
+npm install
+Copy-Item .env.example .env.local
 ```
 
-Os dados do Trello prevalecem quando o mesmo dado já estiver disponível lá; o arquivo manual completa as lacunas.
+Preencha `.env.local`:
 
-## 6. Ajustar nomes/etiquetas sem alterar o Trello
+```env
+TRELLO_API_KEY=SUA_CHAVE
+TRELLO_TOKEN=SEU_TOKEN
+TRELLO_BOARD_ID=KaACdOVE
+HOMOLOGACAO_COMPLETA_ENABLED=false
+```
 
-- Listas: `data/trello-list-map.json`
-- Etiquetas: `data/trello-label-map.json`
+Depois:
 
-Você pode acrescentar aliases sem renomear o board.
+```powershell
+npm run dev
+```
 
-## 7. Vercel
+Abra:
 
-No projeto da Vercel, configure em **Settings → Environment Variables**:
+```text
+http://localhost:3000
+```
 
-- `TRELLO_MODE=trello`
-- `TRELLO_BOARD_ID=KaACdOVE`
-- `TRELLO_API_KEY`
-- `TRELLO_TOKEN`
+Diagnóstico da integração:
 
-Não envie `.env.local` ao GitHub.
+```text
+http://localhost:3000/api/trello/status
+```
 
-## Escrita no Trello
+Se `source` retornar `trello`, a leitura está ao vivo. Se retornar `snapshot`, veja o campo `warning`.
 
-O painel fica em leitura por padrão. `DASHBOARD_WRITE_SECRET` está vazio. Só habilite edição em produção depois de configurar autenticação apropriada. O board atual usa etiquetas para diversos marcos; a leitura dessas etiquetas já está adaptada, mas alterações de etiquetas pelo drawer não são habilitadas automaticamente.
+## Publicar na Vercel
+
+1. Suba este projeto no GitHub.
+2. Na Vercel, escolha **Add New > Project** e importe o repositório.
+3. Em **Settings > Environment Variables**, crie:
+   - `TRELLO_API_KEY`
+   - `TRELLO_TOKEN`
+   - `TRELLO_BOARD_ID` = `KaACdOVE`
+   - `HOMOLOGACAO_COMPLETA_ENABLED` = `false`
+4. Faça o deploy.
+
+Não é necessário `vercel.json`: a Vercel detecta Next.js automaticamente.
+
+## Atualização
+
+- Ao abrir a página, o servidor consulta o Trello.
+- O botão **Atualizar** força nova consulta.
+- Enquanto a página estiver aberta, o navegador atualiza automaticamente a cada **1 hora**.
+- As rotas de API usam `cache: no-store`.
+
+## Circunscrições não participantes
+
+O KPI é calculado automaticamente como:
+
+```text
+281 circunscrições totais − participantes atuais do projeto
+```
+
+Com 45 participantes, o painel exibe **236 circunscrições não participantes**.
+
+## Regional e Província
+
+Enquanto essas informações não estiverem no Trello, mantenha `data/dioceses-meta.json` atualizado.
+
+Quando você criar Custom Fields para Regional e Província no Trello, a integração pode ser alterada para eliminar esse arquivo e ler tudo diretamente do board.
+
+## Homologação completa
+
+Enquanto o importador estiver em desenvolvimento:
+
+```env
+HOMOLOGACAO_COMPLETA_ENABLED=false
+```
+
+O painel exibirá **N/D**.
+
+Quando a etapa puder ser mensurada, altere a variável para `true` e utilize a lista `Homologação completa` do Trello.
+
+## Logo
+
+Substitua:
+
+```text
+public/logo.svg
+```
+
+O arquivo é usado no menu lateral e como ícone da página.
+
+## Interface atual
+
+- Navegação lateral simplificada: apenas **Visão geral** nesta versão.
+- Modo claro/escuro com preferência persistida no navegador e respeito à preferência do sistema no primeiro acesso.
+- Tipografia ampliada nos elementos de visualização (etapas, rosca, regionais, piloto e pontos de atenção).
+- Em telas móveis, o menu lateral é ocultado e o cabeçalho mantém acesso ao alternador de tema.
+
+## Interação dos cards
+
+Nesta versão, os indicadores e cards de análise são inteiramente clicáveis. Não há ações separadas com o texto “Ver”. Ao clicar no KPI, etapa, card de piloto, linha de Regional ou ponto de atenção, o painel lateral de detalhamento é aberto.
+
+O KPI **Circunscrições não participantes** também possui detalhamento. A lista é calculada a partir de `data/circunscricoes-base.json` (281 circunscrições) menos as circunscrições participantes encontradas nas listas válidas do Trello. Com as 45 participantes atuais do processo CDIC-BR, o resultado é 236.
+
+A lista `Acompanhamento` continua ignorada para classificação e contagem de participantes.
+
+## Detalhamento por etiquetas do Trello
+
+O drawer de detalhamento agora exibe as etiquetas reais de cada cartão do Trello como **substatus informativos**. Elas não alteram a etapa principal do dashboard: a etapa continua sendo determinada exclusivamente pela lista em que o cartão está.
+
+No topo do detalhamento é apresentado um resumo das etiquetas encontradas no conjunto aberto. Em cada diocese são exibidos:
+
+- situação do termo derivada das etiquetas (`Termo assinado`, `Termo enviado · não assinado` ou sem status identificado);
+- etiquetas reais do Trello, preservando o nome e uma representação visual da cor;
+- Regional, Província, Grupo e última atividade;
+- link para abrir o cartão original no Trello.
+
+A leitura é dinâmica: novas etiquetas recebidas pela API também são exibidas, mesmo que não estejam entre as etiquetas hoje conhecidas pelo projeto.
+
+## Filtro do KPI de não participantes
+
+O card **Circunscrições não participantes** responde aos filtros de **Regional** e **Província**. O cálculo exibido passa a considerar somente o universo geográfico filtrado: circunscrições da base no filtro menos participantes do processo CDIC-BR no mesmo filtro. O detalhamento do card também abre apenas as circunscrições não participantes correspondentes ao filtro ativo.
+
+## Ajuste de interface
+
+- Removidos os subtítulos descritivos abaixo do título principal e dos títulos das seções.
+- Removida a nota visual de regra de classificação do dashboard.
+- Mantidos títulos, filtros, KPIs, gráficos, cards interativos e detalhamentos.
+
+
+## Filtros geográficos
+
+Os filtros de Regional e Província são montados a partir da base completa de 281 circunscrições (participantes + não participantes), e não apenas dos cartões atualmente presentes nas etapas do Trello. Assim, todos os 19 Regionais da base permanecem disponíveis mesmo quando um Regional ainda não possui diocese participante no processo.

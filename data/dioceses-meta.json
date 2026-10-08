@@ -1,0 +1,362 @@
+[
+  {
+    "key": "arquidiocese londrina",
+    "numero": "3",
+    "nome": "Arquidiocese de Londrina",
+    "regional": "Sul 2",
+    "provincia": "Londrina",
+    "grupo": "Piloto"
+  },
+  {
+    "key": "arquidiocese santa maria",
+    "numero": "7",
+    "nome": "Arquidiocese de Santa Maria",
+    "regional": "Sul 3",
+    "provincia": "Santa Maria",
+    "grupo": "Piloto"
+  },
+  {
+    "key": "arquidiocese uberaba",
+    "numero": "8",
+    "nome": "Arquidiocese de Uberaba",
+    "regional": "Leste 2",
+    "provincia": "Uberaba",
+    "grupo": "Piloto"
+  },
+  {
+    "key": "diocese cristalandia",
+    "numero": "12",
+    "nome": "Diocese de Cristalândia",
+    "regional": "Norte 3",
+    "provincia": "Palmas",
+    "grupo": "Piloto"
+  },
+  {
+    "key": "diocese imperatriz",
+    "numero": "15",
+    "nome": "Diocese de Imperatriz",
+    "regional": "Nordeste 5",
+    "provincia": "São Luís do Maranhão",
+    "grupo": "Piloto"
+  },
+  {
+    "key": "diocese luziania",
+    "numero": "16",
+    "nome": "Diocese de Luziânia",
+    "regional": "Centro Oeste",
+    "provincia": "Brasília",
+    "grupo": "Piloto"
+  },
+  {
+    "key": "diocese petropolis",
+    "numero": "19",
+    "nome": "Diocese de Petrópolis",
+    "regional": "Leste 1",
+    "provincia": "Niterói",
+    "grupo": "Piloto"
+  },
+  {
+    "key": "diocese sao carlos",
+    "numero": "20",
+    "nome": "Diocese de São Carlos",
+    "regional": "Sul 1",
+    "provincia": "Campinas",
+    "grupo": "Piloto"
+  },
+  {
+    "key": "diocese campina grande",
+    "numero": "100",
+    "nome": "Diocese de Campina Grande",
+    "regional": "Nordeste 2",
+    "provincia": "Paraíba",
+    "grupo": "Ciclo atual"
+  },
+  {
+    "key": "diocese formosa",
+    "numero": "134",
+    "nome": "Diocese de Formosa",
+    "regional": "Centro Oeste",
+    "provincia": "Brasília",
+    "grupo": "Ciclo atual"
+  },
+  {
+    "key": "diocese ipameri",
+    "numero": "149",
+    "nome": "Diocese de Ipameri",
+    "regional": "Centro Oeste",
+    "provincia": "Goiânia",
+    "grupo": "Ciclo atual"
+  },
+  {
+    "key": "diocese jundiai",
+    "numero": "172",
+    "nome": "Diocese de Jundiaí",
+    "regional": "Sul 1",
+    "provincia": "Sorocaba",
+    "grupo": "Ciclo atual"
+  },
+  {
+    "key": "diocese nazare",
+    "numero": "188",
+    "nome": "Diocese de Nazaré",
+    "regional": "Nordeste 2",
+    "provincia": "Olinda e Recife",
+    "grupo": "Ciclo atual"
+  },
+  {
+    "key": "diocese salgueiro",
+    "numero": "229",
+    "nome": "Diocese de Salgueiro",
+    "regional": "Nordeste 2",
+    "provincia": "Olinda e Recife",
+    "grupo": "Ciclo atual"
+  },
+  {
+    "key": "diocese sete lagoas",
+    "numero": "247",
+    "nome": "Diocese de Sete Lagoas",
+    "regional": "Leste 2",
+    "provincia": "Belo Horizonte",
+    "grupo": "Ciclo atual"
+  },
+  {
+    "key": "diocese umuarama",
+    "numero": "259",
+    "nome": "Diocese de Umuarama",
+    "regional": "Sul 2",
+    "provincia": "Maringá",
+    "grupo": "Ciclo atual"
+  },
+  {
+    "key": "arquidiocese sao sebastiao do rio de janeiro",
+    "numero": "57",
+    "nome": "Arquidiocese de São Sebastião do Rio de Janeiro",
+    "regional": "Leste 1",
+    "provincia": "São Sebastião do Rio de Janeiro",
+    "grupo": "Ciclo atual"
+  },
+  {
+    "key": "diocese afogados da ingazeira",
+    "numero": "64",
+    "nome": "Diocese de Afogados da Ingazeira",
+    "regional": "Nordeste 2",
+    "provincia": "Olinda e Recife",
+    "grupo": "Ciclo atual"
+  },
+  {
+    "key": "diocese caruaru",
+    "numero": "108",
+    "nome": "Diocese de Caruaru",
+    "regional": "Nordeste 2",
+    "provincia": "Olinda e Recife",
+    "grupo": "Ciclo atual"
+  },
+  {
+    "key": "diocese floresta",
+    "numero": "132",
+    "nome": "Diocese de Floresta",
+    "regional": "Nordeste 2",
+    "provincia": "Olinda e Recife",
+    "grupo": "Ciclo atual"
+  },
+  {
+    "key": "diocese palmares",
+    "numero": "198",
+    "nome": "Diocese de Palmares",
+    "regional": "Nordeste 2",
+    "provincia": "Olinda e Recife",
+    "grupo": "Ciclo atual"
+  },
+  {
+    "key": "diocese petrolina",
+    "numero": "210",
+    "nome": "Diocese de Petrolina",
+    "regional": "Nordeste 2",
+    "provincia": "Olinda e Recife",
+    "grupo": "Ciclo atual"
+  },
+  {
+    "key": "diocese uruacu",
+    "numero": "261",
+    "nome": "Diocese de Uruaçu",
+    "regional": "Centro Oeste",
+    "provincia": "Brasília",
+    "grupo": "Ciclo atual"
+  },
+  {
+    "key": "arquidiocese brasilia",
+    "numero": "1",
+    "nome": "Arquidiocese de Brasília",
+    "regional": "Centro Oeste",
+    "provincia": "Brasília",
+    "grupo": "Piloto"
+  },
+  {
+    "key": "arquidiocese goiania",
+    "numero": "2",
+    "nome": "Arquidiocese de Goiânia",
+    "regional": "Centro Oeste",
+    "provincia": "Goiânia",
+    "grupo": "Piloto"
+  },
+  {
+    "key": "arquidiocese olinda e recife",
+    "numero": "4",
+    "nome": "Arquidiocese de Olinda e Recife",
+    "regional": "Nordeste 2",
+    "provincia": "Olinda e Recife",
+    "grupo": "Piloto"
+  },
+  {
+    "key": "diocese apucarana",
+    "numero": "9",
+    "nome": "Diocese de Apucarana",
+    "regional": "Sul 2",
+    "provincia": "Londrina",
+    "grupo": "Piloto"
+  },
+  {
+    "key": "diocese bonfim",
+    "numero": "10",
+    "nome": "Diocese de Bonfim",
+    "regional": "Nordeste 3",
+    "provincia": "Feira de Santana",
+    "grupo": "Piloto"
+  },
+  {
+    "key": "diocese foz do iguacu",
+    "numero": "13",
+    "nome": "Diocese de Foz do Iguaçu",
+    "regional": "Sul 2",
+    "provincia": "Cascavel",
+    "grupo": "Piloto"
+  },
+  {
+    "key": "arquidiocese porto alegre",
+    "numero": "5",
+    "nome": "Arquidiocese de Porto Alegre",
+    "regional": "Sul 3",
+    "provincia": "Porto Alegre",
+    "grupo": "Piloto"
+  },
+  {
+    "key": "arquidiocese porto velho",
+    "numero": "6",
+    "nome": "Arquidiocese de Porto Velho",
+    "regional": "Noroeste",
+    "provincia": "Porto Velho",
+    "grupo": "Piloto"
+  },
+  {
+    "key": "diocese camacari",
+    "numero": "11",
+    "nome": "Diocese de Camaçari",
+    "regional": "Nordeste 3",
+    "provincia": "São Salvador da Bahia",
+    "grupo": "Piloto"
+  },
+  {
+    "key": "diocese garanhuns",
+    "numero": "14",
+    "nome": "Diocese de Garanhuns",
+    "regional": "Nordeste 2",
+    "provincia": "Olinda e Recife",
+    "grupo": "Piloto"
+  },
+  {
+    "key": "diocese miracema do tocantins",
+    "numero": "17",
+    "nome": "Diocese de Miracema do Tocantins",
+    "regional": "Norte 3",
+    "provincia": "Palmas",
+    "grupo": "Piloto"
+  },
+  {
+    "key": "diocese patos de minas",
+    "numero": "18",
+    "nome": "Diocese de Patos de Minas",
+    "regional": "Leste 2",
+    "provincia": "Uberaba",
+    "grupo": "Piloto"
+  },
+  {
+    "key": "diocese cachoeira do sul",
+    "numero": "93",
+    "nome": "Diocese de Cachoeira do Sul",
+    "regional": "Sul 3",
+    "provincia": "Santa Maria",
+    "grupo": "Ciclo atual"
+  },
+  {
+    "key": "diocese cornelio procopio",
+    "numero": "115",
+    "nome": "Diocese de Cornélio Procópio",
+    "regional": "Sul 2",
+    "provincia": "Londrina",
+    "grupo": "Ciclo atual"
+  },
+  {
+    "key": "diocese cruz alta",
+    "numero": "122",
+    "nome": "Diocese de Cruz Alta",
+    "regional": "Sul 3",
+    "provincia": "Santa Maria",
+    "grupo": "Ciclo atual"
+  },
+  {
+    "key": "diocese ituiutaba",
+    "numero": "157",
+    "nome": "Diocese de Ituiutaba",
+    "regional": "Leste 2",
+    "provincia": "Uberaba",
+    "grupo": "Ciclo atual"
+  },
+  {
+    "key": "diocese jacarezinho",
+    "numero": "160",
+    "nome": "Diocese de Jacarezinho",
+    "regional": "Sul 2",
+    "provincia": "Londrina",
+    "grupo": "Ciclo atual"
+  },
+  {
+    "key": "diocese pesqueira",
+    "numero": "209",
+    "nome": "Diocese de Pesqueira",
+    "regional": "Nordeste 2",
+    "provincia": "Olinda e Recife",
+    "grupo": "Ciclo atual"
+  },
+  {
+    "key": "diocese santa cruz do sul",
+    "numero": "230",
+    "nome": "Diocese de Santa Cruz do Sul",
+    "regional": "Sul 3",
+    "provincia": "Santa Maria",
+    "grupo": "Ciclo atual"
+  },
+  {
+    "key": "diocese santo angelo",
+    "numero": "234",
+    "nome": "Diocese de Santo Ângelo",
+    "regional": "Sul 3",
+    "provincia": "Santa Maria",
+    "grupo": "Ciclo atual"
+  },
+  {
+    "key": "diocese uberlandia",
+    "numero": "258",
+    "nome": "Diocese de Uberlândia",
+    "regional": "Leste 2",
+    "provincia": "Uberaba",
+    "grupo": "Ciclo atual"
+  },
+  {
+    "key": "diocese uruguaiana",
+    "numero": "262",
+    "nome": "Diocese de Uruguaiana",
+    "regional": "Sul 3",
+    "provincia": "Santa Maria",
+    "grupo": "Ciclo atual"
+  }
+]

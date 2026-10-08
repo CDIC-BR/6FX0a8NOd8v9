@@ -1,33 +1,22 @@
 $ErrorActionPreference = "Stop"
+Write-Host "Configuração local do Trello para o Dashboard CDIC-BR" -ForegroundColor Cyan
 
-Write-Host "=== CDIC-BR - configurar Trello ===" -ForegroundColor Cyan
-if (-not (Test-Path ".\package.json")) {
-  throw "Execute este script na pasta raiz do projeto."
-}
-
-$boardId = Read-Host "Board ID/shortLink [KaACdOVE]"
-if ([string]::IsNullOrWhiteSpace($boardId)) { $boardId = "KaACdOVE" }
-
-$apiKey = Read-Host "TRELLO_API_KEY"
-if ([string]::IsNullOrWhiteSpace($apiKey)) { throw "A API Key é obrigatória." }
-
-$secureToken = Read-Host "TRELLO_TOKEN (não será exibido)" -AsSecureString
+$key = Read-Host "TRELLO_API_KEY"
+$secureToken = Read-Host "TRELLO_TOKEN" -AsSecureString
 $ptr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($secureToken)
 try {
   $token = [Runtime.InteropServices.Marshal]::PtrToStringBSTR($ptr)
 } finally {
   [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($ptr)
 }
-if ([string]::IsNullOrWhiteSpace($token)) { throw "O token é obrigatório." }
+$board = Read-Host "TRELLO_BOARD_ID [KaACdOVE]"
+if ([string]::IsNullOrWhiteSpace($board)) { $board = "KaACdOVE" }
 
 $content = @"
-TRELLO_MODE=trello
-TRELLO_BOARD_ID=$boardId
-TRELLO_API_KEY=$apiKey
+TRELLO_API_KEY=$key
 TRELLO_TOKEN=$token
-DASHBOARD_WRITE_SECRET=
+TRELLO_BOARD_ID=$board
+HOMOLOGACAO_COMPLETA_ENABLED=false
 "@
-Set-Content -Path ".\.env.local" -Value $content -Encoding UTF8
-
-Write-Host ".env.local criado. Ele está ignorado pelo Git." -ForegroundColor Green
-Write-Host "Agora execute: npm run dev" -ForegroundColor Green
+Set-Content -Path ".env.local" -Value $content -Encoding UTF8
+Write-Host ".env.local criado. Execute: npm run dev" -ForegroundColor Green
