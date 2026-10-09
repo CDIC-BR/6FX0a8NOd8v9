@@ -116,7 +116,7 @@ export async function buildDashboard(): Promise<DashboardPayload> {
 
   return {
     source,
-    sourceLabel: source === "trello" ? "informações atualizadas" : "Snapshot do Trello",
+    sourceLabel: source === "trello" ? "Trello · tempo real" : "Snapshot do Trello",
     warning,
     generatedAt: new Date().toISOString(),
     boardLastActivity: snapshot.dateLastActivity,

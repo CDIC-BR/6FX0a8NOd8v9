@@ -117,18 +117,6 @@ function sortTrelloLabels(labels: TrelloLabel[] = []) {
   });
 }
 
-function termStatus(item: DrawerItem) {
-  if (!item.labelDetails) return null;
-  const names = item.labelDetails.map((label) => label.name);
-  if (item.termoAssinado || names.includes("Termo assinado")) {
-    return { label: "Termo assinado", tone: "signed" as const };
-  }
-  if (names.includes("Termo enviado")) {
-    return { label: "Termo enviado · não assinado", tone: "pending" as const };
-  }
-  return { label: "Termo sem status identificado", tone: "unknown" as const };
-}
-
 export default function DashboardClient({ initialData }: { initialData: DashboardPayload }) {
   const [data, setData] = useState(initialData);
   const [regional, setRegional] = useState("Todos");
@@ -321,46 +309,7 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
   const pilotLoaded = alphaSort(pilots.filter((d) => d.etapa === "Dados parciais carregados"));
   const pilotSigned = alphaSort(pilots.filter((d) => d.termoAssinado));
 
-  const drawerDetailSummary = useMemo(() => {
-    const items = drawer?.items || [];
-    const trelloItems = items.filter((item) => item.labelDetails !== undefined);
-    if (!trelloItems.length) return null;
 
-    const labelCounts = new Map<string, { name: string; color?: string | null; count: number }>();
-    let signedCount = 0;
-    let unsignedSentCount = 0;
-    let unknownTermCount = 0;
-
-    for (const item of trelloItems) {
-      const status = termStatus(item);
-      if (status?.tone === "signed") signedCount += 1;
-      else if (status?.tone === "pending") unsignedSentCount += 1;
-      else unknownTermCount += 1;
-
-      for (const label of item.labelDetails || []) {
-        if (!label.name) continue;
-        const existing = labelCounts.get(label.name);
-        labelCounts.set(label.name, {
-          name: label.name,
-          color: label.color,
-          count: (existing?.count || 0) + 1,
-        });
-      }
-    }
-
-    const labels = [...labelCounts.values()].sort((a, b) => {
-      const ai = LABEL_ORDER.indexOf(a.name);
-      const bi = LABEL_ORDER.indexOf(b.name);
-      if (ai !== -1 || bi !== -1) {
-        if (ai === -1) return 1;
-        if (bi === -1) return -1;
-        return ai - bi;
-      }
-      return a.name.localeCompare(b.name, "pt-BR");
-    });
-
-    return { signedCount, unsignedSentCount, unknownTermCount, labels, total: trelloItems.length };
-  }, [drawer]);
 
   function openList(title: string, items: Array<DioceseDashboard | DrawerItem>, description?: string) {
     const normalized = items.map((item) => ("labels" in item ? asDrawerItem(item as DioceseDashboard) : item as DrawerItem));
@@ -378,7 +327,7 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
           <img className="brand-logo" src="/logo.svg" alt="CDIC-BR" />
           <div className="brand-copy">
             <strong>CDIC-BR</strong>
-            <span>Edições CNBB</span>
+            <span>Acompanhamento</span>
           </div>
           <button className="collapse-button desktop-only" onClick={() => setSidebarCollapsed((v) => !v)} aria-label="Recolher menu">
             {sidebarCollapsed ? "›" : "‹"}
@@ -405,8 +354,8 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
       <main className="main-content">
         <section className="page-header">
           <div>
-            <div className="eyebrow">Acompanhamento de participação</div>
-            <h1>Dioceses e o Centro de Dados da Igreja Católica no Brasil</h1>
+            <div className="eyebrow">GESTÃO DE PARTICIPAÇÃO</div>
+            <h1>Acompanhamento da participação das dioceses</h1>
           </div>
           <div className="header-actions">
             <button className="theme-button" onClick={toggleTheme} aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"} title={theme === "dark" ? "Modo claro" : "Modo escuro"}>
@@ -571,8 +520,8 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
             <div className="panel-heading"><div><h2>Pontos de atenção para a liderança</h2></div></div>
             <div className="attention-list">
               <AttentionItem number={dialogueNoData.length} title={`${stageLabel("Em diálogo")}, mas sem avanço para envio de dados`} text={`Dioceses em articulação que ainda não avançaram para ${stageLabel("Dados recebidos")}.`} onClick={() => openList(`${stageLabel("Em diálogo")} sem avanço para dados`, dialogueNoData)} />
-              <AttentionItem number={pilotNoActive.length} title="Dioceses piloto sem contato ativo" text={`Pilotos que permanecem na etapa de ${stageLabel("Dados parciais carregados")} e não retornaram as tentativas de contato.`} onClick={() => openList("Piloto sem contato ativo", pilotNoActive)} />
-              <AttentionItem number={pendingTerms.length} title="Termos ainda não assinados" text={`${signed} de ${total} Dioceses participantes do processo CDIC-BR têm termo assinado.`} onClick={() => openList("Dioceses sem termo assinado", pendingTerms)} />
+              <AttentionItem number={pilotNoActive.length} title="Dioceses piloto sem contato ativo" text={`Pilotos que permanecem na etapa de ${stageLabel("Dados parciais carregados")} na fotografia atual.`} onClick={() => openList("Piloto sem contato ativo", pilotNoActive)} />
+              <AttentionItem number={pendingTerms.length} title="Termos ainda não assinados" text={`${signed} de ${total} participantes do processo CDIC-BR têm termo assinado.`} onClick={() => openList("Dioceses sem termo assinado", pendingTerms)} />
               <AttentionItem number="—" title={`${stageLabel("Homologação completa")} ainda não é mensurável`} text="Após a estrutura ser validada, ainda há envio completo + importação. O importador permanece em desenvolvimento." onClick={() => openInfo(stageLabel("Homologação completa"), stageCopy("Homologação completa", stageLabel("Homologação completa")))} />
             </div>
           </article>
@@ -594,24 +543,6 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
             </div>
             {drawer.description && <p className="drawer-description">{drawer.description}</p>}
             <div className="drawer-count">{drawer.items?.length || 0} circunscrição(ões)</div>
-            {drawerDetailSummary && (
-              <div className="drawer-detail-summary">
-                <div className="term-summary">
-                  {drawerDetailSummary.signedCount > 0 && <span className="summary-pill signed">{drawerDetailSummary.signedCount} termo assinado</span>}
-                  {drawerDetailSummary.unsignedSentCount > 0 && <span className="summary-pill pending">{drawerDetailSummary.unsignedSentCount} termo não assinado</span>}
-                  {drawerDetailSummary.unknownTermCount > 0 && <span className="summary-pill neutral">{drawerDetailSummary.unknownTermCount} termo sem status</span>}
-                </div>
-                {drawerDetailSummary.labels.length > 0 && (
-                  <div className="drawer-tag-summary">
-                    {drawerDetailSummary.labels.map((label) => (
-                      <span className="trello-tag summary-tag" data-color={label.color || "default"} key={label.name}>
-                        {label.name} <b>{label.count}</b>
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
             <div className="drawer-list">
               {(drawer.items || []).map((item) => (
                 <article className="drawer-item" key={item.id}>
@@ -627,15 +558,6 @@ export default function DashboardClient({ initialData }: { initialData: Dashboar
                   </div>
                   {item.labelDetails !== undefined && (
                     <div className="trello-detail-block">
-                      {(() => {
-                        const status = termStatus(item);
-                        return status ? (
-                          <div className={`term-status ${status.tone}`}>
-                            <span>Situação do termo</span>
-                            <strong>{status.label}</strong>
-                          </div>
-                        ) : null;
-                      })()}
                       <div className="trello-labels">
                         <span className="trello-labels-title">Etiquetas do Trello</span>
                         <div className="trello-label-list">

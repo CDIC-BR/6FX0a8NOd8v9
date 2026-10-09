@@ -301,3 +301,8 @@ A partir da versão `2026-10-08-live-list-name-3`, o ID da lista é usado apenas
 O dashboard atualiza automaticamente a cada 60 segundos, ao voltar para a aba e pelo botão Atualizar. Não é necessário novo deploy apenas para renomear uma lista existente.
 
 Para confirmar que a leitura é ao vivo, consulte `/api/trello/status`: `source` deve ser `trello`, e `stageMapping` mostra os nomes atuais das listas.
+
+
+## Ajuste de detalhamento — 2026-10-08-detail-clean-4
+
+No drawer de detalhamento foram removidos o resumo agregado de etiquetas/termos e o bloco individual “Situação do termo”. As etiquetas do Trello permanecem exibidas em cada circunscrição e continuam sendo a fonte visual para esses substatus.
